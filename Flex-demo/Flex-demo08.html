@@ -1,0 +1,116 @@
+<!-- 各种各样的Flex结构网站代码片段 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>卡片式布局</title>
+	<style type="text/css">
+	/*Put behind .flexbox for Feature detection with Modernizr*/
+	.flexbox .flex-card-list{
+		display:flex;
+		flex-wrap:wrap;
+	}
+
+	.flexbox .flex-card-listitem{
+		display:flex;
+	}
+
+
+/*媒体查询*/
+	/*Code to adjust the layout to 2 cards per row*/
+	@media all and (min-width: 40em){
+		/*Float layout*/
+		.flex-card-list li{
+			width: 50%;
+		}
+		.no-flexbox .flex-card-list li{
+			float:left;
+		}
+	}
+
+	/*Code to adjust the layout to 3 cards per row*/
+	@media all and (min-width: 40em) and (max-width: 60em){
+		/*Clear the row for 2 item per row layout*/
+		.no-flexbox .flex-card-list li:nth-child(2n+1){
+			clear: both;
+		}
+	}
+
+	@media all and (min-width: 60em){
+		/*common to flex and non-flex*/
+		.flex-card-list li {
+			width:33.33%;
+		}
+		/*Float specific:Clear after every third item*/
+		.non-flexbox .flex-card-list li:nth-child(3n+1){
+			clear: both;
+		}
+	}
+/*第5步：卡片模块*/
+	.flexbox .flex-card{
+		display:flex;
+		flex-direction:column;
+
+	}
+/*我自己添加的*/
+	 .flex-card{
+		border: 1px solid #ccc;
+		box-shadow: 5px 5px 2px seagreen;
+	}
+/*第6步：卡片内容
+我们还需要给一个项目加上display:flex，即卡片内容div，这样我们就可以控制它的元素，把它的方向改为纵向来让它知道我们想使用管状的内容并且添加flex:1 0 auto（thw grow is the important part）来让它填充满余下空间。
+*/
+	.flexbox .flex-card-content{
+		display:flex;
+		flex:1 0 auto;/*We have to add a basis fo IE10/11 */
+		flex-direction:column;
+
+	}
+
+/*第7步：让段落Flexible
+
+是否让内容块中的部分flexible取决于你，我会使用易变的项目，段落，来充满（添加flex:1 0 auto）。这会延伸段落底部并把按钮压到卡片底部。*/
+
+	.flexbox .flex-card-content p {
+		flex:1 0 auto;  /* We have to add a basis for IE10/11 */
+	}
+
+
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+<!--##################卡片布局 card list -->
+<div class="flexbox">
+	<div class="flex-wrap">
+<ul class="fiex-card-list">
+	<!-- card list item -->
+	<li class="flex-card-listitem">
+		<!-- card module -->
+		<div class="flex-card">
+			<!-- image container -->
+			<div class="flex-card-image">
+				<img src="/img/placeholder.jpg" />
+			</div>
+			<!-- content container -->
+			<div class="flex-card-content">
+				<h3 class="flex-card-heading">First</h3>
+				<p>I'm a card and I'm first.</p>
+				<a href="#" class="flex-card-button">Button</a>
+			</div>
+		</div>
+	</li>
+</ul>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>

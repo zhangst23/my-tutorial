@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flexbox</title>
+	<style type="text/css">
+	.input-icon-wrap{
+		border:1px solid #ddd;
+		display: flex;
+		flex-direction:row;
+	}
+	.input-icon{
+		background:#ddd;
+	}
+	.input-with-icon{
+		border:none;
+		flex:1;
+	}
+	.input-icon,.input-with-icon{
+		padding:10px;
+	}
+
+
+	</style>
+</head>
+<body>
+
+<div class="input-icon-wrap">
+
+	<span class="input=icon">
+		<span class="fa fa-user"></span>
+	</span>
+	
+	<input type="text" class="input-with-icon" id="form-name">
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>卡片式布局</title>
+	<style type="text/css">
+	*{
+		box-sizing:border-box;
+	}
+
+	.module-card-wrap{
+		max-width: 70%;
+		display: flex;
+		flex-wrap:wrap;
+		margin:0 auto;
+	}
+
+	.module-card {
+		background:#fff;
+		border:1px solid #f1f1f1;
+		box-shadow: 1px 1px 2px
+		rgba(0,0,0,0.05);
+		min-width: 100%;
+		padding:10px;
+		margin-bottom: 5%;
+		display: flex;
+		flex-direction:column;
+	}
+
+	.module-card-title{
+		font-size: 120%;
+		font-weight: 700;
+	}
+
+	.module-card-meta{
+		display: flex;
+	}
+
+	.module-card-category,.module-card-author{
+		flex:1;
+	}
+
+	.module-card-author{
+		text-align: right;
+	}
+
+	.moudule-card-bottom{
+		display:flex;
+		flex-direction:column;
+		flex-grow:1;
+	}
+
+	.module-card-img{
+		margin:20px 0;
+		align-self:center;
+		width:100%;
+		height: auto;
+	}
+
+	.module-card-button{
+		background:seagreen;
+		color: white;
+		border: none;
+		margin-top: auto;
+		padding: 10px;
+	}
+
+	@media screen and (min-width:600px)
+	{
+		.module-card{
+			width:48%;
+			margin:0 auto 2%;
+			min-width: 0;
+		}
+	}
+
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+	<div class="module-card-wrap">
+		<div class="module-card">
+			<div class="modul-card-title">Cheesecake</div>
+			<div class="module-card-meta">
+				<div class="module-card-category>
+					<span class="fa fa-tag></span>
+					<span>Desserts</span>
+				</div>
+				<div class="module-card-author">
+					<span class="fa fa-user"></span>
+					<span>Jenn Davis</span>
+				</div>
+
+			</div>
+			<div class="module-card-bottom">
+				<div class="module-card-bottom">
+					<img src="http://placehold.it/400x150" alt="cheesecake" class="module-card-img" />
+					<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ipsum sit perspiciatis iusto commodi nihil tenetur veritatis adipisci sed? Illo nobis similique in facilis libero ab officia ratione nesciunt fugiat.</p></div>
+					<button class="module-card-button">See More</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="module-card">
+			<div class="modul-card-title">Cheesecake</div>
+			<div class="module-card-meta">
+				<div class="module-card-category>
+					<span class="fa fa-tag></span>
+					<span>Desserts</span>
+				</div>
+				<div class="module-card-author">
+					<span class="fa fa-user"></span>
+					<span>Jenn Davis</span>
+				</div>
+
+			</div>
+			<div class="module-card-bottom">
+				<div class="module-card-bottom">
+					<img src="http://placehold.it/400x150" alt="cheesecake" class="module-card-img" />
+					<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ipsum sit perspiciatis iusto commodi nihil tenetur veritatis adipisci sed? Illo nobis similique in facilis libero ab officia ratione nesciunt fugiat.</p></div>
+					<button class="module-card-button">See More</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="module-card">
+			<div class="modul-card-title">Cheesecake</div>
+			<div class="module-card-meta">
+				<div class="module-card-category>
+					<span class="fa fa-tag></span>
+					<span>Desserts</span>
+				</div>
+				<div class="module-card-author">
+					<span class="fa fa-user"></span>
+					<span>Jenn Davis</span>
+				</div>
+
+			</div>
+			<div class="module-card-bottom">
+				<div class="module-card-bottom">
+					<img src="http://placehold.it/400x150" alt="cheesecake" class="module-card-img" />
+					<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ipsum sit perspiciatis iusto commodi nihil tenetur veritatis adipisci sed? Illo nobis similique in facilis libero ab officia ratione nesciunt fugiat.</p></div>
+					<button class="module-card-button">See More</button>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="module-card">
+			<div class="modul-card-title">Cheesecake</div>
+			<div class="module-card-meta">
+				<div class="module-card-category>
+					<span class="fa fa-tag></span>
+					<span>Desserts</span>
+				</div>
+				<div class="module-card-author">
+					<span class="fa fa-user"></span>
+					<span>Jenn Davis</span>
+				</div>
+
+			</div>
+			<div class="module-card-bottom">
+				<div class="module-card-bottom">
+					<img src="http://placehold.it/400x150" alt="cheesecake" class="module-card-img" />
+					<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ipsum sit perspiciatis iusto commodi nihil tenetur veritatis adipisci sed? Illo nobis similique in facilis libero ab officia ratione nesciunt fugiat.</p></div>
+					<button class="module-card-button">See More</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="module-card">
+			<div class="modul-card-title">Cheesecake</div>
+			<div class="module-card-meta">
+				<div class="module-card-category>
+					<span class="fa fa-tag></span>
+					<span>Desserts</span>
+				</div>
+				<div class="module-card-author">
+					<span class="fa fa-user"></span>
+					<span>Jenn Davis</span>
+				</div>
+
+			</div>
+			<div class="module-card-bottom">
+				<div class="module-card-bottom">
+					<img src="http://placehold.it/400x150" alt="cheesecake" class="module-card-img" />
+					<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ipsum sit perspiciatis iusto commodi nihil tenetur veritatis adipisci sed? Illo nobis similique in facilis libero ab officia ratione nesciunt fugiat.</p></div>
+					<button class="module-card-button">See More</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

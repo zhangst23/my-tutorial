@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>常规3列布局</title>
+	<style type="text/css">
+	/*tiny reset*/
+	body{
+		margin:0;
+		padding:0;
+	}
+
+	p{
+		margin:0 0 10px 0;
+	}
+
+	body{
+		font-family: "Open Sans",sans-serif;
+	}
+
+	.header,.footer{
+		background: #eee;
+		padding:10px;
+	}
+
+	.main{
+		display:flex;
+		flex-direction:column;
+	}
+
+	.main-content,.sidebar{
+		padding:10px;
+	}
+
+	.sidebar{
+		background-color: seagreen;
+	}
+
+	.sidebar a{
+		color:#fff;
+		display: block;
+
+	}
+
+	@media screen and (min-width:600px)
+	{
+		.main{
+			flex-direction:row-reverse;
+		}
+		.main-content{
+			flex:1;
+		}
+		.sidebar{
+			width:180px;
+		}
+	}
+
+	</style>
+</head>
+<body>
+
+	<header class="header">
+		<div>A header</div>
+	</header>
+
+	<main class="main">
+		<div class="sidebar">
+			<a href="#">Some links</a>
+			<a href="#">Some links</a>
+			<a href="#">Some links</a>
+		</div>
+
+		<div class="main-content">
+			<p>A simple flexbox demoshowcasing the flex-direction property to achieve source order independence for the classic <em>main content with sidebar</em> layout.</p>
+		
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi officiis dignissimos fugiat incidunt ullam optio tempora voluptatibus repudiandae harum repellendus a totam necessitatibus tenetur vero facere in suscipit ipsam provident.</p>
+    
+    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis asperiores molestias consequatur culpa aliquid quam aspernatur aut vero accusantium amet. Quo repudiandae voluptas harum fuga dolor facilis similique expedita nemo.</p>
+
+
+		</div>
+	</main>
+	
+	<footer class="footer">A footer</footer>
+
+
+
+</body>
+</html>

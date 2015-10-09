@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flexbox</title>
+	<style type="text/css">
+	html, body { height: 100%; background: lightgrey; margin: 0;}
+	
+	.container {
+	    display: -webkit-flex;
+	    display: flex;
+	    -webkit-flex-flow: row;
+	    flex-flow: row;
+	    
+	    max-width: 1000px;
+	    height: 100%;
+	    margin: auto;
+	}
+	.main {
+	    width: 60%;
+	    margin: 20px 0;
+	    padding: 7px;
+	    
+	    background: deepskyblue;
+	}
+	.left {
+	   -webkit-flex: 1;
+	   flex: 1;
+	}
+	.right {
+	   -webkit-flex: 2;
+	   flex: 2;
+	}
+	.nav {
+	   margin: 20px 15px;
+	   padding: 7px;
+	   
+	   background: hotpink; 
+	}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<nav class="nav left">
+	</nav>
+
+	<section class="main">
+	    <h1>Three column layout example</h1>
+	    <p>Flexbox makes a layout like this trivially easy. No messing about with floats, clearing
+	    or precise positioning!</p>
+	</section>
+
+	<nav class="nav right">
+	</nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flexbox</title>
+	<style type="text/css">
+
+	.flex-container{
+		/*第一步要创建一个flex文档流（创建伸缩容器）*/
+		display: flex;
+
+		/*然后我们定义伸缩流方向，并且可以换行
+		记得我们要这样设置：
+		flex-direction:row;
+		flex-wrap:wrap;*/
+
+		flex-flow:row wrap;
+
+		/*然后我们定义了如何分配伸缩容器的剩余空间*/
+		justify-content:space-around;
+	}
+
+	/*让我们试试别的。假设我们网站顶部有一个右对齐的导航，但是我们希望它在小屏幕和小型设备中能单列居中显示。非常简单。*/
+
+	/*Large*/
+	.navigation{
+		display:flex;
+		flex-flow:row wrap;
+		/*所有列面向主轴终点位置靠齐*/
+		justify-content:flex-end;
+	}
+
+	/*Medium screens*/
+	@media all and (max-width:800px){
+		.navigetion{
+			/*当在中等屏幕中，导航项目居中显示，并且剩余空间平均分配在列表之间*/
+			justify-content:space-around;
+		}
+	}
+
+	/*Small screens*/
+	@media all and (max-width:500px){
+		.navigation{
+			 /* 在小屏幕下, 我们没有足够空间行排列，但我们可以换成列排列 */
+			 flex-direction:column;
+		}
+	}
+
+	/*让我们尝试一些更灵活性的伸缩项目！关于移动先行，3列布局与页眉页脚全屏。和独立的文档顺序。*/
+	.wrapper{
+		display:flex;
+		flex-flow:row wrap;
+	}
+
+	/*设置所有标签宽度为100%*/
+	.header,
+	.main,
+	.nav,
+	.aside,
+	.footer{
+		flex:1 100%;
+	}
+ 
+ 	/*Medium screens*/
+ 	@media all and (min-width:600px){
+ 		/*两个边栏在同一行*/
+ 		.aside{ flex:1 auto; }
+ 	}
+
+ 	/*Large screens*/
+ 	@media all and (min-width:800px){
+ 	/*
+ 		设置左边栏在主内容左边
+ 		设置主内容区域宽度是其他两个侧边栏宽度的两倍*/
+ 		.main { flex:2 0px; }
+
+ 		.aside-1 { order: 1; }
+ 		.main    { order: 2; }
+ 		.aside-2 { order: 3; }
+ 		.footer  { order: 4; }
+ 	}
+
+
+
+/*等高的卡片*/
+.flex-container{
+	display: flex;
+	align-items:stretch;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

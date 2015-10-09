@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>反转排序</title>
+	<style type="text/css">
+	body{
+		font-family: "Open Sans",sans-serif;
+	}	
+
+	.list-order{
+		list-style-type: none;
+		padding:0;
+		margin:0;
+		max-width: 500px;
+		display:flex;
+		flex-direction:column;
+	}
+	.list-ordered li {
+		background:seagreen;
+		border-bottom:1px solid;
+		padding:5px;
+	}
+
+	.list-ordered li,.list-ordered li a {
+	 	color:white;
+	}
+
+	.list-ordered li a{
+		text-decoration: none;
+	}
+
+	.list-ordered li a:hover{
+		opacity:0,8;
+
+	}
+
+	input:checked +ol {
+		flex-direction:column-reverse;
+	}
+
+
+
+	</style>
+</head>
+<body>
+
+<h1></h1>
+
+<h2>Highest Paid Actors: 2013</h2>
+<p>Uses flexbox to toggle a list's ascending and descending order. Pure CSS.</p>
+
+<label for="lowest-paid-toggle">See Lowest to Highest</label>
+<input type="checkbox" id="lowest-paid-toggle" class="lowest-paid-toggle">
+
+<ol class="list-ordered">
+  <li><a href="#">Robert Downey Jr.</a></li>
+  <li><a href="#">Channing Tatum</a></li>
+  <li><a href="#">Hugh Jackman</a></li>
+  <li><a href="#">Mark Wahlberg</a></li>
+  <li><a href="#">Dwayne Johnson</a></li>
+</ol>
+	
+
+
+
+</body>
+</html>
