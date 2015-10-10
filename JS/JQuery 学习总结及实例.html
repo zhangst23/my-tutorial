@@ -1,0 +1,344 @@
+JQuery 学习总结及实例.html
+<script type="text/javascript">
+
+//1.0
+var arr2 = [1,2,3]
+$each(arr2,function(){alert(this);})
+
+//2.0
+$(finction(){
+	$('.text').click{
+		function(){
+			alert($(this).text());
+		}
+	}
+})
+
+//3.0
+$(function(){ $("div").click(function(){
+	$(this).css("background","red").siblings().css("background","white");
+})})
+
+//4.0 样式的增删：addClass和removeClass
+$(function(){
+	$(".menuitum").click(function(){
+		$(this).addClass("highlight").siblings.removeClass("highlight";)
+	})
+})
+
+//5.0
+$(function(){
+	$("#t1 tr").click(function(){
+		$("td",$(this)).css("background","Yellow");
+	})
+})
+
+//6.0属性过滤选择器
+
+
+###########################################
+//Merge()
+var arr1 = ['one','two'];
+var arr2 = ['three','four'];
+$.merge(arr1,arr2);
+
+//extend()
+var obj1 = {one:'un','two','deux'}
+var obj2 = {three:'trois',four:'quatre'}
+$.extend(obj1,obj2);
+
+
+####################    《锋利的jQuery》一书中用到的代码     #######################
+
+//用jQuery方式判断复选框是否被选中
+$(document).ready(function(){					//等待dom元素加载完毕
+	var $cr = $("#cr"):             			//jQuery对象
+	$cr.click(function(){
+		if($cr.is(":checked")){ 				//jQuery方式判断
+			alert("感谢你的支持.")
+		}
+	})
+})
+
+//
+$(".demo").click(function(){
+	alert(" demo ");
+})
+
+//显示全部品牌*精简显示品牌
+$(function(){
+	var $category = $('ul li:gt(5):not(:last)');
+
+	$category.hide();
+	var $toggleBtn = $('div.showmore > a');
+	$toggleBtn.click(function(){
+		if($category.is(":visible")){
+			$category.hide();
+			$(this).find('span')
+				.css("background"."url(img/down.gif)no-repeat 0 0")
+				.text("显示全部品牌");
+		}else{
+			$category.show();
+			$(this).find('span')
+				.css("background","url(img/up.gif)no-repeat 0 0")
+				.text("精简显示品牌");
+			$('ul li').filter(":contains('佳能').:contains('尼康').:('奥林巴斯').:addClass('promoted')");
+		}
+		return false;
+	})
+})
+
+
+//鼠标滑过超链接提示效果
+$(function(){
+	var x = 10;
+	var y = 20;
+	$("a.tooltip").mouseover(function(e){
+		this.myTitle = this.title;
+		this.title = "";
+		var tooltip = "<div id='tooltip'>"+this.myTitle+"</div>";
+					//创建<div>元素
+		$("body").append(tooltip);		//将它追加到文档中
+		$("#tooltip")
+			.css({
+				"top":(e.pageY + y) + "px",
+				"left":(e.pageX + x) + "px"
+			}).show("fast");			//设置x坐标和y坐标，并且显示
+	}).mouseout(function(){
+		this.title = this.myTitle;
+		$("#tooltip").remove();			//移除
+	})
+})
+
+//内容的显示和隐藏
+$(function(){
+	$("#panel h5.head").bind("click".function(){
+		var $content = $(this).next();
+		if($content.is(":visible")){
+			$content.hide();
+		}else{
+			$content.show();
+		}
+	})
+})
+
+//
+$(function(){
+	$("#panel h5.head").bind("mouseover".function(){
+		$(this).next().show();
+	}).bind("mouseout".function(){
+		$(this).next().hide();
+	})
+})
+
+//表单
+$(function(){
+	$(":input").focus(function(){
+		$(this).addClass("focus");
+	})blur(function(){
+		$(this).removeClass("focus");
+	})
+})
+那个没送按摩床的顾客地址有变，您选择性备注下：北京市朝阳区望京北路39号澳洲康都3号楼四单元3G，白佳鑫，18610248843
+//复选框应用
+$("#send").click(function(){
+	var str="你选中的是:\r\n";
+	$('[name=items]:checkbox').each(function(){
+		str += $(this).val()+"\r\n";
+	});
+	alert(str);
+})
+
+//复选框应用-更好
+$('[name=items]':checkbox).click(function(){
+	//定义一个临时变量，避免重复使用同一个选择器选项选择页面中的元素，提高程序效率
+	var $tmp=$('[name=items]:checkbox');
+	//用filter()方法筛选出选中的复选框，并直接给checkedAll赋值
+	$('#CheckAll').attr('checked'.
+		$tmp.length==$tmp.filler(':checked').length);
+});
+
+//表单验证
+$('form:input').blur(function(){	//为表单元素添加失去焦点事件
+	var $parent = $(this).parent();
+	//验证用户名
+	if($(this).is('#username')){
+		if (this.value == "" || this.value.length < 6) {
+			var errorMsg = '请输入至少6位的用户名':
+			$parent.append('<span class="formtips onError">'+error Msg+'</span>');
+		}else{
+			var okMsg = '输入正确.'
+			$parent.append('<span class="formtips onError">'+OK Msg+'</span>')
+		};
+	}
+	//验证邮箱
+	if($(this).is('#email')){
+		if(this.value=="" || (this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))){
+			var errorMsg = '请输入正确的邮箱地址';
+			$parent.append('<span class="formtips onError">'+error Msg+'</span>')
+		}
+	}else{
+			var okMsg = '输入正确.'
+			$parent.append('<span class="formtips onError">'+OK Msg+'</span>')
+};
+
+//验证后提交
+$('#send').click(function(){
+	$("from .required:input").trigger('blur');
+	var numError = $('form .onError').length;
+	if (numError) {
+		return false;
+	};
+	alert("注册成功，密码已发到您的邮箱。")
+})
+
+//网页选项卡
+var $div_li = $("div.tab_menu ul li");
+$div_li.click(function(){
+	$(this).addClass("selected").siblings().removeClass("selected");
+	var index = $div_li.index(this);
+
+	$("div.tab_box > div")
+		.eq(index).show()
+		.siblings().hide();
+
+}).hover(function(){
+	$(this).addClass("hover");
+}.function(){
+	$(this).removeClass("hover");
+})
+
+
+//AJAX
+function RequestCallBack(){//一旦readyState值改变，将会调用该函数
+	if (xmlHttpReq.readyState == 4) {
+		if (xmlHttpReq.status == 200) {
+			//将 xmlHttpReq.responseText 的值赋予id为resText 的元素
+			document.getElementById("resText").innerHTML = xmlHttpReq.responseText;
+		};
+	};
+
+}
+
+//
+$(function(){
+	$("#send").click(function(){
+		$("#resText").load("test.html");
+	})
+})
+
+//load()传递方式
+         //无参数传递，则是GET方式
+       $("#resText").load("test.php".function(){
+       	//
+       })
+         //有参数传递，则是POST方式
+       $("#resText").load("test.php",{name:"rain",age:"22"}.function(){
+       	//
+       })
+       
+       	//回调参数
+       $("#resText").load("test.html",function(responseText,textStatus,XMLHttpRequest){
+       	//responseText:请求返回的内容
+       	//textStatus:请求状态：success error notmodified timeout 4重
+       	//XMLHttpRequest:XMLHttpRequest对象
+       })
+
+//将新的HTML数据插入到主页面中
+$(function(){
+	$("#send").click(function(){
+		$.get("get1.php",{
+			username: $("#username").val(),
+			content : $("#content").val()
+		}.function(data,textStatus){
+			$("#resText").html(data);	//将返回的数据添加到页面上
+		})
+	})
+})
+
+//将新的XML数据插入到主页面中---适用范围比HTML广
+$(function(){
+	$("#send").click(function(){
+		$.get("get2.php",{
+			username:$("#username").val(),
+			content:$("#content").val()
+		},function(data.textStatus){
+			var username = $(data).find("comment").attr("username");
+			var content = $(data).find("comment content").text();
+			var txtHtml = "<div class='comment'>
+			<h6>"+username+":</h6>
+			<p class='[ara'>"+content+"</p>
+			</div>"
+			$("#resText").html(txtHtml);	//将返回的数据添加到页面上
+		})
+	})
+})
+
+//提交表单
+$("#send").click(function(){
+	$.get("get1.php",$("#form1").serialize().function(data,textStatus){
+		$("#resText").html(data);  		//将返回的数据添加到页面上
+	})
+})
+
+//$.param()方法  是 serialize()方法的核心，用来对一个数组或对象按照key/value进行序列化
+var obj = {a:1,b:2,c:3};
+var k = $.param(ibj);
+alert(k);  		//输出a=1&b=2&c=3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
