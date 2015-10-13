@@ -1,0 +1,180 @@
+<!-- css制作面包屑.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>卡片式布局</title>
+	<style type="text/css">
+	@charset "utf-8";
+/* -------------------------------------------------
+ * reset css
+ * copyright: www.w3cplus.com 
+ * author: 为之
+ * -------------------------------------------------
+*/
+html{
+    height:100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+	-webkit-font-smoothing:antialiased;
+}
+body{
+	margin:0;
+	padding:0;
+	background-color:#fff;
+	min-height:100%;
+	height:auto !important;
+	height:100%;
+	text-align:center;
+	color:#404040;
+	font:12px/1.5 Helvetica,arial;
+}
+h1,h2,h3,h4,h5,h6,p,figure,form{
+    margin:0;
+}
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+img{
+	border:0;
+    vertical-align:middle;
+    -ms-interpolation-mode: bicubic;
+}
+a{
+	text-decoration:none;
+	color:#29B4F0;
+}
+a:focus {
+    outline: thin dotted;
+}
+a:hover{
+    color:#017CB9;
+	text-decoration:underline;
+}
+/* hn */
+h1{
+	font-size:16px;
+	line-height:36px;
+}
+h2{
+	font-size:14px;
+	line-height:30px;
+}
+h3{
+	line-height:24px;
+}
+h3,h4,h5,h6{
+	font-size:12px;
+}
+/* ul ol dl */
+ul,li,ol{
+    margin: 0;
+	padding:0;
+	list-style: none outside none;
+}
+ul.has-style li,ol li{
+	margin-left:25px;
+}
+ul.has-style li{
+    list-style:disc;
+}
+ol li{
+	list-style:decimal;
+}
+ul.inline-style li{
+	float:left;
+	display:inline;
+}
+dl{
+    margin-bottom: 18px;
+}
+dt{
+    font-weight: bold;
+}
+dd{
+    margin:0 0 0 9px;
+	padding:0;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+/*
+		/* clearfix */
+        .clearfix:before, .clearfix:after {
+            content:"";
+            display:table;
+        }
+        .clearfix:after{
+        	clear:both;
+        	overflow:hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+
+        
+
+		.demo{
+			width:600px;
+			margin:100px auto;
+			background: #f0f0f0;
+			height:32px;
+			overflow: hidden;
+			line-height: 32px;
+			position:relative;
+		}
+		.demo li{
+			float:left;
+			width:200px;
+			text-align: center;
+			position:relative;
+			z-index: 2;
+			font-weight: bold;
+			font-size: 14px;
+
+		}
+		.demo li em{
+			position:absolute;
+			right:-24px;
+			top:-8px;
+			width:0;
+			height: 0;
+			line-height: 0;
+			border-width: 24px 0 24px 24px;
+			border-color: transparent; transparent transparent #fff;
+			border-style: dashed dashed dashed solid;
+		}
+		.demo li i{
+			position:absolute;
+			right:-16px;
+			top:0;
+			width: 0;
+			height: 0;
+			line-height: 0;
+			border-width: 16px 0 16px 16px;
+			border-color: transparent transparent transparent #f0f0f0;
+			border-style: dashed dashed dashed solid;
+
+		}
+		.demo li.current{
+			background:#f60;
+			color:#fff;
+			z-index: 1;
+		}
+		.demo li.current i{
+			border-color:transparent transparent transparent #f60;
+		}
+
+
+	</style>
+</head>
+<body>
+<section class="demo">
+	<ul class="clearfix">
+		<li>面包屑一<em></em><i></i></li>
+		<li class="current">面包屑二<em></em><i></i></li>
+		<li>面包屑二<em></em><i></i></li>
+	</ul>
+</section>
+</body>
+</html>

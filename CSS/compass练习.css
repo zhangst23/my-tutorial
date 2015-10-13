@@ -1,0 +1,105 @@
+/*//圆角*/
+@import "compass/reset";
+
+.rouded{
+	@include border-radius(5px);
+}
+
+/*//左上角圆角*/
+@include border-corner-radius(top,left,5px);
+
+
+/*//透明*/
+@import "compass/css3";
+
+#opacity {
+	@include opacity(0.5);
+}
+
+/*//行内区块*/
+@import "compass/css3";
+
+#inline-block{
+	@include inline-block;
+}
+
+
+/*layout模块*/
+@import "compass/layout";
+
+#footer{
+	@include sticky-footer(54px);
+}
+
+
+/*子元素占满父元素的空间*/
+@import "compass/layout";
+
+#stretch-full{
+	@include stretch;
+}
+
+
+/*typography模块*/
+link-colors($normal,$hover,$active,$visited,$focus);
+
+@import "compass/typography";
+
+a{
+	@include link-colors(#00c,#0cc,#c0c,#ccc,#cc0);
+}
+
+
+/* utilities 模块 */
+import "compass/utilities/";
+/*清除浮动*/
+.clearfix {
+	@include clearfix;
+}
+
+/*表格*/
+@import "compass/utilities";
+
+table {
+	@include table-scaffolding;
+}
+
+/*helper 函数*/
+@import "compass";
+
+.icon { background-image:inline-image("icon.png");}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

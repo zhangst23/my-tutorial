@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta content="telephone=no" name="format-detection">
+<title>带标号的边框效果</title>
+<style type="text/css">
+.wrapper {
+    width: 20%;
+    height: 60px;
+    border: 2px dashed #338559;
+    border-radius: 10px;
+}
+.wrapper:before {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    content: "1";
+    margin-left: -10px;
+    margin-top: 20px;
+    text-align: center;
+    color: #fff;
+    background: #338559;
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper"></div>
+</body>
+</html>

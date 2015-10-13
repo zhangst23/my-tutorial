@@ -1,0 +1,234 @@
+<!-- 菜单和图片轮播 -->
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript"></script>
+<style type="text/css">
+
+	.c2,.c3,.c7{
+		position:relative;
+		float:left;
+	}
+	.c2{
+		width:16.66666%;
+	}
+	.c3{
+		width:25%;
+	}
+	.c7{
+		width:58.33333%;
+	}
+	.contain{
+
+		display: block;
+		width:1080px;
+		margin:0 auto;
+	}
+	.hide{
+		display: none;
+	}
+	.slider_item img{
+		width:100%;
+	}
+	.tool_group div{
+		margin:5px;
+		position: relative;
+		top:-236px;
+		width:40px;
+		height:40px;
+		display: inline-block;
+		line-height: 3;
+		vertical-align: middle;
+		background: rgba(0,0,0,0.6);
+		cursor: pointer;
+		color:#fff;
+		padding: 5px;
+	}
+	.tool_group .prev{
+		float:left;
+	}
+	.tool_group .next{
+		float:right;
+	}
+	.slider_nav{
+		position:relative;
+		text-align: center;
+		top:-30px;
+		
+	}
+	.slider_nav i{
+		display:inline-block;
+		background: #aaa;
+		width:8px;
+		height:8px;
+		border-radius:5px;
+		-webkit-border-radius:5px;
+		-moz-border-radius:5px;
+		cursor: pointer;
+
+	}
+	.slider_nav i.active{
+		background: #fff;
+	}
+	.cat{
+		background:#fff;
+		padding:16px 0;
+
+	}
+
+	.cat dl{
+		margin:0;
+		padding-bottom: 10px;
+		border-bottom: 1px dashed #ddd;
+	}
+	.cat dt{
+		
+		padding:4px 10px;
+	}
+	.cat dd{
+		margin:0;
+	}
+	.cat dd a{
+
+ 		color:#87A7E8;
+ 		display: inline-block;
+ 		padding:4px 10px;
+ 	}
+ 	.cat .sub_menu{
+ 		position:absolute;
+ 		padding: 10px;
+ 		top:-50px;
+ 		right:-60px;
+ 		width:270px;
+ 		z-index: 10;
+
+ 	}
+
+
+</style>
+
+</head>
+<body>
+	<header>header</header>
+	<div class=nav>nav</div>
+	<div class="on_sale_wrapper">
+		<div class="contain">
+			<div class="site_menu" c3>
+				<div class="cat">
+					<dl>
+						<dt>item1</dt>
+						<dd>
+							<a href="">item1</a>
+							<a href="">item2</a>
+							<a href="">item3</a>
+							<a href="">item4</a>
+							<a href="">item5</a>
+							<a href="">item6</a>
+							<a href="">item7</a>
+						</dd>
+					</dl>
+				
+				
+					<dl>
+						<dt>item1</dt>
+						<dd>
+							<a href="">item1</a>
+							<a href="">item2</a>
+							<a href="">item3</a>
+							<a href="">item4</a>
+							<a href="">item5</a>
+							<a href="">item6</a>
+							<a href="">item7</a>
+						</dd>
+					</dl>
+				
+
+				
+					<dl>
+						<dt>item1</dt>
+						<dd>
+							<a href="">item1</a>
+							<a href="">item2</a>
+							<a href="">item3</a>
+							<a href="">item4</a>
+							<a href="">item5</a>
+							<a href="">item6</a>
+							<a href="">item7</a>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="sub_menu hide">
+				<dl>
+						<dt>item1</dt>
+						<dd>
+							<a href="">item1</a>
+							<a href="">item2</a>
+							<a href="">item3</a>
+							<a href="">item4</a>
+							<a href="">item5</a>
+							<a href="">item6</a>
+							<a href="">item7</a>
+						</dd>
+					</dl>
+			</div>
+			
+
+		
+			<div class="slider" c7>
+				<div class="slider_item">
+					<img src="img1.jpg">
+				</div>
+				<div class="slider_item hide">
+					<img src="img1.jpg">
+				</div>
+				<div class="tool_group">
+					<div class="prev">Prev</div>
+					<div class="next">Next</div>
+				</div>
+				<div class="slider_nav">
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+			</div>
+
+			<div class="ad_grid" c2>
+					ad_grid
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
