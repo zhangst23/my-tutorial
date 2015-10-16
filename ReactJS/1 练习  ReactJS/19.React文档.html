@@ -1,0 +1,346 @@
+<DOCTYPE>
+<html>
+<head>
+<script>
+//制作组件tutorial2.js
+
+var CommentList = React.createClass({
+	render:function(){
+		return(
+			<div className="CommentList">
+			Hello,world!I am a CommentList.
+			</div>
+			);
+	}
+});
+
+
+var CommentForm = React.createClass({
+	render:function(){
+		return(
+			<div className="CommentForm">
+			Hello,world!I am a CommentForm.
+			</div>
+		);
+	}
+});
+
+//下一步，更新CommentBox组件，使用这些新的组件:tutorial3.js
+var CommentBox = React.createClass({
+	render:function(){
+		return(
+			<div className="CommentBox">
+			 <h1>Comments</h1>
+			 <CommentList>
+			 <CommentForm>
+			</div>
+		);
+	}
+});
+
+
+//组件属性tutorial4.js
+
+var CommentList = React.createClass({
+	render:function(){
+		return(
+			<div className="CommentList">
+			<Comment author="Pete Hunt">This is one comment</Comment>
+			<Comment author="Jordan Walke">This is *another* comment</Comment>
+			</div>
+		);
+	}
+});
+
+
+//使用props   tutorial5.js
+
+var Comment = React.createClass({
+	render:function(){
+		return(
+			<div className="comment">
+			 <h2 className="commentAuthor">{this.props.author}</h2>
+			 {this.props.children}
+			</div>
+		);
+	}
+});
+
+//转换评论文本为Markdown格式，然后输出它。tutorial6.js
+
+var converter = new Showdown.converter();
+var Comment = React.createClass({
+	render:function(){
+		return(
+			<div className="comment">
+			<h2 className="commentAuthor">{this.props.author}</h2>
+			{converter.makeHtml(this.props.children.toString())}
+			</div>
+			);
+	}
+});
+
+//接入数据模型（最终数据会来自服务器）tutorial8.js
+
+var data= [
+	{author:"Pete Hunt",text:"This is one comment"},
+    {author: "Jordan Walke", text: "This is *another* comment"}
+];
+
+//模块化传递数据，通过props传递数据到CommentList:   tutorial9.js
+
+var CommentBox = React.createClass({
+	render:function(){
+		return(
+			<div className="commentBox">
+			<h1>Comments<h1>
+			<CommentList date={this.props.data} />
+			<CommentForm />
+			</div>
+			);
+	}
+});
+
+React.render(
+	<CommentBox data={data} />,
+	document.getElementById('content')
+	);
+//现在数据在CommentList中可用了，让我们动态的渲染评论
+var CommentList = React.createClass({
+	render:function(){
+		var commentNodes = this.props.data.map(function(comment){
+			return(
+				<Comment author={comment.author}>{comment.text}</Comment>
+				);
+		});
+
+	return(
+		<div className="CommentList">{commentNodes}</div>
+		);
+	}
+});
+
+//从服务器获取数据  tutoriall11.js
+
+React.render(
+	<CommentBox url="comments.json" />,document.getElementById('content')
+
+	);
+
+
+//响应状态变化   当服务器获取数据的时候，我们将会用已有的数据改变评论。让我们给 CommentBox 组件添加一个评论数组作为它的状态
+var CommentBox = React.createClass({
+	getInitialState:function(){
+		return{data:[]};
+	},
+	render:function(){
+		return(
+			<div className="commentBox">
+				<h1>Comments</h1>
+				<CommentList data={this.state.data}>
+				<CommentForm />
+			</div>
+			)
+	}
+})
+
+//更新状态
+[
+	{"author":"Pete Hunt","text":"This is one comment"},
+
+    {"author": "Jordan Walke", "text": "This is *another* comment"}
+]
+
+//AJAX,使用服务器请求数据
+var CommentBox = React.createClass({
+	getInitialState:function(){
+		return{data:[]};
+	},
+	componentDidMount:function(){
+		$.ajax({
+			url:this.props.url,
+			dataType:'json',
+			success:function(data){
+				this.setState({data:data});
+			}.bind(this),
+			error:function(xhr,status,err){
+				console.error(this.props.url,status,err.toString());
+
+			}.bind(this)
+		});
+	},
+	render:function(){
+		return(
+			<div className="commentBox">
+			<h1>Comments</h1>
+			<CommentList data={this.state.data} />
+			<CommentForm />
+			</div>
+			);
+	}
+});
+
+//在这里，componentDidMount是一个在组件被渲染的时候React自动调用的方法。动态更新的关键点是调用this.setState()。我们把旧的评论数组替换成从服务器拿到的新的数组，然后UI自动更新。正是有了这种响应式，一个小的改变都会触发实时的更新。这里我们将使用简单的轮询，但是你可以简单地使用WebSockets或者其它技术。
+//把AJAX调用移到一个分离的方法中去，组件第一次加载以及之后每隔两秒钟，调用这个方法。
+
+var CommentBox = React.createClass({
+	loadCommentsFromSever:function(){
+		$.ajax({
+			url:this.props.url,
+			dataType:'json',
+			success:function(data){
+				this.setState({data:data});
+			}.bind(this)
+		});
+	},
+	getInitialState:function(){
+		return{data:[]};
+	},
+	componentDidMount:function(){
+		this.loadCommentsFromSever();
+		setInterval(this.loadCommentsFromSever,this.props.pollInterval);
+
+	},
+	render:function(){
+		return:(
+			<div className="commentBox">
+				<h1>Comments</h1>
+				<CommentList data={this.state.data} />
+				<CommentForm />
+			</div>
+			);
+	}
+});
+
+React.render(
+	<CommentBox url="comment.json" pollInterval={2000} />,
+	document.getElementById('content')
+	);
+
+//添加新的评论:我们的CommentForm组件应该询问用户的名字和评论内容，然后发送一个请求到服务器，保存这条评论
+var CommentForm = React.createClass({
+	render:function(){
+		return(
+			<form className="commentForm">
+				<input type="text" placeholder="Your name" />
+				<input type="text" placeholder="Say something..." />
+				<input type="submit" value="Post" />
+			</form>
+			);
+	}
+});
+
+//让我们使表单可交互。当用户提交表单的时候，我们应该清空表单，提交一个请求到服务器，然后刷新评论列表。首先，让我们监听表单的提交事件和清空表单
+var CommentForm = React.createClass({
+	handleSubmit:function(e){
+		e.preventDefault();
+		var author = this.refs.author.getDOMNode().value.trim();
+		var text = this.refs.text.getDOMNode().value.trim();
+		if (!text || !author) {
+			return;
+		};
+		//TODO:send request to the server
+		//当用户提交表单的时候，让我们在CommentForm中调用这个回调函数：
+		this.props.onCommentSubmit({author:author,text:text});
+		this.refs.author.getDOMNode().value = '';
+		this.refs.text.getDOMNode().value ='';
+		return;
+	},
+	render:function(){
+		return(
+			<form className="commentForm" onSubmint={this.handleSubmit}>
+				<input type="text" placeholder="Your name" ref="author" />
+				<input type="text" placeholder="Say something..." ref="text" />
+				<input type="submint" value="Post" />
+			</form>
+			);
+	}
+});
+
+
+//现在回调函数已经就绪，唯一我们需要做的就是提交到服务器，然后刷新列表：
+
+// tutorial19.js
+var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleCommentSubmit: function(comment) {
+//我们的应用现在已经完成了所有功能，但是在你的评论出现在列表之前，你必须等待请求完成，感觉很慢。我们可以提前添加这条评论到列表中，从而使应用感觉更快。
+
+  	var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+      </div>
+    );
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+</body>
+</html>

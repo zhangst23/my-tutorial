@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+  <title>Tweet Box</title>
+  <script type="text/javascript">
+  	//初始化状态
+  	$("button").prop("disabled",true);
+
+  	//文本框的值发生变化时
+  	$("textarea").on("input",function(){
+  		if ($(".js-add-photo-button").hasClass("is-on")) {
+  			$("span").text(140 - 23 - $(this).val().length);
+  		}else{
+  		$("span").text(140 - $(this).val().length);
+  		};
+  		//只要超过一个字符，就
+  		if ($(this).val().length > 0 || $(".js-add-photo-button").hasClass("is-on")) {
+  			//按钮可以点击
+  			$("js-tweet-button").prop("disabled",false);
+  		}else{
+  			//否则，按钮不能点击
+  			$("js-tweet-button").prop("disabled",true);
+  		};
+  	});
+
+
+  	$(".js-add-photo-button").on("click",function(){
+  		if ($(this).hasClass("is-on")) {
+  			$(this)
+  			  .removeClass("is-on")
+  			  .text("Add Photo");
+  			$("span").text(140 - $("textarea").val().length);
+  			if($("textarea").val().length === 0){
+  				$(".js-tweet-button").prop("disabled",true);
+  			}
+  		}else{
+  			$(this)
+  			  .addClass("is-on")
+  			  .text(" Photo Added")
+  			$("span").text(140 - 23 - $("textarea").val().length);
+  			$(".js-tweet-button").prop("disabled",false);
+		};
+  	})
+
+
+
+
+  </script>
+</head>
+<body>
+  
+  <div class="well clearfix">
+  	<textarea class="form-control"></textarea><br />
+  	<span>140</span>
+  	<button class="js-tweet-button btn btn-primary pull-right">Tweet</button>
+  	<button class="js-add-photo-button btn btn-default pull-right">Add Photo</button>
+  </div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

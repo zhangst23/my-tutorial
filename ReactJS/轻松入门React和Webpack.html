@@ -1,0 +1,54 @@
+轻松入门React和Webpack.html
+//结构
+var CustomComponent = React.createClass({
+	render:function(){
+	return(<div className="custom-component"></div>);
+}
+})
+
+//通过JS给组件增加几个节点
+var CustomComponent = React.creatClass({
+	render:function(){
+		var $nodes=['h','e','l','l','o'].map(function(str){
+			return (<span>{str}</span>);
+	});
+	return(<div className="custom-component">{$nodes}</div>);
+}
+})
+
+//逻辑
+//事件响应
+var ButtonComponent = React.createClass({
+	render:function(){
+	return(<button>屠龙宝刀</button>)
+}
+})
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
