@@ -1,0 +1,138 @@
+<html>
+<head>
+<script type="text/javascript">
+
+//1.0
+function loadXMLDoc()
+{
+.... AJAX script goes here ...
+}
+
+//2.0为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：
+
+var xmlhttp;
+if (window.XMLHttpRequest) 
+	{//code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp = new XMLHttpRequest();
+	}
+	else
+	{ // code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.xmlhttp");
+	};
+
+
+//3.0如需将请求发送到服务器，我们使用 XMLHttpRequest 对象的 open() 和 send() 方法：
+//open(method,url,async)
+//send(string)
+
+xmlhttp.open("GET","test1.txt",true);
+xmlhttp.send();
+//
+xmlhttp.open("GET","demo_get2.asp?fname=Bill&lname=Gates",true);
+xmlhttp.send();
+//
+xmlhttp.open("POST","ajax_test.asp",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+
+// responseText 属性
+// 如果来自服务器的响应并非 XML，请使用 responseText 属性。
+// responseText 属性返回字符串形式的响应，因此您可以这样使用：
+document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+
+// responseXML 属性
+// 如果来自服务器的响应是 XML，而且需要作为 XML 对象进行解析，请使用 responseXML 属性：
+// 请求 books.xml 文件，并解析响应
+xmlDoc=xmlhttp.responseXML;
+txt:"";
+x=xmlDoc.getElementByTagName("ARTIST");
+for(i=0;i<x.length;i++)
+{
+	txt=txt + x[i].childNodes[0].nodeValue + "<br /"
+}
+document.getElementById("myDiv").innerHTML=txt;
+
+
+//使用 Callback 函数
+function myFunction()
+{
+	loadXMLDoc("ajax_info",function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status ==200) {
+			document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		};
+	})
+}
+
+
+// AJAX ASP/PHP 实例
+// 下面的例子将为您演示当用户在输入框中键入字符时，网页如何与 web 服务器进行通信：
+// 实例解释 - showHint() 函数
+// 当用户在上面的输入框中键入字符时，会执行函数 "showHint()" 。该函数由 "onkeyup" 事件触发：
+function showHint(str){
+	var xmlhttp;
+	if (str.length==0) {
+		document.getElementById("txtHint").innerHTML="";
+		return;
+	};
+	if (window.XMLHttpRequest) {
+		//code for IE7+,Firefox,Chrome,Opera,Safari
+		xmlhttp=new XMLHttpRequest();
+	}else{
+		//code for IE6,IE5
+		xmlhttp=new ActiveXObject("Microsoft.xmlhttp");
+	};
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+		};
+	}
+	xmlhttp.open("GET","gethint.asp?q="+str,true);
+	xmlhttp.send();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</head>
+<body>
+
+<div id="myDiv"><h3>Let AJAX change this text</h3></div>
+<button type="button" onclick="loadXMLDoc()">Change Content</button>
+
+</body>
+</html>

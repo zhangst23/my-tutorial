@@ -1,0 +1,145 @@
+/*css-script-gulp教程.css*/
+
+/*首先安装css-sprite*/
+npm install css-sprite
+
+/*使用gulp构建前端代码，新建一个task*/
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+
+gulp.task('sprites',function(){
+	gulp.src('img/icon/某某.png')    //这是要合并的图片的路径
+		.pipe(sprite({
+			name:'icon',	//定义一个名称
+			style:'_icon.scss',    //这是生成的样式文件
+			format:'png',     // png格式的图片
+			orientation:'left-right',   //雪碧图合并的方向，也可以设置成垂直或水平
+			cssPath:'#{$icon-sprite-path}',   //雪碧图的路径变量
+			template:'./sprite-tpl.mustache',  //scss生成的模板
+			processor:'scss'    //生成的样式文件的格式
+			}))
+		.pipe(gulpif('*.png',gulp.dest('img/'),gulp.dest('css/')));
+	});
+
+
+
+/*scss的模板使用mustache*/
+{{#items}}
+	${{name}}:{{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}};
+{{/items}}
+
+@mixin sprite-width($sprite){
+	width:nth($sprite,3);
+}
+
+@mixin sprite-height($sprite){
+	height:nth($sprite,4);
+}
+
+@mixin sprite-position($sprite){
+	$sprite-offset-x:nth($sprite,1);
+	$sprite-offset-y:nth($sprite,2);
+	background-position: $sprite-offset-x $sprite-offset-y;
+}
+
+@mixin sprite($sprite){
+	@include sprite-position($sprite);
+	@include sprite-width($sprite);
+	@include sprite-height($sprite);
+}
+
+{{#sprite}}
+	{{class}}{
+		background-repeat: no-repeat;;
+		overflow: hidden;
+		border:none;
+		background:url('{{{escaped_image}}}?v=#{$version}');
+		@include inline-block();
+		vertical-align:middle;
+		font-style: normal;
+		color:$icon-font-color;
+	}
+{{/script}}
+
+{{#items}}
+	.{{name}}{
+		@include sprite(${{name}});
+	}
+{{/items}}
+
+/*现在只需要把图片丢到icon文件夹里面，运行下gulp sprites，就可以生成一张雪碧图icon.png和
+相对应的scss样式文件_icon.scss了，也可以再新建一个监听的任务，监听icon文件夹，这样就可以实时生成了。
+*/
+
+/*_icon.scss*/
+$icon-qq: -262px -161px 60px 60px;
+$icon-email: -332px -161px 60px 60px;
+$icon-skype: -5px -252px 60px 60px;
+$icon-phone: -75px -252px 60px 60px;
+@mixin sprite-width($sprite) {
+width: nth($sprite, 3);
+}
+
+@mixin sprite-height($sprite) {
+height: nth($sprite, 4);
+}
+
+@mixin sprite-position($sprite) {
+$sprite-offset-x: nth($sprite, 1);
+$sprite-offset-y: nth($sprite, 2);
+background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite($sprite) {
+@include sprite-position($sprite);
+
+@include sprite-width($sprite);
+@include sprite-height($sprite);
+
+}
+.icon {
+    background-repeat: no-repeat;
+    overflow: hidden;
+    border: none;
+    background: url('#{$icon-sprite-path}/icon.png?v=#{$version}');
+    @include inline-block();
+    vertical-align: middle;
+    font-style: normal;
+    color:$icon-font-color;
+}
+.icon-qq{
+    @include sprite($icon-qq);
+}
+.icon-email{
+    @include sprite($icon-email);
+}
+.icon-skype{
+    @include sprite($icon-skype);
+}
+.icon-phone{
+    @include sprite($icon-phone);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
