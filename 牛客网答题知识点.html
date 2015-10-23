@@ -1,0 +1,174 @@
+牛客网答题知识点.html
+//1.
+scope: true和transclude: true会创建新的子作用域，并且进行原型继承；
+  scope: {...} 会创建新的独立作用域，不会进行原型继承;
+ 默认情况下创建directive使用了scope: false，不会创建子作用域.
+//2.
+Bootstrap 框架的网格系统工作原理如下：
+1 、数据行 (.row) 必须包含在容器（ .container ）中，以便为其赋予合适的对齐方式和内距 (padding) 。
+    如： <div class=" container ">
+       <div class=" row "></div>
+       </div>
+2 、在行 (.row) 中可以添加列 (.column) ，但列数之和不能超过平分的总列数，比如 12 。
+    如： <div class="container">
+            <div class="row">
+            <div class="col-md- 4 "></div>
+            <div class="col-md- 8 "></div>
+3 、具体内容应当放置在列容器（ column ）之内，而且只有列（ column ）才可以作为行容器 (.row) 的直接子元素
+4 、通过设置内距（ padding ）从而创建列与列之间的间距。然后通过为第一列和最后一列设置负值的外距（ margin ）来抵消内距 (padding) 的影响
+
+
+//3.
+下面这个JS程序的输出是什么：
+
+function Foo() {
+    var i = 0;
+    return function() {
+        console.log(i++);
+    }
+}
+ 
+var f1 = Foo(),
+    f2 = Foo();
+f1();
+f1();
+f2();
+
+
+答: 0 1 0    
+首先返回的function函数赋值给全局变量f1，因此function函数就被储存在了内存中，因为foo函数是function函数的父函数，于是foo函数和局部变量i也被存在了内存。之后f1（）被调用了两次，第一次调用时i=0，因为是i++，先输出i的值0，然后再++；第二次调用是i=1，所以先输出1；而f2是一个新的变量，因此i的值初始化为0。大致应该是这样吧
+这道题就是JS的闭包
+定义两个变量f1和f2用来接收Foo的返回值也就是Foo的一个子函数
+在执行f1和f2时，会分别获取到父函数Foo中定义的局部变量i=0
+第一次执行时，i++为0，i为1，第二次执行时，i++为1
+f1();  --> 执行foo();  -->i++  (先赋值后++)  即此刻i=0;
+f1();  -->再执行foo();-->由于上一次执行过i++；即此时i=1;
+f2();  -->重新执行foo();   即i=0;
+因此 选A；
+
+//4.angularjs中的$apply()的作用是？
+$apply()方法可以在angular框架之外执行angular JS的表达式，例如：DOM事件、setTimeout、XHR或其他第三方的库。
+
+//5.
+.btn-group该class用于形成基本的按钮组；
+.btn-toolbar该 class 有助于把几组 <div class="btn-group"> 结合到一个 <div class="btn-toolbar"> 中，一般获得更复杂的组件。
+btn-group-lg, .btn-group-sm, .btn-group-xs  这些 class 可应用到整个按钮组的大小调整，而不需要对每个按钮进行大小调整
+
+//6.需要删除arr数组中的第i个元素，最好的做法是？
+arr.splice(i-1,1)
+
+//7.angularjs指令中compile主要是做什么用的？
+1,compile (绑定DOM)   
+2,link（数据绑定）。
+
+//8.在准备XMLHttpRequest对象时，在send()前需要调用哪个方法？
+open ()
+下面是用get 的ajax请求的代码：
+function loadXMLDoc()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","/ajax/demo_get.asp",true);
+xmlhttp.send();
+}
+
+
+//9.在jquery中想要找到所有元素的同辈元素，下面哪一个是可以实现的？
+siblings([expr])
+
+//10.下面哪些方法可以用作javascript异步模式的编程？
+
+回调函数，这是异步编程最基本的方法。
+事件监听，另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。
+发布/订阅，上一节的"事件"，完全可以理解成"信号"。
+Promises对象，Promises 对象是CommonJS 工作组提出的一种规范，目的是为异步编程提供统一接口
+
+//11.JavaScript定义var a="40",var b=7,则执行a%b会得到()。
+Javascript是弱类型语言，但是明显字符串“40”不能用于 % 运算符，所以会根据后面的类型进行转化，最后结果是 5
+
+//12
+scope: true和transclude: true会创建新的子作用域，并且进行原型继承；
+  scope: {...} 会创建新的独立作用域，不会进行原型继承;
+ 默认情况下创建directive使用了scope: false，不会创建子作用域.
+
+ //13
+ Angular 的知识，没有$send.
+$emit只能向parent controller传递event与data
+$broadcast只能向child controller传递event与data
+$on用于接收event与data
+$emit() 是向上冒泡
+$broadcast() 是向下传播事件 
+
+//14
+onBlur:当失去输入焦点后产生该事件
+onFocus:当输入获得焦点后，产生该文件
+onchange:当文字值改变时，产生该事件
+onselect:当文字加亮后，产生该事件
+onClick：当组件被点击时产生的事件
+
+//
+定义一个函数的语法：
+    function name(arguments) {
+      statements;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,254 @@
+/*CSS3动画.css*/
+
+1.0 CSS动画基础
+/*我们从创建CSS动画的基本要素开始。任何CSS动画中都有两个主要的部分：
+
+定义动画：keyframes规则
+将其赋给指定的HTML元素（或元素）。
+*/
+
+
+/*demo01.css*/
+
+/*将其赋给指定的HTML元素*/
+.car {
+    animation-name: drive;     /*告诉我们的图像，我们用了哪些关键帧*/
+    animation-duration: 2s; 	/*持续时间*/
+    animation-timing-function: ease-in;    
+    animation-iteration-count: 1;    /*动画重复播放次数*/
+}
+
+/*定义动画*/
+@keyframes drive {
+    from {
+        transform: translate(0);
+    }
+    to {
+        transform: translate(400px);
+    }
+}
+
+
+2.0探究动画属性
+/*animation-delay*/
+延时
+
+/*animation-fill-mode*/
+四个属性：none：动画播完后回到起点
+		forward：动画结束后保持最后一帧的样式
+		backwards：把0%关键帧位置的样式扩展到延迟的位置。
+		both：它是forwards和backwards的结合。动画可以在开始前就已经是第一个关键帧的样式，然后，在动画完成后，保持最后一个关键帧的样式
+
+
+
+/*animation-direction属性*/
+它的值可以是normal（正常）, reverse（反转）, alternate（交替）和alternate-reverse（交替反转）
+
+
+3.0 简写
+
+一个animation定义的动画简写属性可能是这样的：
+
+animation: myAnimation 1s ease-in-out 2s 4;
+
+也就是：animation: <animation-name> <animation-duration> <animation-timing-function> <animation-delay> <animation-iteration-count>。
+
+该顺序在定义每个动画的时候都是非常重要的：第一个值解析为动画持续的时间，第二个值解析为动画延迟的时间。
+
+
+
+
+
+
+
+4.0 常见的动画任务
+
+/*无限循环的背景动画*/
+/*html片段*/
+<div class="sky">
+    <div class="cloud cloud01"></div>
+    <div class="cloud cloud02"></div>
+</div>
+/*SCSS片段*/
+    body {
+        background:#678bb3; 
+        padding:0;
+        margin:0;
+    }
+
+.sky {
+    width:100%;
+        height:1000px;
+        background: transparent url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/sky.jpg) top left no-repeat;
+        background-size: 100% 100%;
+        margin:auto;
+        position:relative;
+    }
+    
+    .cloud {
+        width: 248px;
+        height:131px;
+    position: absolute;
+        background:transparent url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/cloud.png) 0 0 no-repeat;
+      }
+
+    .cloud01 {
+        top:100px;
+    left:300px;
+        z-index:100;
+    animation:drift 25s linear infinite;
+}
+
+    .cloud02 {
+        top:240px;
+        z-index: 200;
+    animation: drift 35s linear 10s infinite backwards;
+ }
+
+@keyframes drift {
+  from {transform: translateX(-255px);}
+  to {transform: translateX(1350px);}
+ }
+
+
+
+
+
+/*使用steps让雪碧图动起来*/
+
+/*HTML片段*/
+<div class="sprite"></div>  
+
+/*SCSS片段*/
+.sprite {
+    width:245px;
+  height:400px;
+  display:block;    
+  background:transparent url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/walker.png) 0 0 no-repeat;  
+ margin:3em auto;
+  animation: walker 1s steps(5) infinite;
+}
+
+
+@keyframes walker {
+  from {background-position:0 0;}
+  to {background-position:0 -4000px;}
+}
+
+
+
+
+/*使用animation-play-state来启动或停止动画*/
+/*HTML片段*/
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+<div class="wrap">
+  <div class="sticker"></div>
+  <div class="msg">new!</div>
+</div>
+/*SCSS片段*/
+body {
+  padding:4em; 
+  background:#fcfcfc;
+}
+.wrap {
+  width:200px;
+  margin:auto; z-index:1;
+}
+
+.msg {
+  color: whitesmoke;
+  text-align:center;
+  font-family: 'Bree Serif', Courier, monospaced; 
+  font-size:3.5em;
+  width:200px;
+  position:absolute;
+  margin:55px 0 0 2px;
+  pointer-events: none; 
+}
+
+.sticker {
+  width:200px;
+  height:200px;
+  position:absolute;
+  background: url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/sticker.png) top center no-repeat; 
+  animation: spin 10s linear infinite;
+  animation-play-state: paused; 
+}
+
+.sticker:hover {
+  animation-play-state: running;
+}
+
+
+@keyframes spin {
+  100% {transform: rotate(1turn); }
+}
+
+
+
+/*多个动画，一个对象*/
+/*HTML片段*/
+<div class="wrapper">
+  <div >
+            <div class="mol"></div>
+      </div>
+</div>
+
+/*SCSS片段*/
+body {
+  background-color:#f3f3f3;
+}   
+.wrapper {
+  margin:4em;
+}
+
+.mol {
+  width:174px;  
+  height:174px;
+    background:transparent url('http://www.w3cplus.com/sites/default/files/blogs/2015/1506/mol_badge.png') top center no-repeat;
+    position:absolute;
+    left:400px;
+    animation-name: roll-in, scale-up;
+    animation-duration: 1s, .75s;
+  animation-delay: 0s ,1s;
+    animation-timing-function: ease-in, linear; 
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+
+
+@keyframes roll-in {
+    0%{
+    transform: translateX(-200px) rotate(0deg);
+  }     
+    100% {
+    transform: translateX(0px) rotate(360deg);
+  }     
+}
+
+@keyframes scale-up {
+    0% {
+        transform: scale(1);
+        animation-timing-function: ease-in;
+    }
+    25% {
+        transform: scale(1.15);
+        animation-timing-function: ease-out;
+    }
+    60% {
+        transform: scale(.9);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+
+
