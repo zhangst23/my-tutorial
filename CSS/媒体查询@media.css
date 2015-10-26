@@ -1,0 +1,47 @@
+/*媒体查询@media.css*/
+
+
+/*引入媒体类型*/
+/* 1.0 link方法引入 */
+<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+/* 2.0 @media引入 */
+@media screen{
+	选择器{
+		属性：属性值；
+	}
+}
+
+
+/*媒体特征*/
+/*1.0 最大宽度*/
+<link rel="stylesheet" media="screen and(max-width:600px)" href="small.css" type="text/css" />
+/*2.0 最小宽度*/
+<link rel="stylesheet" media="screen and(min-width:900px)" href="big.css" type="text/css" />
+/*3.0 多个Media Queries使用*/
+<link rel="stylesheet" media="screen and (min-width:600px) and (max-width:900px)" href="style.css" type="text/css" />
+/*4.0 设备屏幕的输出宽度Device Width*/
+<link rel="stylesheet" media="screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
+/*5.0 iPhone4*/
+<link rel="stylesheet" media="only screen and (-webkit-min-device-pixel-ratio: 2)" type="text/css" href="iphone4.css" />
+/*6.0 iPad*/
+<link rel="stylesheet" media="all and (orientation:portrait)" href="portrait.css" type="text/css" /> 
+<link rel="stylesheet" media="all and (orientation:landscape)" href="landscape.css"  type="text/css" />
+/*7.0 android*/
+/*240px的宽度*/
+<link rel="stylesheet" media="only screen and (max-device-width:240px)" href="android240.css" type="text/css" />
+/*360px的宽度*/
+<link rel="stylesheet" media="only screen and (min-device-width:241px) and (max-device-width:360px)" href="android360.css" type="text/css" />
+/*480px的宽度*/
+<link rel="stylesheet" media="only screen and (min-device-width:361px) and (max-device-width:480px)" href="android480.css" type="text/css" />
+/*8.0 not关键字*/
+<link rel="stylesheet" media="not print and (max-width: 1200px)" href="print.css" type="text/css" />
+/*9.0 only关键字*/
+<link rel="stylesheet" media="only screen and (max-device-width:240px)" href="android240.css" type="text/css" />
+
+
+
+
+
+
+
+
