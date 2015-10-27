@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html5 的表单验证</title>
+</head>
+<body>
+	<!-- 1. 电子邮件输入框 -->
+	<form method="get">
+   		<label for="email">电子邮件:</label>
+    	<input id="email" name="email" type="email" autofocus="autofocus">
+    	<button> 提交 </button>
+    </form>
+    <br>
+    <br>
+	<!-- 2. URL 输入框 -->
+	<form action="">
+		<label for="url">网址:</label>
+		<input type="url" id="url" name="url" required>
+		<button>提交</button>
+	</form>
+	<br>
+    <br>
+	<!-- 3. 数字输入框 -->
+	<form method="get">
+    	<label for="number">年龄:</label>
+    	<input id="number" name="number" type="number" min="18" max="99">
+    	<button> 提交 </button>
+    </form>
+    <br>
+    <br>
+	<!-- 4.必填属性 -->
+	<form action="">
+		<label for="username">用户名:</label>
+		<input type="text" id="username" name="username" placeholder="Username" required="required">
+		<button>下一步</button>
+	</form>
+	<br>
+    <br>
+	<!-- 5.正则表达式 -->
+	<form method="post">
+    	<label for="username">用户名: </label>  
+    	<input type="text" name="username" id="username" placeholder="4 <> 10" pattern="[A-Za-z]{4,10}" 	autofocus="autofocus" required="required">
+    	<button type="submit"> 下一步 </button>
+	</form>
+	<br>
+    <br>
+	<!-- 6.等值输入框（密码框的2次输入） -->
+	<form name="passwordChange">
+    	<p><label for="password1">New Password:</label>
+    	<input type="password" id="password1" onchange="checkPasswords()"></p>
+    	<p><label for="password2">Confirm Password:</label>
+    	<input type="password" id="password2" onchange="checkPasswords()"></p>
+	</form>
+	<button onclick="document.passwordChange.password1.checkValidity()">Check Validity</button>
+	<script type="text/javascript">
+	function checkPasswords() {
+        var pass1 = document.getElementById("password1");
+        var pass2 = document.getElementById("password2");
+ 
+        if (pass1.value != pass2.value)
+            pass1.setCustomValidity("两次输入的密码不匹配");
+        else
+            pass1.setCustomValidity("");
+    }
+	</script>
+
+
+
+
+
+
+
+
+<!-- 
+可是各个浏览器验证行为不一致，我们可能需要统一其验证行为，借助javascript我们可以统一浏览器的验证行为。
+
+还是以上上述HTML为基础，我们为其加上相关javascript:-->
+<script>
+//自定义表单控件验证行为 
+
+            var checkvalue = function(e){
+                var el = e.target;
+                var isvalid = el.checkValidity();
+                if(isvalid){
+                    el.className= "";
+                    el.parentElement.getElementsByTagName("label")[0].className="";
+                }else{
+                    el.className= "error";
+                    el.parentElement.getElementsByTagName("label")[0].className="error";
+                }
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            //定义表单验证方法
+            function invalidHandler(evt) {
+                checkvalue(evt);
+            }
+            function loadDemo() {
+               var myform = document.getElementById("register1");
+               //注册表单的oninvlid事件
+               myform.addEventListener("invalid", invalidHandler, true);
+                for(var i=0;i< myform.elements.length-1;i++){
+                    //注册表单元素的onchange事件，优化用户体验
+                    myform.elements[i].addEventListener("change",checkvalue,false);
+                }
+            }
+            //在页面初始化事件（onload）时注册的自定义事件
+            window.addEventListener("load", loadDemo, false);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
