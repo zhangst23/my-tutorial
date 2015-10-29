@@ -541,6 +541,271 @@ ADS.addEvent(form,'submit',function(W3CEvent){
 
 
 
+//9.1  通过库来提高生产力
+// 9.2 增加DOM操作能力
+// 9.2.1 连缀语法
+//jQuery(使用方法连缀) 查找ID为#browserList的元素中的所有a.browser锚元素。。。。并取得第一个节点的nodeValue
+var browserAnchors = jQuery('#browserList').find('a.browser');
+//jQuery(使用方法连缀) 查找ID为#browserList的元素中的所有a.browser锚元素
+var value = jQuery('#browserList').find('a')[0].firstChild.nodeValue;
+
+//使用表达式的高级选择操作
+//jQuery库的高级选择符方法
+//查找ID为#browserList的元素中的所有a.browser锚元素
+var browserAnchors = jQuery('#browserList a.browser');
+
+//jQuery 与 XPath
+jQuery('tag[@attr]')
+jQuery('tag[@attr=value]')
+jQuery('tag[@attr^=value]'),
+jQuery('tag[@attr$=value]'),
+jQuery('tag[@attr*=value]'),
+
+
+//通过绝对路径选择作为文档主体后代元素的所有段落
+jQuery("/html/body//p")
+jQuery("/*/body//p")
+
+//通过相对路径，相对于this引用的节点进行选择
+jQuery("a",this)
+jQuery("p/a",this)
+
+//通过不同的坐标进行选择
+//选择带有后代元素P的后代元素DIV
+jQuery("//div//p")
+//选择带有子元素P的子元素DIV
+jQuery("//div/p")
+
+
+//基于属性进行选择
+//选择所有被选中的输入元素
+jQuery("//input[@checked]")
+//选择所有ref属性为nofollow的锚 
+jQuery("//a[@ref='nofollow']")
+
+
+//通过语法稍有变化的其他谓词进行选择
+//[last()]或[position()=last()]变为：last
+jQuery("p:last")
+//[(0)]或[position()=0]变为：first
+jQuery("p:eq(0)")
+//[position()<5]变为：lt(5)
+jQuery("p:lt(5)")
+//[position()>5]变为：lt(5)
+jQuery("p:gt(5)")
+
+
+//jQuery还支持XPath选择符与css选择符混合使用
+jQuery('ul/li')
+jQuery('ul>li')
+//选择了元素之后，还可在基于元素的属性取得元素值
+jQuery('input[@name=street]').val();
+jQuery('input[@type=radio][@checked]')
+
+//其他
+:even
+:odd
+:eq(0)
+:nth(0)
+:gt(n)
+:lt(n)
+:first
+:last
+:parent
+:contains('test')
+:visible
+:hidden
+
+//修改页面中第一个段落中的字体粗细
+jQuery("p:first").css("fontWeight","bold");
+//快捷的显示所有隐藏的div元素
+jQuery("div:hidden").show()
+//直接隐藏包含“scared”的所有div元素
+jQuery("div:contains('scared')").hide();
+
+
+//表单元素
+:input
+:text
+:password
+:radio
+:checkbox
+:submit
+:image
+:reset
+:button
+
+
+
+// 9.2.2   通过回调函数进行过滤
+//在jQuery中使用回调过滤函数
+var singleImageAnchors = jQuery('a').fillter(function(){
+	//确保只有一个img子元素
+	return (jQuery('img',this).length == 1)
+})
+
+
+//操作DOM文档
+$('ul#list1 li').appendTo("ul#list2")
+
+
+
+// 9.3  处理事件
+// 9.3.1 DOM事件
+blur(callback)
+change(callback)
+click(callback)
+dblclick(callback)
+error(callback)
+focus(callback)
+hover(mouseover-callback,mouseout-callback)
+keydown(callback)
+keypress(callback)
+keyup(callback)
+load(callback)
+mousedown(callback)
+mousemove(callback)
+mouseover(callback)
+mouseup(callback)
+ready(callback)
+resize(callback)
+scroll(callback)
+select(callback)
+submit(callback)
+unload(callback)
+
+//通过使用这些方法，可以为整批的DOM元素注册事件侦听器的回调函数，例如可以为页面上每个连接的click事件侦听器添加回调函数
+//jQuery中的事件注册   为每个锚添加click事件侦听器    以便在新窗口中打开锚的链接
+$('a').click(function(event){
+	//通过现有的href值打开新窗口
+	window.open(this.getAttribute('href'));
+	jQuery(this).addClass('popup');
+	//防止链接的默认动作
+	return false;
+})
+// 而且，即使在调用以上方法是没有任何输入，也会调用相应的事件侦听器
+// jQuery中调用事件  调用页面上第一个锚的click事件
+$('a:first').click();
+//hover  方法特别棒
+//通过jQuery实现第一章的翻转图实例
+jQuery(document).ready(function(){
+	jQuery('a.multiStateAnchor').each(function(){
+		//保持anchorImage位于this的作用域中
+		var anchorImage;
+		if(!(anchorImage = jQuery('img:first',this))) return;
+
+		//解析扩展名
+		var src = anchorImage.attr('src');
+		var extensionIndex  = src.lastIndexOf('.');
+		var path = src.substr(0,extensionIndex);
+		var extension = src.substring(
+			extensionIndex,
+			src.length
+			);
+		//预载图像
+		var imageMouseOver = new Image()
+		imageMouseOver.src = path + '-over' + extension;
+		var imageMouseDown = new Image()
+		imageMouseDown.src = path + '-down' + extension;
+
+		//注册事件侦听器
+		jQuery(this).hover(
+			function(){
+				anchorImage.attr('attr',imageMouseOver.src);
+			},
+			function(){
+				anchorImage.attr('attr',path + extension);
+
+			}
+			);
+		jQuery(this).mousedown(function(){
+			anchorImage.attr('src',imageMouseDown.src);
+		});
+		jQuery(this).mouseup(function(){
+			anchorImage.attr('src',path + extension);
+		})
+	})
+})
+
+
+// 9.5 通讯  AJAX
+jQuery.post(url,params,callback),   //通过一个POST请求获得数据
+jQuery.get(url,params,callback),    //通过一个GET请求获得数据
+jQuery.getJSON(url,params,callback),    //获得一个JSON对象
+jQuery.getScript(url,callback),    //获得并执行一个javascript文件
+
+//每个回调方法中取得的两个参数分别定义了请求的responseText和请求的状态
+jQuery.get('../ajax-test-files/request.json',
+	{ key:'value' },
+	function(responseText,status){
+		//你的代码
+	}
+
+)
+//其中status的值可能是：success   error     notmodified
+
+
+//getJSON()方法的参数将是一个JavaScript对象
+
+// jQuery库中也包含一个附加的load()方法
+jQuery(expression).load(url,params,callback),    //将url的结果载入到DOM元素中
+
+//而且这个jQuery()方法同样也能用来实现周期性的保存功能
+//使用jQuery库实现自动保存  每10秒钟保存一次#autosave-form的内容     并更新#autosave-status已标明已经保存
+setTimeout(function(){
+	jQuery('autosave-status').load(
+		'../ajax-test-files/autosave.json',
+		jQuery.param({
+			title:jQuery('#autosave-form input[@name=title]').val(),
+			story:jQuery('#autosave-form textarea[@name=story]').val()
+		})
+		);
+},10000);
+
+
+// 10.1  使用setTimeout(callback,milliseconds)和setInterval(callback,milliseconds)方法
+ADS。addEvent(window,'load',function(){
+	//将一个元素从其当前位置   向右下方移动+3000px
+	var moveMe = document.getElementById('element-id');
+	ADS.setStyle(moveMe,{
+		position:'absolute',
+		border:'1px solid black',
+		width:'100px',
+		height:'20px'
+	});
+	var startLeft = moveMe.offsetLeft;
+	var startTop = moveMe.offsetTop;
+
+	//创建间隔
+	var mover = setInterval(function(){
+		var remove = false;
+		var currentLeft = moveMe.offsetLeft;
+		var currentTop = moveMe.offsetTop;
+
+		//移动以2像素递增
+		var newLeft = currentLeft + 2;
+		var newTop = currentTop +2;
+		if (newLeft > startLeft + 300 || newTop > startTop + 300) {
+			//如果新位置超出了期望的目标，则重置相应的值 
+			newLeft = startLeft;
+			newTop = startTop;
+		};
+		//重新定位元素
+		moveMe.style.left = newLeft + 'px';
+		noveMe.style.top = newTop + 'px';
+	},10);
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
