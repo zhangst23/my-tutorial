@@ -1,0 +1,230 @@
+<!-- 简介导航栏css3.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简介导航栏css3.html</title>
+	<meta name="description" content="css3 menu using pseudo elements with custom attributes to create a bouncing effect">
+	<meta name="author" content="PeHaa - PeHaa Blog">
+
+	
+	<link rel="stylesheet" href="nav.css" type="text/css" media="screen" title="no title" 	charset="utf-8">
+
+
+
+	<style type="text/css">
+	@font-face {
+ 	  font-family: 'Numans';
+ 	  font-style: normal;
+ 	  font-weight: 400;
+ 	  src: local('Numans'), local('Numans-Regular'), url(http://fonts.gstatic. 	com/s/numans/v6/dwBToLjo6nEbid6PrFSpHOvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+ 	  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U 	+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+ 	}
+
+	/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+
+ol, ul {
+  list-style: none; }
+
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+
+
+body {
+  color: #3e3831;
+  background: #f2f2f2 url("white1.jpg") repeat;
+  font-family: Numans, sans-serif;
+  line-height: 1.5em; }
+
+
+nav {
+	min-width:800px;
+}
+
+nav ul {
+	position: relative;
+}
+
+nav > ul:after{
+	content："";
+	position:absolute;
+	width:50%;
+	border-radius:40%;
+	height:40px;
+	bottom:0;
+	left:20%;
+	box-shadow: 0 0 10px rgba(28,110,126,0.5);
+	z-index: -1;
+}
+
+nav > ul:hover:after{
+	bottom: 5px;
+}
+
+h2{
+	font-size: 1.5em;
+	text-align: center;
+	margin-top: 3em;
+	margin-bottom: 1em;
+	text-shadow:0 1px 0 white;
+	color:#404040;
+	color:darkolivegreen;
+	h2:first-child{
+		color:teal;
+	};
+}
+
+
+nav.ph-lift1{
+	text-align: center;
+}
+nav.ph-lift1 ul{
+	display: inline-block;
+}
+nav.ph-lift1 ul:after{
+	box-shadow: 0 0 10px rgba(85,107,47,0.5)
+}
+nav.ph-lift1 > ul > li {
+    float: left; }
+  nav.ph-lift1 ul li {
+    height: 80px;
+    line-height: 80px;
+    background: white;
+    -webkit-transition: all.6s ease;
+    -moz-transition: all.6s ease;
+    -o-transition: all.6s ease;
+    -ms-transition: all.6s ease;
+    transition: all.6s ease; }
+    nav.ph-lift1 ul li ul {
+      max-height: 0;
+      -webkit-transition: all.6s ease;
+      -moz-transition: all.6s ease;
+      overflow: hidden;
+      display: block; }
+    nav.ph-lift1 ul li:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3) inset;
+      background: darkolivegreen; }
+    nav.ph-lift1 ul li:hover ul {
+      max-height: 300px; }
+	nav.ph-lift1 ul li a {
+      display: block;
+      overflow: hidden;
+      text-decoration: none;
+      color: #546a2f;
+      height: 80px; }
+    nav.ph-lift1 ul li ul li a {
+      color: #7e7e00; }
+    nav.ph-lift1 ul li ul li:hover {
+      background: olive; }
+	nav.ph-lift1 ul li a span {
+        -webkit-transition: all.6s ease;
+        -moz-transition: all.6s ease;
+        -o-transition: all.6s ease;
+        -ms-transition: all.6s ease;
+        transition: all.6s ease;
+        display: block;
+        padding: 0 40px; }
+    nav.ph-lift1 ul li:hover > a span {
+      margin-top: -80px;
+      color: white;
+      text-shadow: 0 1px 2px  black; }
+    
+      
+      nav.ph-lift1 ul li a span:after {
+        content: attr(data-title);
+        display: block; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</style>
+</head>
+
+<body>
+	<h2>下拉列表</h2>
+	<nav class="ph-lift1">
+		<ul>
+			<li class="active">
+				<a href="#home" data-title="home"><span data-title="Home">Home</span></a>
+				<ul>
+					<li><a href=""></a><span>Featured</span></li>
+					<li><a href=""></a><span>Top 10</span></li>
+				</ul>
+			</li>
+
+			<li><a href="#portfolio" ><span data-title="My works">My works</span></a>
+				<ul>
+					<li><a href="#" ><span data-title="Web design">Web design</span></a></li>
+					<li><a href="#" ><span data-title="Illustrations">Illustrations</span></a></li>
+					<li><a href="#" ><span data-title="Patterns">Patterns</span></a></li>
+				</ul>
+				
+			</li>
+			<li><a href="#" ><span data-title="Who am I?">Who am I?</span></a>
+				
+			</li>
+			<li><a href="#" ><span data-title="Contact me">Contact me</span></a>
+				<ul>
+					<li><a href="#" ><span data-title="Email me">Email me</span></a></li>
+					<li><a href="#about" ><span data-title="Network">Network</span></a></li>
+				</ul>
+			</li>
+
+
+
+		</ul>
+	</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</body>
+</html>
