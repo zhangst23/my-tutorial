@@ -1,1 +1,122 @@
-Ajax全接触
+<!-- Ajax全接触 -->
+
+<script>
+window.onload = function(){
+	var oBtn = document.getElementById('btn1');
+
+	oBtn.onclick = function(){
+		ajax('aaa.txt?t='+ new Date().getTime(),function(str){
+			alert(str);
+		},function(){
+			alert('失败');
+		});
+	};
+}
+
+</script>
+
+
+
+
+
+
+
+
+<!-- // -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="http://www.zhinengshe.com" method="post">
+		用户名：<input type="text" name="username" /><br>
+		密码：<input type="password" name="password" /><br>
+		<input type="submit" />
+	</form>
+</body>
+</html>
+
+
+
+<!--  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="new_ajax.js"></script>
+	<script type="text/javascript">
+function ajax(url,fnSucc,fnFaild){
+	//1.创建Ajax对象
+	if (window.XMLHttpRequest) {
+		var oAjax = new XMLHttpRequest()
+	}else{
+		var oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+	};
+
+	//2.连接服务器（打开和服务器的连接）
+	oAjax.open('GET',url,true);
+	//3.发送
+	oAjax.send()
+	//4.接受
+	oAjax.onreadystatechange = function(){
+		if (oAjax.readyState == 4) {
+			if (oAjax.status == 200) {
+				fnSucc(oAjax.responseText);
+			}else{
+				if (fnFaild) {
+					fnFaild(oAjax.status);
+				};
+			};
+		};
+	}
+}
+
+</script>
+</head>
+<body>
+	<input type="button"  id="btn1" value="读取"/>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

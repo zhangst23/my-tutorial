@@ -406,44 +406,189 @@ define({
 .blog{font-size:10pt;}
 
 
+//######################## ######################## ######################## ######################## ######################## 
+
+// 使用 Sea.js 来解决
+
+// Sea.js 是一个成熟的开源项目，核心目标是给前端开发提供简单、极致的模块化开发体验。这里不多做介绍，有兴趣的可以访问 seajs.org 查看官方文档。
+
+// 使用 Sea.js，在书写文件时，需要遵守 CMD （Common Module Definition）模块定义规范。一个文件就是一个模块。前面例子中的 util.js 变成
+
+define(function(require,exports){
+	exports.each = function(arr){
+		//实现代码
+	};
+	exports.log = function(str){
+		//实现代码
+	}
+})
+
+// 通过 exports 就可以向外提供接口。这样，dialog.js 的代码变成
+define(function(require,exports){
+	var util = require('./util.js');
+
+	exports.init = function(){
+		//实现代码
+	}
+})
+
+// 关键部分到了！我们通过 require('./util.js') 就可以拿到 util.js 中通过 exports 暴露的接口。
+// 这里的 require 可以认为是 Sea.js 给 JavaScript 语言增加的一个 语法关键字，通过 require 可以获取其他模块提供的接口。
+
+// 这样，在页面中使用dialog.js将变得非常简单
+<script src="sea.js"></script>
+<script>
+	seajs.use('dialog',function(Dialog){
+		Dialog.init(/* 传入配置 */);
+	})
+</script>
+
+// 首先要在页面中引入 sea.js 文件，这一般通过页头全局把控，也方便更新维护。想在页面中使用某个组件时，
+// 只要通过 seajs.use 方法调用。
+
+// 好好琢磨以上代码，我相信你已经看到了 Sea.js 带来的两大好处：
+
+// 通过 exports 暴露接口。这意味着不需要命名空间了，更不需要全局变量。这是一种彻底的命名冲突解决方案。
+
+// 通过 require 引入依赖。这可以让依赖内置，开发者只需关心当前模块的依赖，其他事情 Sea.js 都会自动处理好。
+// 对模块开发者来说，这是一种很好的 关注度分离，能让程序员更多地享受编码的乐趣。
+
+
+// API 快速参考
+
+// 该页面列举了 Sea.js 的 7 个常用 API
+
+//1.0   seajs.config
+//用来对Sea.js进行配置
+seajs.config({
+	//设置路径，方便跨目录调用
+	paths:{
+		'arale':'http://a.alipayobjects.com/arale',
+		'jquery':'https://a.alipayobjects.com/jquery'
+	},
+	//设置别名，方便调用
+	alias:{
+		'class':'arale/class/1.0.0/class',
+		'jquery':'jquery/jquery/1.1..1/jquery'
+	}
+});
+
+//2.0    seajs.use  
+//用来在页面中加载一个或多个模块
+//加载一个模块
+seajs.use('./a');
+//加载一个模块，在加载完成时，执行回调
+seajs.use('./a',function(a){
+	a.doSomething();
+});
+//加载多个模块，在加载完成时，执行回调
+seajs.use(['./a','./b'],function(a,b){
+	a.doSomething();
+	b.doSomething();
+})
+
+
+
+//3.0    define
+//用来定义模块，Sea.js推崇一个模块一个文件，遵循统一的写法
+define(function(require,exports,module){
+	//模块代码
+})
+
+
+//4.0    require
+//require  用来获取指定模块的接口
+define(function(require){
+	//获取模块 a 的接口
+	var a = require('./a');
+
+	//调用模块 a 的方法
+	a.doSomething();
+})
+
+
+//5.0  require.async
+//用来在模块内部异步加载一个或多个模块
+define(function(require){
+	//异步加载一个模块，在加载完成时，执行回调
+	require.async('./b',function(b){
+		b.doSomething();
+	});
+	//异步加载多个模块，在加载完成时，执行回调
+	require.async(['./c','./d'],function(c,d){
+		c.doSomething();
+		c.doSomething();
+	});
+});
+
+//6.0  exports
+define(function(require,exports){
+	//对外提供 foo 属性
+	exports.foo = 'bar';
+
+	//对外提供 doSomething 方法
+	exports.doSomething = function(){};
+})
+
+
+
+//7.0    module.exports
+
+// 与 exports 类似，用来在模块内部对外提供接口。
+
+define(function(require, exports, module) {
+
+  // 对外提供接口
+  module.exports = {
+    name: 'a',
+    doSomething: function() {};
+  };
+
+});
 
 
 
 
 
 
+// 模块系统的启动
 
+// 有了 define 等模块定义规范的实现，我们可以开发出很多模块。但光有一堆模块不管用，我们还得让它们能跑起来。
 
+// 首先就是启动问题。比如在 Node 中，启动很简单：
 
+$ node main.js
+// 这就是启动。
 
+// 再举一个例子，操作系统的启动：大家都知道的，按一下开机键就好。
 
+// 在 Sea.js 里，要启动模块系统很简单：
 
+<script src="path/to/sea.js"></script>
+<script>
+  seajs.use('./main');
+</script>
 
+// seajs.use Function
 
+// 用来在页面中加载模块。
 
+seajs.use seajs.use(id, callback?)
 
+// 通过 use 方法，可以在页面中加载任意模块：
 
+// 加载模块 main，并在加载完成时，执行指定回调
+seajs.use('./main', function(main) {
+  main.init();
+});
+// use 方法还可以一次加载多个模块：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// // 并发加载模块 a 和模块 b，并在都加载完成时，执行指定回调
+seajs.use(['./a', './b'], function(a, b) {
+  a.init();
+  b.init();
+});
+// callback 参数可选，省略时，表示无需回调
 
 
 
