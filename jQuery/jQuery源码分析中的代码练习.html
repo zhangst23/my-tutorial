@@ -1,0 +1,213 @@
+<!-- maiowei  jQuery源码分析中的代码练习.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery源码分析中的代码练习</title>
+</head>
+<body>
+	
+
+
+
+
+	<script>
+	//5.0
+		$().css();
+		$().html();
+		
+		$.trim();
+		$.proxy();
+
+
+	//6.0
+	$('ul li + p input.class').css();
+
+
+	//7.0
+	function fn1(){ alert(1) }
+	function fn2(){ alert(2) }
+
+	var cb = $.Callbacks();
+
+	cb.add(fn1);
+	cb.add(fn2);
+
+	cb.fire();   //1,2
+	cb.remove(fn2);
+	cb.fire();  //1
+
+	//8.0
+	// setTimeout(function(){
+	// 	alert(1);
+	// },1000);
+	// alert(2);
+
+	var dfd = $.Deferred();
+
+	setTimeout(function(){
+		alert(1);
+		dfd.resove();
+	},1000);
+
+	dfd.done(function(){
+		alert(2);
+	});
+
+
+	//9.0 
+	var iSpeed = 10;
+	a = a + iSpeed;
+
+	//10
+	window.a == underfined
+
+	typeof window.a == 'underfined'
+
+
+	//11
+	$.type()
+	class2type = { '[obiect String]':'string','[object Array]':'array' }
+
+	//12
+	以前实现方法
+	function Aaa(){
+
+	}
+	Aaa.prototype.init = function(){
+
+	};
+	Aaa.prototype.css = function(){
+
+	};
+	var al = new Aaa();
+	al.init();
+	al.css();
+
+	jQuery的设计方式
+	function jQuery(){
+		return new jQuery.prototype.init();
+	};
+	jQuery.prototype.init = function(){
+
+	}
+	jQuery.prototype.css = function(){
+		
+	}
+	jQuery.prototype.init.prototype = jQuery.prototype;
+
+	jQuery().css();
+
+//###################################
+	第五集内容介绍：
+
+常见对象存储：location、document、docElem
+
+变量名防止冲突：$()、jQuery()
+
+class2type 判断数据类型、预留检测方式
+
+core_deletedIds 旧版本的ID删除、新版本只做为数组方法引用
+
+core_version = "2.0.3" 版本号存储
+
+一些新方法的存储……如：trim()
+
+jQuery函数：$()、jQuery() 返回对象
+
+原生JS面向对象的写法示例
+
+jQuery面向对象方式：省却初始化元素和创建对象、直接使用内置方法
+
+对象引用实现共享方法：jQuery.fn.init.prototype = jQuery.fn;
+
+//###################################
+第六集内容介绍：
+
+core_pnum：正则数字匹配
+
+core_rnotwhite：正则单词匹配
+
+rquickExpr：正则标签匹配（防止XSS木马注入）
+
+rsingleTag：正则匹配空标签
+
+rmsPrefix：正则匹配IE下转换ms
+
+rdashAlpha：正则匹配转换大写、数字
+
+fcamelCase：转驼峰回调函数
+
+completed：DOM触发成功时回调函数
+
+
+
+//###################################
+
+
+第七集内容介绍：
+
+本集主要讲解 JQ 对coustructor的修正以及初始化构造函数的参数类型判断，主要包含以下几个知识点：
+
+1，简述JQ的版本输出。
+
+2，实例讲解原生js中coustructor的bug以及JQ中的coustructor指针修正。
+
+3，JQ初始化构造函数init的参数类型分析：字符串，DOM对象，函数，其它。
+
+4，init的不合法参数处理技巧：'',null,undefined,false。
+
+
+$(""),$(null),$(undefined), $(false)
+
+$('#div1') $('.box') $('div') $('#div1 div.box')
+
+$(this) $(document)
+
+$(function(){})
+
+$([]) $({})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+

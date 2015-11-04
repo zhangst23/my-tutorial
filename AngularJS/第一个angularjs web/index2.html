@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS  进阶</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+</head>
+<body style="padding:10px;" ng-app="app">
+	<div ng-controller="MyCtrl">
+		<input type="text" ng-model="msg">
+		<h1>{{msg}}</h1>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div>
+		<input type="text" ng-model="uname">
+		<h1 ng-clock="" class="ng-clock">{{uname}}</h1>
+		<div>{{'用户名：'+uname}}</div>
+		<div ng-bind="'用户名：'+uname"></div>
+		<div class="{{uname}}">{{uname}}</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/myctrl.js"></script>
+<script ></script>
+</html>
