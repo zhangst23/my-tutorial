@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户角色权限实例 进阶$http</title>
+	<link rel="stylesheet" type="text/css" href="css/foundation.min.css">
+
+</head>
+<body style="padding:10px;" ng-app="app">
+	<div>
+		<fieldset>
+			<legend>用户角色</legend>
+			<select>
+				<option value="">xuanze</option>
+				<option ng-repeat="r in roles" value="1">系统管理员</option>
+				<option value="2">总经理</option>
+			</select>
+		</fieldset>
+		<fieldset>
+			<legend>权限列表</legend>
+			<span ng-repeat="right in rights" ng-checked="ischecked">
+				<input type="checkbox">&nbsp;{{right.rightname}}</input>
+			</span>
+			<span><input type="checkbox">&nbsp;合同管理</input></span>
+			<span><input type="checkbox">&nbsp;项目管理</input></span>
+			<span><input type="checkbox">&nbsp;新闻公告</input></span>
+		</fieldset>
+	</div>
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/app11.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

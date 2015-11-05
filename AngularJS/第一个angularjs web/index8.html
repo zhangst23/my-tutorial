@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Services ng-repeat 使用</title>
+	<link rel="stylesheet" type="text/css" href="css/foundation.min.css">
+
+</head>
+<body style="padding:10px;" ng-app="app" ng-controller="AddressCtrl">
+	<div style="padding:10px;font-weight:bold">地址管理</div>
+	<ul class="ui-list-link ui-list-text ui-list-active ui-border-tb">
+		<li ng-repeat="a in list" class="ui-border-t"  ng-if="!$last"
+		ng-class="['selected':$last]">
+			
+			<h4>{{a.address}}</h4>
+
+		</li>
+	</ul>
+	
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/app8.js"></script>
+</html>

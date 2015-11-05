@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Services 常用指令的使用</title>
+	<link rel="stylesheet" type="text/css" href="css/foundation.min.css">
+	<style type="text/css">
+		.tx{width:50px;height:50px;margin-bottom: 10px;margin-left: 80px;}
+	</style>
+</head>
+<body style="padding:10px;" ng-app="app">
+	<form name="f" ng-submit="register(user)">
+		<fieldset>
+			<legend>基本信息</legend>
+			<img ng-src="{{user.icon}}" 
+			ng-if="user.isShowImg"
+			ng-class="{'tx':user.showicon}">
+			<div>
+				<input type="text" ng-model="user.uname" placeholder="用户名" required>
+				<input type="password" placeholder="password">
+				职位：<select>
+						<option value="">选择</option>
+						<option value="1" ng-selected-"user.zw=='1'">JAVA</option>
+						<option value="2" ng-selected-"user.zw=='2'">PHP</option>
+				</select>
+				性别：<input type="radio" ng-check="user.set==1" name="sex">&nbsp;男&nbsp;
+					<input type="radio" ng-check="user.set==0" name="sex">&nbsp;女&nbsp;
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>爱好</legend>
+			<div>
+				<input type="checkbox" ng-checked="ischecked(1)" name="ai">&nbsp;篮球&nbsp;
+				<input type="checkbox" ng-checked="ischecked(2)" name="ai">&nbsp;足球&nbsp;
+				<input type="checkbox" ng-checked="ischecked(3)" name="ai">&nbsp;排球&nbsp;
+			</div>
+
+		</fieldset>
+		<button class="button expand" type="submit"
+		ng-disabled="f.$invalid">提交</button>
+	</form>
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/app7.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
