@@ -1,0 +1,273 @@
+Angular.js Services.html
+Angular带来了很多类型的services。每个都会它自己不同的使用场景。我们将在本节来阐述。
+
+首先我们必须记在心里的是所有的services都是singleton(单例)的，这也是我们所希望得到的预期结果。
+
+下面让我开始今天的services之旅吧：
+
+<!-- 1.0   Constant -->
+<script>
+	app.constant('fooConfig',{
+		config1:true,
+		config2:"Default config2"
+	});
+
+</script>
+
+constant是个很有用的东东，我们经常会用于对directive之类的做配置信息。所以当你想创建一个directive，并且你希望能够做一些配置信息，同时给些默认的配置，constant是个不错的的选择。
+
+constant可以译作常量，因为我们所设置的值value是不能被改变的。其可以接受基础类型和object对象。
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+  <body ng-controller="MainCtrl">
+    config1: {{fooConfig.config1}}
+    <br />
+    config2: {{fooConfig.config2}}
+
+
+ 	<script>
+    	app = angular.module("app", []);
+
+		app.controller('MainCtrl', function($scope, fooConfig) {
+		  $scope.fooConfig = fooConfig;
+		});
+		
+		app.constant('fooConfig', {
+		  config1: true,
+		  config2: "Default config2"
+		});
+    </script>
+  </body>
+</html>
+
+
+output:
+
+config1: true 
+config2: Default config2
+
+
+
+
+<!-- 2.0  Value -->
+Value和上面的constant很相似，唯一是其在赋值后还可以被改变。它也被常用于directive配置信息。Value service只会保留values，我们不会在service中计算其值。
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+  <body ng-controller="MainCtrl">
+    config1: {{fooConfig.config1}}
+    <br />
+    config2: {{fooConfig.config2}}
+    <br />
+    config3: {{fooConfig.config3}}
+
+    <script>
+    	app = angular.module("app", []);
+
+		app.controller('MainCtrl', function($scope, fooConfig) {
+		  $scope.fooConfig = fooConfig;
+		  angular.extend(fooConfig, {config3: "I have been extended"});
+		});
+		
+		app.value('fooConfig', {
+		  config1: true,
+		  config2: "Default config2 but it can changes"
+		});
+    </script>
+  </body>
+</html>
+
+
+output:
+
+config1: true 
+config2: Default config2 but it can changes 
+config3: I have been extended
+
+
+
+<!-- 3.0    Factory -->
+<script>
+app.factory('foo', function() {
+
+var thisIsPrivate = "Private";
+
+function getPrivate() {
+
+return thisIsPrivate;
+
+}
+
+
+
+return {
+
+variable: "This is public",
+
+getPrivate: getPrivate
+
+};
+
+});
+</script>
+
+     Factory是我们最常用的service。其很容易被理解。
+
+     factory会返回一个object对象，至于你如何创建这个对象angular没任何限制。在示例中我选择了我喜欢的模式 Revealing module pattern,你可以选择其他你所希望的方式。
+
+   如我之前所说，所有的services都是singleton的，所以当我们修改foo.variable的时候，会影响到其他使用的地方
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+  <body ng-controller="MainCtrl">
+    public variable: {{foo.variable}}
+    <br />
+    private variable (through getter): {{foo.getPrivate()}}
+  	
+  	<script>
+
+		app = angular.module("app", []);
+		
+		app.controller('MainCtrl', function($scope, foo) {
+		  $scope.foo = foo;
+		});
+		
+		app.factory('foo', function() {
+		  var thisIsPrivate = "Private";
+		  function getPrivate() {
+		    return thisIsPrivate;
+		  }
+		  
+		  return {
+		    variable: "This is public",
+		    getPrivate: getPrivate
+		  };
+		});
+  	</script>
+  </body>
+</html>
+
+
+
+<!-- 3.0    Service -->
+
+<script>
+app.service('foo', function() {
+
+var thisIsPrivate = "Private";
+
+this.variable = "This is public";
+
+this.getPrivate = function() {
+
+return thisIsPrivate;
+
+};
+
+});
+</script>
+ 
+
+Service service和factory工作原理一样，只是他service接收的是一个构造函数，当第一次使用service的时候，angular会new Foo() 来初始化这个对象。以后的时候返回的都是同一个对象。
+
+实际上，下面是factory等价的写法：
+
+<script>
+app.factory('foo2', function() {
+
+return new Foobar();
+
+});
+
+function Foobar() {
+
+var thisIsPrivate = "Private";
+
+this.variable = "This is public";
+
+this.getPrivate = function() {
+
+return thisIsPrivate;
+
+};
+
+}
+</script>
+ 
+
+Foobar是一个class(类)在factory中我们手动初始化它，在返回它。和service一样Foobar class只在第一次初始化，并以后返回的都是同一个对象。
+
+如果我们已经存在了一个class，那么我可以直接使用：
+
+app.service('foo3', Foobar);
+
+
+
+<!-- 3.0    Provider -->
+Provider 在angular中是个最终的高级选项，在上例factory中最后一个示例用provider将是如下：
+
+<script>
+app.provider('foo', function() {
+
+return {
+
+$get: function() {
+
+var thisIsPrivate = "Private";
+
+function getPrivate() {
+
+return thisIsPrivate;
+
+}
+
+return {
+
+variable: "This is public",
+
+getPrivate: getPrivate
+
+};
+
+}
+
+};
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
