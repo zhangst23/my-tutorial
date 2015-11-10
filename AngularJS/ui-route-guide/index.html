@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>ui-route-guide</title>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-ui-router.min.js"></script>
+	<script>
+		var myApp = angular.module('myApp',[ui.route]);
+
+		myApp.config(function($stateProvider,$urlRouterProvider){
+
+			$urlRouterProvider.otherwise("/state1");
+
+			$stateProvider
+			  .state('state1',{
+			  	url:"/state1",
+			  	templateUrl:"partials/state1.html"
+			  })
+			  .state('state1.list',{
+			  	url:"/list",
+			  	templateUrl:"partials/state1.list.html",
+			  	controller:function($scope){
+			  		$scope.items = ["A","List","Of","Items"];
+			  	}
+			  })
+			  .state('state2',{
+			  	url:"/state2",
+			  	templateUrl:"partials/state2.html"
+			  })
+			  .state('state2.list',{
+			  	url:"/list",
+			  	templateUrl:"partials/state2.list.html",
+			  	controller:function($scope){
+			  		$scope.things = ["A","Set","Of","Things"];
+			  	}
+			  });
+		});
+
+
+
+
+
+
+
+	</script>
+	
+</head>
+<body>
+	<div ui-view></div>
+
+	<a ui-sref="state1">State1</a>
+	<a ui-sref="state2">State2</a>
+</body>
+</html>
