@@ -1,0 +1,47 @@
+<h2>Edit Recipe</h2>
+<form name="recipeForm" ng-submit="save()" class="form-horizontal">
+	<div class="control-group">
+	<label for="title" class="control-label">Title:</label>
+	<div class="controls">
+		<input ng-model="recipe.title" class="input-xlarge" id="title" focus required>
+	</div>
+</div>
+
+<div class="control-group">
+	<label for="description" class="control-label">Description:</label>
+	<div class="controls">
+		<textarea nng-model="recipe.description" id="description" class="input-xlarge"></textarea>
+	</div>
+	
+</div>
+
+
+<div class="control-group">
+	<label for="ingredients" class="control-label">Ingredients:</label>
+	<div class="controls">
+		<ul class="unstyled" id="ingredients" ng-controller="IngredientsCtrl">
+			<li ng-repeat="ingredient in recipe.ingredients">
+				<input ng-model="ingredient.amount" class="input-mini">
+				<input ng-model="ingredient.amountUnits" class="input-small">
+				<input ng-model="ingredient.ingredientName">
+				<button type="button" class="btn btn-mini" ng-click="removeIngredient($index)">
+					<i class="icon-minus-sign"></i>Delete</button>
+			</li>
+				<button class="btn btn-mini" type="button" ng-click="addIngredient()"><i class="icon-plus-sign"></i>Add</button>
+			
+		</ul>
+	</div>
+</div>
+
+<div class="control-group">
+	<label for="instructions" class="control-label">Instructions:</label>
+	<div class="controls">
+		<testarea class="input-xxlarge" id="instructions" ng-model="recipe.instructions"></testarea>
+	</div>
+</div>
+
+<div class="from-actions">
+	<button class="btn btn-primary" ng-disabled="recipeForm.$invalid">Save</button>
+	<button class="btn" type="button" ng-click="remove()" ng-show="!recipe.id">Delete</button></div>
+
+</form>
