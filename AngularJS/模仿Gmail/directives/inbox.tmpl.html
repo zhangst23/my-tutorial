@@ -1,0 +1,27 @@
+<div class="inbox">
+	<div class="search-bar">
+		<div class="inbox__count">
+			You have {{ inbox.messages.length && inbox.messages.length || 'no' }} messages
+
+		</div>
+		<div ng-hide="!inbox.message.length">
+			<input type="text" class="inbox__search" ng-model="inbox.search" placeholder="Search by 'form",e.g. TicketMaster>
+		</div>
+	</div>
+	<ul class="inbox__list">
+		<li ng-show="!inbox.message.length" class="no-emails">No messages! Try sending one to a friend.
+		</li>
+		<li ng-repeat="message in inbox.messages | filter:{ form:inbox.search }">
+			<div class="inbox__list-info">
+				<p class="inbox__list-form"> Form:{{ message.form }}</p>
+				<p class="inbox__list-date"> {{ message.date | date:'dd/MM/yyyy' }} </p>
+				<p class="inbox__list-subject"> {{ message.subject }} </p>
+			</div>
+
+			<div class="inbox__list-actions">
+				<a href="" ng-click="inbox.goToMessage(message.id);">Read</a>
+				<a href="" ng-click="inbox.deleteMessage(id,$index);">Delete</a>
+			</div>
+		</li>
+	</ul>
+</div>
