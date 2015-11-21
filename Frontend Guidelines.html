@@ -1,0 +1,186 @@
+<!-- Frontend Guidelines.html -->
+https://github.com/AllThingsSmitty/frontend-guidelines
+
+
+
+
+
+HTML
+
+Semantics
+<!-- good -->
+<main>
+	<article>
+		<header>
+			<h1>Blog post</h1>
+			<p>Published:<time datetime="2015-02-21">21st Feb,2015</time></p>
+		</header>
+		<p>...</p>
+	</article>
+</main>
+
+Brevity
+<!-- good -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contact</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Contact me</h1>
+	<label>
+		Email address
+		<input type="email" placeholder="you@qq.com" required>
+	</label>
+	<script src="main.js"></script>
+</body>
+</html>
+
+Accessibility
+<!-- good -->
+<h1><img src="logo.png" alt="my Company,Inc."></h1>
+
+
+CSS
+
+Box model
+/* bad */
+div {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* good */
+div {
+  padding: 10px;
+}
+
+
+Flow
+/* bad */
+img {
+  display: block;
+}
+
+/* good */
+img {
+  vertical-align: middle;
+}
+
+
+Vendor prefixes
+/* bad */
+div {
+  transform: scale(2);
+  -webkit-transform: scale(2);
+  -moz-transform: scale(2);
+  -ms-transform: scale(2);
+  transition: 1s;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+}
+
+/* good */
+div {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+  transition: 1s;
+}
+
+
+
+Animations
+
+/* bad */
+div:hover {
+  animation: move 1s forwards;
+}
+@keyframes move {
+  100% {
+    margin-left: 100px;
+  }
+}
+
+/* good */
+div:hover {
+  transition: 1s;
+  transform: translateX(100px);
+}
+
+
+Drawing
+
+
+/* bad */
+div::before {
+  content: url(white-circle.svg);
+}
+
+/* good */
+div::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+
+JavaScript
+
+Performance
+const arr = [1,2,3,4];
+const isEven = n => n % 2 == 0;
+const square = n => * n;
+
+const result = arr.filter(isEven).map(square);
+
+
+Statelessness
+const merge = (...sources) => Object.assign({},...sources);
+merge({foo:"foo"},{bar:"bar"});
+
+Natives
+const toArray = (() =>
+	Array.from ? Array.from : obj => [].slice.call(obj)
+)();
+
+Coercion
+if(x == undefined){...}
+
+
+Loops
+const sum = arr =>
+	arr.reduce((x,y) => x + y);
+
+sum([1,2,3]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

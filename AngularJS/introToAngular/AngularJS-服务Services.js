@@ -521,6 +521,132 @@ function myModuleCfgFn($provide) {
 
 
 
+9.0   
+
+factory方法
+// factory方法要求提供一个对象工厂，调用该类工厂将返回服务实例。
+var myServiceFactory = function(){
+    return ...
+};
+angular.module("myModule",[])
+.factory("myService",myServiceFactory);
+// INSIDE：AngularJS会将factory方法封装为provider，上面的示例 等同于：
+
+var myServiceFactory = function(){
+    return ...
+};
+angular.module("myModule",[])
+.provider("myService",function(){
+    this.$get = myServiceFactory;
+});
+// 右边预置了使用factory方法改写的ezCalculator示例，感受下和provider方法的区别！
+
+angular.module("ezstuff",[])
+  .factory("ezCalculator",function(){
+    return{
+      add:function(a,b){return a+b;},
+      subtract:function(a,b){return a-b;},
+
+    }
+  })
+
+
+10.0   service方法
+// service方法要求提供一个构造函数，AngularJS使用这个构造函数创建服务实例：
+var myServiceClass = function(){
+    this.method1 = function(){...}
+};
+angular.module("myModule",[])
+.service("myService",myServiceClass);
+// INSIDE：AngularJS会将service方法封装为provider，上面的示例 等同于：
+
+var myServiceClass = function(){
+    //class definition.
+};
+angular.module("myModule",[])
+.provider("myService",function(){
+    this.$get = function(){
+        return new myServiceClass();
+    };
+});
+// 右边预置了使用service方法改写的ezCalculator示例，感受下和factory方法的区别！
+var ezCalculatorClass = function(){
+  this.add = function(a,b){return a+b;};
+  this.subtract = function(a,b){return a-b;};
+  this.multiply = function(a,b){return a*b;};
+  this.divide = function(a,b){return a/b;};
+};
+
+angular.module("ezstuff",[])
+.service("ezCalculator",ezCalculatorClass);
+
+
+
+11.0   value方法
+// 有时我们需要在不同的组件之间共享一个变量，可以将这种情况视为一种服务： provider返回的总是变量的值。
+
+// value方法提供了对这种情况的简化封装：
+
+angular.module("myModule",[])
+.value("myValueService","cx129800123");
+// INSIDE：AngularJS会将value方法封装为provider，上面的示例 等同于：
+
+angular.module("myModule",[])
+.provider("myService",function(){
+    this.$get = function(){
+        return "cx129800123";
+    };
+});
+
+//右侧例子
+
+angular.module("ezstuff",[])
+.value("ezUserName","whoami");
+
+
+
+12.0  constant方法
+// 有时我们需要在不同的组件之间共享一个常量，可以将这种情况视为一种服务： provider返回的总是常量的值。
+
+// constant方法提供了对这种情况的简化封装：
+
+angular.module("myModule",[])
+.constant("myConstantService","Great Wall");
+// 和value方法不同，AngularJS并没有将constant方法封装成一个provider，而仅仅 是在内部登记这个值。这使得常量在AngularJS的启动配置阶段就可以使用（创建任何 服务之前）：你可以将常量注入到模块的config()方法中。
+
+// 在右边的示例中，你可以试着将constant()改成value()，看看还能正常运行吗？
+
+angular.module("ezstuff",[])
+  .constant("ezCurrency","CN")
+  .provider("ezCalculator",function(){
+    var currency = "$";
+    this.setLocal = function(l){
+      var repo = {
+        "CN":"¥",
+        "US":"$",
+        "JP":"¥",
+        "EN":"€"
+      };
+      if(repo[l]) currency = repo[l];
+    };
+    this.$get = function(){
+      return {
+        add : function(a,b){return currency + (a+b);},
+        subtract : function(a,b){return currency + (a-b);},
+        multiply : function(a,b){return currency + (a*b);},
+        divide: function(a,b){return currency + (a/b);}
+      }
+    };
+  })
+  .config(function(ezCurrency,ezCalculatorProvider){
+    ezCalculatorProvider.setLocal(ezCurrency);
+  });
+
+
+
+
+
+
 
 
 
