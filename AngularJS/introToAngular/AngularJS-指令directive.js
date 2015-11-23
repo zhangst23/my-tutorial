@@ -208,9 +208,12 @@ var ezCustomerDirectiveFactory = function(){
 }
 // 在上面的例子中，我们在本地scope上定义了两个属性：name和address，这样在 模板中就可以使用name和address了。
 
-// 你应该已经注意到，name属性的值之前有一个@符号，这是一个约定好的标记，它 告诉编译器，本地scope上的name值需要从应用这个指令的DOM元素的name属性值 读取，如果DOM元素的name属性值变了，那么本地scope上的name值也会变化。
+// 你应该已经注意到，name属性的值之前有一个@符号，这是一个约定好的标记，它 告诉编译器，本地scope上的name值需要从应用这个
+// 指令的DOM元素的name属性值 读取，如果DOM元素的name属性值变了，那么本地scope上的name值也会变化。
 
-// 同样，address属性之前的=符号也是一个约定好的标记，它告诉编译器，本地scope 上的address属性值和DOM元素的address属性值指定的外部scope对象上的模型需要 建立双向连接：外部scope上模型的变化会改变本地scope上的address属性，本地 scope上address属性的变化也会改变外部scope上模型的变化。
+// 同样，address属性之前的=符号也是一个约定好的标记，它告诉编译器，本地scope 上的address属性值和DOM元素的address属性值指定
+// 外部scope对象上的模型需要 建立双向连接：外部scope上模型的变化会改变本地scope上的address属性，本地 scope上address属性的
+// 变化也会改变外部scope上模型的变化。
 
 // 有点绕，上个图：
 
@@ -277,12 +280,14 @@ function link(scope, iElement, iAttrs, controller, transcludeFn) { ... }
 // 后两个参数我们先略过。
 
 // 示例
-// 在右边的示例中，我们实现了一个可以指定显示格式的小时钟指令：ezCurrentTime。和原来一样， 我们在link函数中启动定时器，并在定时器中更新DOM。有几点解释下：
+// 在右边的示例中，我们实现了一个可以指定显示格式的小时钟指令：ezCurrentTime。和原来一样， 我们在link函数中启动定时器，
+// 并在定时器中更新DOM。有几点解释下：
 
 // ~ 我们在scope上使用$watch()方法对format的值进行监听，并使用这个值调整显示格式
 // ~ 我们监听element的$destroy事件，这个事件是在DOM对象销毁时触发。我们在这个事件触发时 销毁定时器以释放资源
 // ~ 我们使用了AngularJS内置的$interval服务，而不是setInterval()函数创建定时器。
-// ~ 我们使用了AngularJS内置的dateFilter过滤器服务，对时间的显示进行格式化。 和$interval一样，dateFilter服务也是通过注入器注入的。
+// ~ 我们使用了AngularJS内置的dateFilter过滤器服务，对时间的显示进行格式化。 和$interval一样，dateFilter服务也是
+// 	 通过注入器注入的。
 
 //  右侧例子
 <html ng-app="ezstuff">
@@ -343,7 +348,8 @@ angular.module("ezstuff",[])
 
 3.7    transclude:包含其他元素
 
-// 有些指令需要能够包含其他未知的元素。比如我们定义一个指令ez-dialog，用来 封装对话框的样式和行为，它应当允许在使用期（也就是在界面模板文件里）才指 定其内容：
+// 有些指令需要能够包含其他未知的元素。比如我们定义一个指令ez-dialog，用来 封装对话框的样式和行为，
+// 它应当允许在使用期（也就是在界面模板文件里）才指 定其内容：
 
 <ez-dialog>
     <p>对话框的内容在我们开发ez-dialog指令的时候是无法预计的。这部分内容需要
@@ -358,6 +364,70 @@ angular.module("ezstuff",[])
 // ~ 需要在template属性值中使用ng-transclude指明插入点。
 
 // 右边嵌入了ez-dialog的实现实例。
+
+
+
+4.0  The Hitchhiker’s Guide to the Directive
+https://amitgharat.wordpress.com/2013/06/08/the-hitchhikers-guide-to-the-directive/
+
+4.1  Blueprint?  ->   Directive definitions
+var myModule = angular.module(...);
+myModule.directive('directiveName',function(injectables){
+	return{
+		restrict:'A',
+		template:'<div></div>',
+		templateUrl:'directive.html',
+		relace:false,
+		priority:0,
+		transclude:false,
+		scope:false,
+		terminal:false,
+		require:false,
+		controller:function($scope,$element,$attrs,$transclude,otherInjectables){...},
+		compile:function compile(tElement,tAttrs,transclude){
+			return{
+				pre:function preLink(scope,iElement,iAttrs,controller){...},
+				post:function postLink(scope,iElement,iAttrs,controller){...}
+			}
+		},
+		link:function postLink(scope,iElement,iAttrs){...}
+	};
+})
+
+
+
+
+4.2 ---demo---->
+	   Compile function
+ 	   Link function
+ 	   Restrict 
+	   Template
+	   TemplateUrl
+	   Replace
+	   Priority
+	   Terminal
+	   Controller
+	   Require
+	   Scope
+	   Transclude
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
