@@ -274,13 +274,17 @@ myController.$inject = ['$location'];
 
 
 6.1    创建服务
-// 如果你要创建一个很棒的应用，你可能还是要写自己的服务。(1)你可以通过在模块中注册一个服务工场函数，
-// 或者(2)通过Modeul#factory api或者(3)直接通过模块配置函数中的$provide api来实现。
+// 如果你要创建一个很棒的应用，你可能还是要写自己的服务。
+// (1)你可以通过在模块中注册一个服务工场函数，
+// 或者(2)通过Modeul#factory api
+// 或者(3)直接通过模块配置函数中的$provide api来实现。
 
-// 所有的服务都符合依赖注入的原则。它们用一个唯一的名字将自己注册进AngularJS的依赖注入系统（injector），并且声明需要提供给工场函数的依赖。它们的依赖在测试中可以是虚拟的，这使得它们能很好地被测试。
+// 所有的服务都符合依赖注入的原则。它们用一个唯一的名字将自己注册进AngularJS的依赖注入系统（injector），
+// 并且声明需要提供给工场函数的依赖。它们的依赖在测试中可以是虚拟的，这使得它们能很好地被测试。
 
  6.2  注册服务
-// 要注册服务，你首先要有一个包含该服务的模块。然后你就能通过模块的api或者使用模块配置函数中的$provide服务来注册你的服务了。下面的伪代码显示了这两种方法。
+// 要注册服务，你首先要有一个包含该服务的模块。然后你就能通过模块的api或者使用模块配置函数中的$provide服务来注册你的服务了。
+// 下面的伪代码显示了这两种方法。
 
 // 使用angular.Module api:
 var  myModule = angular.module('myModule',[]);
@@ -299,13 +303,15 @@ angular.module('myModule',[],function($provide){
 	})
 })
 
-// 注意，你不应该注册一个服务实例，而是一个会在被调用时创建实例的工场函数。
+// 注意，你不应该注册一个服务实例，而是一个会在被调用时创建实例的工厂函数。
 
 6.2  依赖
 
-// 服务不仅可以被依赖，还可以有自己的依赖。依赖可以在工场函数的参数中指定。参阅AngularJS的依赖注入系统，和使用依赖的数组表示法和$inject属性来让依赖表示精简化。
+// 服务不仅可以被依赖，还可以有自己的依赖。依赖可以在工场函数的参数中指定。参阅AngularJS的依赖注入系统，
+// 和使用依赖的数组表示法和$inject属性来让依赖表示精简化。
 
-// 下面是一个很简单的服务的例子。这个服务依赖于$window服务（会被当成参数传递给工场函数），并且只是个函数。这个服务的任务是存储所有的通知；在第三个通知以后，服务会用window的alert来输出所有的通知。
+// 下面是一个很简单的服务的例子。这个服务依赖于$window服务（会被当成参数传递给工场函数），并且只是个函数。这个服务的任务是
+// 存储所有的通知；在第三个通知以后，服务会用window的alert来输出所有的通知。
 angular.module('myModule',[],function($provide){
 	$provide.factory('notify',['$window',function(win){
 		var msgs = [];
@@ -322,7 +328,8 @@ angular.module('myModule',[],function($provide){
 
 // 作为单例的服务
 
-// 最好，要注意的是所有AngularJS服务都是单例的。这意味着在每一个注入器中都只有一个需要的服务的实例。因为AngularJS极度讨厌全局的东西，所以是可以创建多个注入器的，并且每个住一起有自己的服务实例。但这种情况很少，除非在测试中，这样的特性才极度重要。
+// 最好，要注意的是所有AngularJS服务都是单例的。这意味着在每一个注入器中都只有一个需要的服务的实例。因为AngularJS极度讨厌
+// 全局的东西，所以是可以创建多个注入器的，并且每个住一起有自己的服务实例。但这种情况很少，除非在测试中，这样的特性才极度重要。
 
 
 
@@ -332,8 +339,8 @@ angular.module('myModule',[],function($provide){
 
 // 因为Javascript是一种动态语言，依赖注入系统无法通过静态类型来知道应该注入什么样的服务（静态类型语言就可以）。
 // 所以，你应该$inject的属性来指定服务的名字，这个属性是一个包含这需要注入的服务的名字字符串的数组。
-// 名字要和服务注册到系统时的名字匹配。服务的名称的顺序也很重要：当执行工场函数时传递的参数是依照数组里的顺序的。
-// 但是工场函数中参数的名字不重要，但最好还是和服务本身的名字一样，下面展示了这样的好处:formatDate
+// 名字要和服务注册到系统时的名字匹配。服务的名称的顺序也很重要：当执行工厂函数时传递的参数是依照数组里的顺序的。
+// 但是工场函数中参数的名字不重要，但最好还是和服务本身的名字一样，下面展示了这样的好处:
 function myController($loc,$log){
 	this.firstMethod = function(){
 		//use $location service
@@ -530,6 +537,7 @@ var myServiceFactory = function(){
 };
 angular.module("myModule",[])
 .factory("myService",myServiceFactory);
+
 // INSIDE：AngularJS会将factory方法封装为provider，上面的示例 等同于：
 
 var myServiceFactory = function(){
@@ -539,6 +547,7 @@ angular.module("myModule",[])
 .provider("myService",function(){
     this.$get = myServiceFactory;
 });
+
 // 右边预置了使用factory方法改写的ezCalculator示例，感受下和provider方法的区别！
 
 angular.module("ezstuff",[])
@@ -558,6 +567,7 @@ var myServiceClass = function(){
 };
 angular.module("myModule",[])
 .service("myService",myServiceClass);
+
 // INSIDE：AngularJS会将service方法封装为provider，上面的示例 等同于：
 
 var myServiceClass = function(){
@@ -569,6 +579,7 @@ angular.module("myModule",[])
         return new myServiceClass();
     };
 });
+
 // 右边预置了使用service方法改写的ezCalculator示例，感受下和factory方法的区别！
 var ezCalculatorClass = function(){
   this.add = function(a,b){return a+b;};
@@ -934,6 +945,7 @@ angular.module('myApp')
 
 
 15.0   Service vs Factory
+
 以下是它们在AngularJS源代码中的定义:
 function factory(namemfactoryFn){
   return provider(name,{ $get:factoryFn });

@@ -397,7 +397,7 @@ myModule.directive('directiveName',function(injectables){
 
 
 
-4.2 ---demo---->
+4.2 ---demo---
 	   Compile function
  	   Link function
  	   Restrict 
@@ -411,9 +411,48 @@ myModule.directive('directiveName',function(injectables){
 	   Scope
 	   Transclude
 
+5.0 
+// 首先我们先来聊聊你列出的directive中的几个属性：
+
+// restrict
+// E： 表示该directive仅能以element方式使用，即：<my-dialog></my-dialog>
+// A： 表示该directive仅能以attribute方式使用，即：<div my-dialog></div>
+// EA: 表示该directive既能以element方式使用，也能以attribute方式使用
+
+// transclude
+// 你的directive可能接受页面上的其他html内容时才会用到，建议你先去掉该参数。有些高阶了。
+
+// scope
+// 当你写上该属性时，就表示这个directive不会从它的controller里继承$scope对象，而是会重新创建一个。
+
+// templateUrl
+// 你的directive里的html内容
+
+// link
+// 可以简单理解为，当directive被angular 编译后，执行该方法
+// 这里你说的没错，link中的第一个参数scope基本上就是你说的上面写的那个scope。
+
+// element简单说就是$('my-dialog')
+
+// attrs是个map，内容是你这个directive上的所有属性，例如：你在页面上如果这样写了directive:
+
+<my-dialog type="modal" animation="fade"></my-dialog>
+// 那attrs就是：
+{
+type: 'modal',
+animation: 'fade'
+}
 
 
 
+// link 的概念可以与 compile 结合起来理解；二者都用于把directive渲染出来。
+
+// compile在编译前执行，负责把template（包括transclude所引用的）变成一个完整的DOM结构。
+// link在编译后执行，负责根据controller和scope里的东东，给compile得到的DOM注册事件、关联数据，或者repeat之。
+
+// 粗暴理解的话，可以认为一个管DOM准备，一个管数据操作。
+
+//参考：http://stackoverflow.com/questions/12164138/what-is-the-difference-between-compile-and-link-function-in-angularjs
 
 
 
