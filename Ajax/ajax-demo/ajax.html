@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+<script>
+//
+$.get(url,[data],[callback],[type]) 
+$.post(url,[data],[callback],[type])
+
+
+
+
+// 加载json数据   跨域请求
+$getJSON(url,[data],[callback])
+$getScript(url,[callback])
+
+
+ // with callback -->
+function testWithCallback(){
+	$.get('/user/allusers',function(data,callbacktype,jqXHR){
+		console.log(data);
+		console.log(callbacktype);
+		console.log(jqXHR);
+
+	})
+}
+
+
+//with data and callback
+function testWithCallback(){
+	$.get('/user/list',{type:1}function(data){
+		console.log(data);
+		
+
+	})
+} 
+
+
+//load
+function testLoad(){
+	$("#container").load('/user/list',{type:1},function(){
+		console.log(arguments);
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
