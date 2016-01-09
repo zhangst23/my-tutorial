@@ -1,0 +1,17 @@
+<div class="issue-list">
+  <% issues.each do |i| %>
+	<article class="issue clearfix">
+		<div class="avatar">
+		  <a href="/happypeter">
+		    <img src="" alt="">
+		  </a>
+		</div>
+		<div class="body">
+			<h5 class="title">
+				<% link_to i.title,"/issues/#{i.id}" %>
+			</h5>
+			<a href="" class="read-more"></a>
+		</div>
+		<span class="meta-data"><a href=""></a></span>
+	</article>
+</div>
