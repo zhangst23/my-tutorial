@@ -63,8 +63,8 @@ rails c
 exit  
 rails g migration AddUsernameToUsers   
 编写   
-rake db:migrate
-完善 app/controllers/pages_controller.rb 中   def profile
+rake db:migrate  
+完善 app/controllers/pages_controller.rb 中   def profile  
 修改 layouts/_nav_user.html.erb 中 <%= current_user.username %>  
 修改 views/pages/profile.html.erb 中 <%= @username %>   
 修改 routes 中 get '/user/:id' => 'pages#profile'  
@@ -78,7 +78,7 @@ rails g model Post content:text user:references
 在 db 文件中 def change ? end 中 编写 add_index :posts, [:user_id, :created_at]   
 rake db:migrate  
 ***
-在 app/models/post.rb  中 添加 validates :user_id 和 :content  和 default_scope
+在 app/models/post.rb  中 添加 validates :user_id 和 :content  和 default_scope  
 在 app/models/user.rb  中 添加 has_many :posts
 ***
 
@@ -88,17 +88,20 @@ rake db:migrate
 # 精缩版
 
 rails new flutter   
-rails g controller Pages index home profiile explore  
+rails g controller Pages index home profile explore  
 gem 'bootstrap-sass', '~> 3.3.5'   
 bundle 
 ***
 gem 'devise'  
 bundle  
 rails g devise:install  
-rails g devise:views rails g devise User
+rails g devise:views   
+rails g devise User
 ***
 rails g migration AddUsernameToUsers   
 rake db:migrate  
 ***
 rails g model Post content:text user:references   
-rake db:migrate  
+rake db:migrate     
+***
+
