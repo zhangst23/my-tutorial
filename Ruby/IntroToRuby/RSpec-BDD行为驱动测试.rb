@@ -21,11 +21,11 @@ bundle exec rspec
 # 此命令的作用是为Rails程序安装RSpec框架，使RSpec取代Test::Unit而存在，
 # 这条命令会建立’.rspec’文件、’spec’目录和’spec/spec_helper.rb’文件，他们分别的作用是：
 
-   ‘.rspec’文件：存放运行rake spec任务时，RSpec需要加载的配置信息。
+   ‘.rspec’   文件：存放运行rake spec任务时，RSpec需要加载的配置信息。
 
-   ‘spec’目录：我们的RSpec测试用例的存放空间，针对mvc，我们可以建立models、views和controllers目录分别存放模型、视图和控制器各个层面的测试用例，每一个测试文件以_spec结尾。
+   ‘spec’   目录：我们的RSpec测试用例的存放空间，针对mvc，我们可以建立models、views和controllers目录分别存放模型、视图和控制器各个层面的测试用例，每一个测试文件以_spec结尾。
 
-   ‘spec/spec_helper.rb’文件：运行测试用例的RSpec配置文件。每一个以_spec结尾的文件都需要引入该文件，即在文件开头添加：require ‘spec_helper’代码。
+   ‘spec/spec_helper.rb’    文件：运行测试用例的RSpec配置文件。每一个以_spec结尾的文件都需要引入该文件，即在文件开头添加：require ‘spec_helper’代码。
 
    ’spec/rails_helper.rb‘
 
