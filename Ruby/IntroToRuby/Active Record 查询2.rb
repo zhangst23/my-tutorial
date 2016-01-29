@@ -73,9 +73,11 @@ end
 
 2 条件查询
 2.1 纯字符串条件
+
 Client.where("orders_count = '2'")
 
 2.2 数组条件
+
 Client.where("orders_count = ?", params[:orders])
 
 Client.where("orders_count = ? AND locked = ?", params[:orders], false)

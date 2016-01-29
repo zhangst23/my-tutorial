@@ -1,0 +1,30 @@
+how-to-send-email-in-rails.rb
+
+
+new blog
+***
+rails g mailer CommentMailer
+#
+app/mailers/comment_mailer.rb
+
+class CommentMailer < ActionMail::Base
+	default from: "poshboytl@gmail.com"
+
+	def comment_notify_email(comment)
+		@comment = 
+	end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

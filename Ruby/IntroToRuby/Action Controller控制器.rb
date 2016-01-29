@@ -93,9 +93,49 @@ ActionDispatch::Session::MemCacheStore：数据存储在 Memcached 集群中（�
 
 5.2 Flash 消息
 # Flash 消息的获取方式和会话差不多，类似 Hash。Flash 消息是 FlashHash 实例。
+
+class LoginsController < ApplicationController
+	def destroy
+		session[:current_user_id] = nil
+		flash[:notice] = "You have successfully logged out."
+		redirect_to root_url
+	end
+end
+
 # Flash 消息还可以直接在转向中设置。可以指定 :notice、:alert 或者常规的 :flash：
+
+redirect_to root_url, notice: "You have successfully logged out."
+redirect_to root_url, alert: "You're stuck here!"
+redirect_to root_url, flash: { referral_code:1234 }
+
+<html>
+  <!-- <head/> -->
+  <body>
+    <% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: name %>
+    <% end -%>
+ 
+    <!-- more content -->
+  </body>
+</html>
+如此一來，如果动作中设置了警告或提醒消息，就会出现在布局中
+
+
 # Flash 不局限于警告和提醒，可以设置任何可在会话中存储的内容：
+
+# <% if flash[:just_signed_up] %>
+#   <p class="welcome">Welcome to our site!</p>
+# <% end %>
+
 # 如果希望 Flash 消息保留到其他请求，可以使用 keep 方法：
+
+class MainController < ApplicationController
+	def index
+		flash.keep
+		redirect_to users_url
+	end
+end
+
 
 5.2.1 flash.now
 
@@ -103,19 +143,160 @@ ActionDispatch::Session::MemCacheStore：数据存储在 Memcached 集群中（�
 # 会直接渲染 new 模板，这并不是一个新请求，但却希望希望显示一个 Flash 消息。针对这种情况，可以使用 flash.now，
 # 用法和 flash 一样：
 
+class ClientsController < ApplicationController
+	def create
+		@client = Client.new(params[:client])
+		if @client.save
+			#...
+		else
+			flash.now[:error] = "Could not save client"
+			render action: "new"
+		end
+	end
+end
+
+
+
+
+
+
+
+
 6 Cookies
 程序可以在客户端存储少量数据（称为 cookie），在多次请求中使用，甚至可以用作会话。在 Rails 中可以使用 cookies 方法轻松获取 cookies，用法和 session 差不多，就像一个 Hash：
+
+class CommentsController < ApplicationController
+	def new
+		@comment = Comment.new(author: cookies[:commenter_name])
+	end
+
+	def create
+		@comment = Comment.new(params[:comment])
+		if @comment.save
+			flash[:notice] = "Thanks for your comment!"
+			if params[:remember_name]
+				cookies[:commenter_name] = @comment.author
+			else
+				cookies.delete(:commenter_name)
+			end
+			redirect_to @comment.article
+		else
+			render action: "new"
+		end
+	end
+end
+
+
+
+
 
 7 渲染 XML 和 JSON 数据
 在 ActionController 中渲染 XML 和 JSON 数据非常简单。使用脚手架生成的控制器如下所示：
 
+class UsersController < ApplicationController
+  def index
+    @users = User.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render xml: @users}
+      format.json { render json: @users}
+    end
+  end
+end
+
+
 8 过滤器
 
+class ApplicationController < ActionController::Base
+  before_action :require_login
+ 
+  private
+ 
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to new_login_url # halts request cycle
+    end
+  end
+end
+
+# 如果用户没有登录，这个方法会在 Flash 中存储一个错误消息，然后转向登录表单页面。如果前置过滤器渲染了页面或者做了转向，动作就不会运行。如果动作上还有后置过滤器，也不会运行。
+
+# 在上面的例子中，过滤器在 ApplicationController 中定义，所以程序中的所有控制器都会继承。程序中的所有页面都要求用户登录后才能访问。很显然（这样用户根本无法登录），并不是所有控制器或动作都要做这种限制。如果想跳过某个动作，可以使用 skip_before_action：
+
+class LoginsController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create]
+end
+
+
 8.1 后置过滤器和环绕过滤器
+
+# 后置过滤器类似于前置过滤器，不过因为动作已经运行了，所以可以获取即将发送给客户端的响应数据。显然，后置过滤器无法阻止运行动作。
+
+# 环绕过滤器会把动作拉入（yield）过滤器中，工作方式类似 Rack 中间件。
+
+# 例如，网站的改动需要经过管理员预览，然后批准。可以把这些操作定义在一个事务中：
+
+class ChangesController < ApplicationController
+	around_action :wrap_in_transaction, only: :show
+
+	private
+
+	def wrap_in_transaction
+		ActiveRecord::Base.transaction do
+			begin
+				yield
+			ensure
+				rails ActiveRecord::Rollback
+			end
+		end
+	end
+end
+
+# 注意，环绕过滤器还包含了渲染操作。在上面的例子中，视图本身是从数据库中读取出来的（例如，通过作用域（scope）），读取视图的操作在事务中完成，然后提供预览数据。
+
+
+
 8.2 过滤器的其他用法
+# 一般情况下，过滤器的使用方法是定义私有方法，然后调用相应的 *_action 方法添加过滤器。不过过滤器还有其他两种用法。
+
+# 第一种，直接在 *_action 方法中使用代码块。代码块接收控制器作为参数。使用这种方法，前面的 require_login 过滤器可以改写成：
+
+class ApplicationController < ApplicationController::Base
+	before_action do |controller|
+		unless controller.send(:logged_in?)
+			flash[:error] = "You must be logged in to access this section"
+			redirect_to new_login_url
+		end
+	end
+end
+
+
+# 注意，此时在过滤器中使用的是 send 方法，因为 logged_in? 是私有方法，而且过滤器和控制器不在同一作用域内。定义 require_login 过滤器不推荐使用这种方法，但比较简单的过滤器可以这么用。
+
+# 第二种，在类（其实任何能响应正确方法的对象都可以）中定义过滤器。这种方法用来实现复杂的过滤器，使用前面的两种方法无法保证代码可读性和重用性。例如，可以在一个类中定义前面的 require_login 过滤器：
+
+class ApplicationController < ActionController::Base
+  before_action LoginFilter
+end
+ 
+class LoginFilter
+  def self.before(controller)
+    unless controller.send(:logged_in?)
+      controller.flash[:error] = "You must be logged in to access this section"
+      controller.redirect_to controller.new_login_url
+    end
+  end
+end
+
+
 
 9 防止请求伪造
 跨站请求伪造（CSRF）是一种工具方式
+
+# 安全指南一文更深入的介绍了请求伪造防范措施，还有一些开发网页程序需要知道的安全隐患。
+
+
 
 10 request 和 response 对象
 10.1 request 对象
@@ -131,11 +312,123 @@ Rails 内建了两种 HTTP 身份认证方式：
 
 
 12 数据流和文件下载
+
+# 有时不想渲染 HTML 页面，而要把文件发送给用户。在所有的控制器中都可以使用 send_data 和 send_file 方法。这两个方法都会以数据流的方式发送数据。send_file 方法很方便，只要提供硬盘中文件的名字，就会用数据流发送文件内容。
+
+require "prawn"
+class ClientsController < ApplicationController
+	def download_pdf
+		client = Client.find(params[:id])
+		send_data generate_pdf(client),
+				  filename: "#{client.name}.pdf",
+				  type: "application/pdf"
+	end
+
+	private
+		def generate_pdf(client)
+			Prawn::Document.new do
+				text client.name, align: :center
+				text "Address: #{client.address}"
+				text "Email: #{client.email}"
+			end.render
+		end
+end
+
+# download_pdf 动作调用私有方法 generate_pdf。generate_pdf 才是真正生成 PDF 的方法，返回值字符串形式的文件内容。返回的字符串会以数据流的形式发送给客户端，并为用户推荐一个文件名。有时发送文件流时，并不希望用户下载这个文件，比如嵌在 HTML 页面中的图片。告诉浏览器文件不是用来下载的，可以把 :disposition 选项设为 "inline"。这个选项的另外一个值，也是默认值，是 "attachment"
+
 12.1 发送文件
 如果想发送硬盘上已经存在的文件，可以使用 send_file 方法。
+
+class ClientsController < ApplicationController
+  # Stream a file that has already been generated and stored on disk.
+  def download_pdf
+    client = Client.find(params[:id])
+    send_file("#{Rails.root}/files/clients/#{client.id}.pdf",
+              filename: "#{client.name}.pdf",
+              type: "application/pdf")
+  end
+end
+
+# send_file 一次只发送 4kB，而不是一次把整个文件都写入内存。如果不想使用数据流方式，可以把 :stream 选项设为 false。如果想调整数据块大小，可以设置 :buffer_size 选项。
+
+# 如果没有指定 :type 选项，Rails 会根据 :filename 中的文件扩展名猜测。如果没有注册扩展名对应的文件类型，则使用 application/octet-stream。
+
+
 12.2 使用 REST 的方式下载文件
+
+class ClientsController < ApplicationController
+  # The user can request to receive this resource as HTML or PDF.
+  def show
+    @client = Client.find(params[:id])
+ 
+    respond_to do |format|
+      format.html
+      format.pdf { render pdf: generate_pdf(@client) }
+    end
+  end
+end
+
 12.3 任意数据的实时流
+
+
+# 在 Rails 中，不仅文件可以使用数据流的方式处理，在响应对象中，任何数据都可以视作数据流。ActionController::Live 模块可以和浏览器建立持久连接，随时随地把数据传送给浏览器。
+
 12.3.1 使用实时流
+
+把 ActionController::Live 模块引入控制器中后，所有的动作都可以处理数据流。
+
+class MyController < ActionController::Base
+  include ActionController::Live
+ 
+  def stream
+    response.headers['Content-Type'] = 'text/event-stream'
+    100.times {
+      response.stream.write "hello world\n"
+      sleep 1
+    }
+  ensure
+    response.stream.close
+  end
+end
+# 上面的代码会和浏览器建立持久连接，每秒一次，共发送 100 次 "hello world\n"。
+
+# 关于这段代码有一些注意事项。必须关闭响应数据流。如果忘记关闭，套接字就会一直处于打开状态。发送数据流之前，还要把内容类型设为 text/event-stream。因为响应发送后（response.committed 返回真值后）就无法设置报头了。
+
+12.3.2 使用举例
+
+# 架设你在制作一个卡拉 OK 机，用户想查看某首歌的歌词。每首歌（Song）都有很多行歌词，每一行歌词都要花一些时间（num_beats）才能唱完。
+
+# 如果按照卡拉 OK 机的工作方式，等上一句唱完才显示下一行，就要使用 ActionController::Live：
+
+class LyricsController < ActionController::Base
+  include ActionController::Live
+ 
+  def show
+    response.headers['Content-Type'] = 'text/event-stream'
+    song = Song.find(params[:id])
+ 
+    song.each do |line|
+      response.stream.write line.lyrics
+      sleep line.num_beats
+    end
+  ensure
+    response.stream.close
+  end
+end
+# 在这段代码中，只有上一句唱完才会发送下一句歌词。
+
+12.3.3 使用数据流时的注意事项
+
+# 以数据流的方式发送任意数据是个强大的功能，如前面几个例子所示，你可以选择何时发送什么数据。不过，在使用时，要注意以下事项：
+
+# 每次以数据流形式发送响应时都会新建一个线程，然后把原线程中的本地变量复制过来。线程中包含太多的本地变量会降低性能。而且，线程太多也会影响性能。
+# 忘记关闭响应流会导致套接字一直处于打开状态。使用响应流时一定要记得调用 close 方法。
+# WEBrick 会缓冲所有响应，因此引入 ActionController::Live 也不会有任何效果。你应该使用不自动缓冲响应的服务器
+
+
+
+
+
 
 
 13 过滤日志

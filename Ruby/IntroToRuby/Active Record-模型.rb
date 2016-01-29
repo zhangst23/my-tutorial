@@ -61,10 +61,10 @@ user = User.new do |u|
   u.occupation = "Code Artist"
 end
 
-5.2 读取
+5.2 读取  
 users = User.all
 user = User.first
-davie = User.find_by(name: 'David')
+david = User.find_by(name: 'David')
 users = User.where(name: 'David',occupation: 'Code Artist').order('create_at DESC')
 
 
@@ -96,14 +96,14 @@ rake db:migrate
 
 8.1   下面是一个迁移示例：
 class CreateProducts < ActiveRecord::Migration
-	def change
-		create_table :products do |t|
-			t.string :name
-			t.text :description
+  def change
+    create_table :products do |t|
+      t.string :name
+      t.text :description
 
-			t.timestamps
-		end
-	end
+      t.timestamps
+    end
+  end
 end
 
 如果想在迁移中执行 Active Record 不知如何撤销的操作，可以使用 reversible 方法：
@@ -151,17 +151,18 @@ rails g migration CreateJoinTableCustomerProduct customer product
 
 
 8.2.2 模型生成器
-模型生成器和脚手架生成器会生成合适的迁移，创建模型。迁移中会包含创建所需数据表的代码。如果在生成器中指定了字段，还会生成创建字段的代码。例如，运行下面的命令：
+# 模型生成器和脚手架生成器会生成合适的迁移，创建模型。迁移中会包含创建所需数据表的代码。
+# 如果在生成器中指定了字段，还会生成创建字段的代码。例如，运行下面的命令：
 
 rails generate model Product name:string description:text
 
 
 8.2.3 支持的类型修饰符
-在字段类型后面，可以在花括号中添加选项。可用的修饰符如下：
+# 在字段类型后面，可以在花括号中添加选项。可用的修饰符如下：
 
 limit：设置 string/text/binary/integer 类型字段的最大值；
-precision：设置 decimal 类型字段的精度，即数字的位数；
-scale：设置 decimal 类型字段小数点后的数字位数；
+  precision：设置 decimal 类型字段的精度，即数字的位数；
+  scale：设置 decimal 类型字段小数点后的数字位数；
 polymorphic：为 belongs_to 关联添加 type 字段；
 null：是否允许该字段的值为 NULL；
 
@@ -201,8 +202,8 @@ create_join_table :products, table_name: :categorization
 
 # 
 create_join_table :products, :categories do |t|
-	t.index :product_id
-	t.index :category_id
+  t.index :product_id
+  t.index :category_id
 end
 
 
@@ -217,7 +218,8 @@ end
 
 
 3.5 使用 change 方法
-change 是迁移中最常用的方法，大多数情况下都能完成指定的操作，而且 Active Record 知道如何撤这些操作。目前，在 change 方法中只能使用下面的方法：
+# change 是迁移中最常用的方法，大多数情况下都能完成指定的操作，而且 Active Record 知道如何撤这些操作。
+# 目前，在 change 方法中只能使用下面的方法：
 
 add_column
 add_index
@@ -232,23 +234,29 @@ rename_column
 rename_index
 remove_reference
 rename_table
+
 只要在块中不使用 change、change_default 或 remove 方法，change_table 中的操作也是可逆的。
 
 如果要使用任何其他方法，可以使用 reversible 方法，或者不定义 change 方法，而分别定义 up 和 down 方法。
 
 
 3.6 使用 reversible 方法
+
 Active Record 可能不知如何撤销复杂的迁移操作，这时可以使用 reversible 方法指定运行迁移和撤销迁移时怎么操作。例如：
 
 
 
 3.7 使用 up 和 down 方法
-在迁移中可以不用 change 方法，而用 up 和 down 方法。up 方法定义要对数据库模式做哪些操作，down 方法用来撤销这些操作。
-也就是说，如果执行 up 后立即执行 down，数据库的模式应该没有任何变化。例如，在 up 中创建了数据表，在 down 方法中就要将其删除。
+
+# 在迁移中可以不用 change 方法，而用 up 和 down 方法。
+up 方法定义要对数据库模式做哪些操作，down 方法用来撤销这些操作。
+也就是说，如果执行 up 后立即执行 down，数据库的模式应该没有任何变化。
+例如，在 up 中创建了数据表，在 down 方法中就要将其删除。
 撤销时最好按照添加的相反顺序进行。前一节中的 reversible 用法示例代码可以改成：
 
 
 3.8 撤销之前的迁移
+
 Active Record 提供了撤销迁移的功能，通过 revert 方法实现：
 
 require_relative '2012121212_example_migration'
@@ -278,6 +286,7 @@ rake db:migrate:redo STEP=3
 
 
 4.2 搭建数据库
+
 rake db:setup 任务会创建数据库，加载模式，并填充种子数据。
 
 4.3 重建数据库
@@ -285,7 +294,9 @@ rake db:reset 任务会删除数据库，然后重建，等价于 rake db:drop d
 
 
 4.4 运行指定的迁移
-如果想执行指定迁移，或者撤销指定迁移，可以使用 db:migrate:up 和 db:migrate:down 任务，指定相应的版本号，就会根据需求调用 change、up 或 down 方法。例如：
+
+如果想执行指定迁移，或者撤销指定迁移，可以使用 db:migrate:up 和 db:migrate:down 任务，
+指定相应的版本号，就会根据需求调用 change、up 或 down 方法。例如：
 
 
 
