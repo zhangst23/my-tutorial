@@ -23,6 +23,32 @@ def new
 end
 
 4 参数
+
+class ClientsController < ApplicationController
+  def index
+    if params[:status] == "activated"
+      @clients = Client.activated
+    else
+      @clients = Client.inactivated
+    end
+  end
+
+  def create
+    @client = Client.new(params[:client])
+    if @client.save
+      redirect_to @client
+    else
+      render "new"
+    end
+  end
+end
+
+
+
+
+
+
+
 4.1 Hash 
 # params Hash 不局限于只能使用一维键值对，其中可以包含数组和嵌套的 Hash。要发送数组，需要在键名后加上一对空方括号（[]）：
 GET /clients?ids[]=1&ids[]=2&ids[]=3
@@ -32,7 +58,9 @@ GET /clients?ids[]=1&ids[]=2&ids[]=3
 4.2 JSON 参数
 # 接收 JSON 格式的参数更容易处理。如果请求的 Content-Type 报头是 application/json，Rails 会自动将其转换成 params Hash，按照常规的方法使用：
 
-4.3 
+
+
+4.3 Routing Parameters
 # params Hash 总有 :controller 和 :action 两个键，但获取这两个值应该使用 controller_name 和 action_name 方法。
 # 路由中定义的参数，例如 :id，也可通过 params Hash 获取。例如，假设有个客户列表，可以列出激活和禁用的客户。我们可以定义一个路由，捕获下面这个 URL 中的 :status 参数：
 
@@ -48,12 +76,41 @@ class ApplicationController < ActionController::Base
 end
 
 4.5 健壮参数
-# 加入健壮参数功能后，Action Controller 的参数禁止在 Avtive Model 中批量赋值，除非参数在白名单中。也就是说，你要明确选择那些属性可以批量更新，避免意外把不该暴露的属性暴露了。
+# 加入健壮参数功能后，Action Controller 的参数禁止在 Avtive Model 中批量赋值，除非参数在
+# 白名单中。也就是说，你要明确选择那些属性可以批量更新，避免意外把不该暴露的属性暴露了。
+
+class PeopleController < ActionController::Base
+  def create
+    Person.create(params[:person])
+  end
+
+  def update
+    person = current_account.people.find(params[:id])
+    person.update!(person_params)
+    redirect_to person
+  end
+
+  private
+
+    def person_params
+      params.require(:person).permit(:name, :age)
+    end
+
+end
+
+
+
+
 4.5.1 允许使用的标量值
 
 假如允许传入 :id：
 
 params.permit(:id)
+
+params.permit(id: [])
+
+params.require(:log_entry).permit!
+
 
 4.5.2 嵌套参数
 
@@ -71,6 +128,12 @@ params.permit(:name, { emails: [] },
 # using `fetch` you can supply a default and use
 # the Strong Parameters API from there.
 params.fetch(:blog, {}).permit(:title, :author)
+
+params.require(:author).permit(:name, books_attributes: [:title, :id, :_destroy])
+
+params.require(:book).permit(:title, chapters_attributes: [:title])
+
+
 
 4.5.4 不用健壮参数
 
