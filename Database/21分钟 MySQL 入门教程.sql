@@ -33,11 +33,11 @@
 4.0    使用MySQL数据库
 
 4.1  登录到MySql
-mysql -h 主机名 -u 用户名 -p
+-- mysql -h 主机名 -u 用户名 -p
 
--h:该命令用于指定客户端索要登录的MySQL主机名，登录当前机器该参数可以省略
--u:所要登录的用户名
--p:告诉服务器将会使用一个密码来登陆，如果所要登陆的用户名密码为空，可以忽略此选项
+-- -h:该命令用于指定客户端索要登录的MySQL主机名，登录当前机器该参数可以省略
+-- -u:所要登录的用户名
+-- -p:告诉服务器将会使用一个密码来登陆，如果所要登陆的用户名密码为空，可以忽略此选项
 
 
 4.2   创建一个数据库
@@ -45,21 +45,14 @@ create database 数据库名[其它选项];
 
 create database samp_db character set gdk;
 
+create database gregs_list CHARACTER set utf8mb4 COLLATE = utf8mb4_unicode_ci; 创建数据库 gregs_list
+show databases; 列出当前所有的数据库
+use gregs_list; 使用 gregs_list 这个数据库
+create table my_contacts ( last_name varchar(30), first_name varchar(20), email varchar(50), gender char(1), birthday date, profession varchar(50), location varchar(50), status varchar(20), interests varchar(100), seeking varchar(100) ); 创建 my_contacts 表
+desc my_contacts; 查看 my_contacts 表
+drop table my_contacts; 删除 my_contacts 表
+show create table my_contacts; 返回建表的 create table 语句
 
-提示：show databases;   命令查看已经创建了哪些数据库
-
-
-4.3   选择所要操作的数据库
-
-两种方式对数据库进行使用的选择:
-
-一: 在登录数据库时指定, 命令: mysql -D 所选择的数据库名 -h 主机名 -u 用户名 -p
-
-例如登录时选择刚刚创建的数据库: mysql -D samp_db -u root -p
-
-二: 在登录后使用 use 语句指定, 命令: use 数据库名;
-
-use 语句可以不加分号, 执行 use samp_db 来选择刚刚创建的数据库, 选择成功后会提示: Database changed
 
 
 
@@ -85,10 +78,8 @@ mysql -D samp_db -u root -p < createtable.sql
 
 
 4.4.1  语句解说:
-
 create table tablename(columns) 为创建数据库表的命令, 列的名称以及该列的数据类型将在括号内完成;
-
-括号内声明了5列内容, id、name、sex、age、tel为每列的名称, 后面跟的是数据类型描述, 列与列的描述之间用逗号(,)隔开;
+-- 括号内声明了5列内容, id、name、sex、age、tel为每列的名称, 后面跟的是数据类型描述, 列与列的描述之间用逗号(,)隔开;
 
 以 "id int unsigned not null auto_increment primary key" 行进行介绍:
 
@@ -107,69 +98,60 @@ create table tablename(columns) 为创建数据库表的命令, 列的名称以�
 5.0   操作MySQL数据库
 
 5.1  向表中插入数据
-
 insert [into] 表名 [(列名1, 列名2, 列名3, ...)] values (值1, 值2, 值3, ...);
-
-
 insert into students values(NULL, "王刚", "男", 20, "13811371377");
+
+
+INSERT INTO table (col1, col2, ..., coln)
+SELECT col1, col2, ..., coln
+FROM table
+WHERE entry_date < '2011-01-01 00:00:00';
+
 
 
 5.2   查询表中的数据
 
 select 列名称 from 表名称 [查询条件];
-
-例如要查询 students 表中所有学生的名字和年龄, 输入语句 select name, age from students; 执行结果如下:
-
-	mysql> select name, age from students;
+-- 例如要查询 students 表中所有学生的名字和年龄, 输入语句 select name, age from students; 执行结果如下:
+mysql> select name, age from students;
 
 
 5.3   按特定条件查询:
+-- where 关键词用于指定查询条件, 用法形式为: select 列名称 from 表名称 where 条件;
+-- 以查询所有性别为女的信息为例, 输入查询语句: select * from students where sex="女";
+-- where 子句不仅仅支持 "where 列名 = 值" 这种名等于值的查询形式, 对一般的比较运算的运算符都是支持的, 例如 =、>、<、>=、<、!= 以及一些扩展运算符 is [not] null、in、like 等等。 还可以对查询条件使用 or 和 and 进行组合查询, 以后还会学到更加高级的条件查询方式, 这里不再多做介绍。
 
-where 关键词用于指定查询条件, 用法形式为: select 列名称 from 表名称 where 条件;
-
-以查询所有性别为女的信息为例, 输入查询语句: select * from students where sex="女";
-
-where 子句不仅仅支持 "where 列名 = 值" 这种名等于值的查询形式, 对一般的比较运算的运算符都是支持的, 例如 =、>、<、>=、<、!= 以及一些扩展运算符 is [not] null、in、like 等等。 还可以对查询条件使用 or 和 and 进行组合查询, 以后还会学到更加高级的条件查询方式, 这里不再多做介绍。
-
-示例:
-
-查询年龄在21岁以上的所有人信息: select * from students where age > 21;
-
-查询名字中带有 "王" 字的所有人信息: select * from students where name like "%王%";
-
-查询id小于5且年龄大于20的所有人信息: select * from students where id<5 and age>20;
+-- 示例:
+-- 查询年龄在21岁以上的所有人信息: select * from students where age > 21;
+-- 查询名字中带有 "王" 字的所有人信息: select * from students where name like "%王%";
+-- 查询id小于5且年龄大于20的所有人信息: select * from students where id<5 and age>20;
 
 
 
 5.4    更新表中的数据
-
 update 语句可用来修改表中的数据, 基本的使用形式为:
-
 update 表名称 set 列名称=新值 where 更新条件;
 
-使用示例:
-
-将id为5的手机号改为默认的"-": update students set tel=default where id=5;
-
-将所有人的年龄增加1: update students set age=age+1;
-
-将手机号为 13288097888 的姓名改为 "张伟鹏", 年龄改为 19: update students set name="张伟鹏", age=19 where tel="13288097888";
+-- 使用示例:
+-- 将id为5的手机号改为默认的"-": 
+update students set tel=default where id=5;
+-- 将所有人的年龄增加1: 
+update students set age=age+1;
+-- 将手机号为 13288097888 的姓名改为 "张伟鹏", 年龄改为 19: 
+update students set name="张伟鹏", age=19 where tel="13288097888";
 
 
 
 5.5    删除表中的数据
-
 delete 语句用于删除表中的数据, 基本用法为:
-
 delete from 表名称 where 删除条件;
-
-使用示例:
-
-删除id为2的行: delete from students where id=2;
-
-删除所有年龄小于21岁的数据: delete from students where age<20;
-
-删除表中的所有数据: delete from students;
+-- 使用示例:
+-- 删除id为2的行: 
+delete from students where id=2;
+-- 删除所有年龄小于21岁的数据: 
+delete from students where age<20;
+-- 删除表中的所有数据: 
+delete from students;
 
 
 
@@ -177,76 +159,60 @@ delete from 表名称 where 删除条件;
 
 
 6.0   创建后表的修改
-
 alter table 语句用于创建后对表的修改, 基础用法如下:
 
 6.1  添加列
-
 基本形式: alter table 表名 add 列名 列数据类型 [after 插入位置];
-
-示例:
-
-在表的最后追加列 address: alter table students add address char(60);
-
-在名为 age 的列后插入列 birthday: alter table students add birthday date after age;
+-- 示例:
+-- 在表的最后追加列 address: 
+alter table students add address char(60);
+-- 在名为 age 的列后插入列 birthday: 
+alter table students add birthday date after age;
 
 6.2   修改列
-
 基本形式: alter table 表名 change 列名称 列新名称 新数据类型;
-
-示例:
-
-将表 tel 列改名为 telphone: alter table students change tel telphone char(13) default "-";
-
-将 name 列的数据类型改为 char(16): alter table students change name name char(16) not null;
+-- 示例:
+-- 将表 tel 列改名为 telphone: 
+alter table students change tel telphone char(13) default "-";
+-- 将 name 列的数据类型改为 char(16): 
+alter table students change name name char(16) not null;
 
 6.3   删除列
-
 基本形式: alter table 表名 drop 列名称;
-
-示例:
-
-删除 birthday 列: alter table students drop birthday;
+-- 示例:
+-- 删除 birthday 列: 
+alter table students drop birthday;
 
 6.4   重命名表
-
 基本形式: alter table 表名 rename 新表名;
-
-示例:
-
-重命名 students 表为 workmates: alter table students rename workmates;
+-- 示例:
+-- 重命名 students 表为 workmates: 
+alter table students rename workmates;
 
 6.5    删除整张表
-
 基本形式: drop table 表名;
-
-示例: 删除 workmates 表: drop table workmates;
+-- 示例: 删除 workmates 表: 
+-- drop table workmates;
 
 6.6    删除整个数据库
-
 基本形式: drop database 数据库名;
-
-示例: 删除 samp_db 数据库: drop database samp_db;
+-- 示例: 删除 samp_db 数据库: 
+drop database samp_db;
 
 
 
 7.0 
-修改 root 用户密码
-
-按照本文的安装方式, root 用户默认是没有密码的, 重设 root 密码的方式也较多, 这里仅介绍一种较常用的方式。
-
-使用 mysqladmin 方式:
-
-打开命令提示符界面, 执行命令: mysqladmin -u root -p password 新密码
+-- 修改 root 用户密码
+-- 按照本文的安装方式, root 用户默认是没有密码的, 重设 root 密码的方式也较多, 这里仅介绍一种较常用的方式。
+-- 使用 mysqladmin 方式:
+-- 打开命令提示符界面, 执行命令: 
+mysqladmin -u root -p password 新密码
 
 
 
 7.1
 可视化管理工具 MySQL Workbench
-
 尽管我们可以在命令提示符下通过一行行的输入或者通过重定向文件来执行mysql语句, 但该方式效率较低, 由于没有执行前的语法自动检查, 输入失误造成的一些错误的可能性会大大增加, 这时不妨试试一些可视化的MySQL数据库管理工具, MySQL Workbench 就是 MySQL 官方 为 MySQL 提供的一款可视化管理工具, 你可以在里面通过可视化的方式直接管理数据库中的内容, 并且 MySQL Workbench 的 SQL 脚本编辑器支持语法高亮以及输入时的语法检查, 当然, 它的功能强大, 绝不仅限于这两点。
-
-
 
 
 8.0
