@@ -1,0 +1,1 @@
+Rails View 整理技巧.rb
