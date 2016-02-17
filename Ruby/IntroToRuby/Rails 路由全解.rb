@@ -94,21 +94,21 @@ DELETE	/admin/articles/:id	admin/articles#destroy	admin_article_path(:id)
 
 
 # 如果想把 /articles（前面没有 /admin）映射到 Admin::ArticlesController 控制器上，可以这么声明：
-
 scope module: 'admin' do
   resources :articles, :comments
 end
+
 # 如果只有一个资源，还可以这么声明：
-
 resources :articles, module: 'admin'
-# 如果想把 /admin/articles 映射到 ArticlesController 控制器（不在 Admin:: 命名空间内），可以这么声明：
 
+# 如果想把 /admin/articles 映射到 ArticlesController 控制器（不在 Admin:: 命名空间内），可以这么声明：
 scope '/admin' do
   resources :articles, :comments
 end
-# 如果只有一个资源，还可以这么声明：
 
+# 如果只有一个资源，还可以这么声明：
 resources :articles, path: '/admin/articles'
+
 # 在上述两种用法中，具名路由没有变化，跟不用 scope 时一样。在后一种用法中，映射到 ArticlesController 控制器上的路径如下：
 
 
@@ -117,7 +117,6 @@ resources :articles, path: '/admin/articles'
 2.7 嵌套资源
 
 # 开发程序时经常会遇到一个资源是其他资源的子资源这种情况。假设程序中有如下的模型：
-
 class Magazine < ActiveRecord::Base
   has_many :ads
 end
@@ -125,8 +124,8 @@ end
 class Ad < ActiveRecord::Base
   belongs_to :magazine
 end
-# 在路由中可以使用“嵌套路由”反应这种关系。针对这个例子，可以声明如下路由：
 
+# 在路由中可以使用“嵌套路由”反应这种关系。针对这个例子，可以声明如下路由：
 resources :magazines do
 	resources :ads
 end
@@ -139,39 +138,36 @@ end
 2.7.1 嵌套限制
 
 # 嵌套路由可以放在其他嵌套路由中，例如：
-
 resources :publishers do
   resources :magazines do
     resources :photos
   end
 end
 
+
 # 嵌套资源不可超过一层。
 
 2.7.2 浅层嵌套
 
 # 避免深层嵌套的方法之一，是把控制器集合动作放在父级资源中，表明层级关系，但不嵌套成员动作。也就是说，用最少的信息表明资源的路由关系，如下所示：
-
 resources :articles do
 	resources :comments, only: [:index, :new, :create]
 end
 resources :comments, only: [:show, :edit, :update, :destroy]
 
 # 这种做法在描述路由和深层嵌套之间做了适当的平衡。上述代码还有简写形式，即使用 :shallow 选项：
-
 resources :articles do
   resources :comments, shallow: true
 end
 
 # 这种形式生成的路由和前面一样。:shallow 选项还可以在父级资源中使用，此时所有嵌套其中的资源都是浅层嵌套：
-
 resources :articles, shallow: true do
   resources :comments
   resources :quotes
   resources :drafts
 end
-# shallow 方法可以创建一个作用域，其中所有嵌套都是浅层嵌套。如下代码生成的路由和前面一样：
 
+# shallow 方法可以创建一个作用域，其中所有嵌套都是浅层嵌套。如下代码生成的路由和前面一样：
 shallow do
   resources :articles do
     resources :comments
@@ -179,8 +175,8 @@ shallow do
     resources :drafts
   end
 end
-# scope 方法有两个选项可以定制浅层嵌套路由。:shallow_path 选项在成员路径前加上指定的前缀：
 
+# scope 方法有两个选项可以定制浅层嵌套路由。:shallow_path 选项在成员路径前加上指定的前缀：
 scope shallow_path: "sekret" do
   resources :articles do
     resources :comments, shallow: true
