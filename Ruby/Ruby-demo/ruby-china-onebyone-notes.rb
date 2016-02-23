@@ -139,33 +139,50 @@ gem "redis-objects", "0.5.2"
 public/javascripts/jquery.timeago.js
 
 
+11   Omniauth login fixed.
+gem 'omniauth', '0.3.0'
 
 
 
 
+12
+Fix asset pipeline in production environment.
+Add hot key for Submit Reply.
+# 一个jQuery热键插件:js-hotkeys
 
 
 
 
+13  
+
+Add Posts feature
+
+
+Homeland ---> RubyChina
 
 
 
+14
+
+gem "cells", "3.6.7"
+
+
+15
+Add wiki Control Panel feature.
 
 
 
+16
+Wiki Markdown improve.
+Change Markdown to Rdiscount to use C impelement version Markdown
+
+gem "rdiscount","1.6.8"
 
 
 
+17
 
-
-
-
-
-
-
-
-
-
+Add Capistrano deploy script.
 
 
 

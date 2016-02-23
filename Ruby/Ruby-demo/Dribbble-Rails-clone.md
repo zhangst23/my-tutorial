@@ -24,7 +24,7 @@ views/ 填充内容 ，controllers/ 填充内容 ，并进行关联
 ***
 rails g devise User  
 rake db:migrate  
-rails g migration add\_user\_id\_to\_post user\_id:integer  
+rails g migration add_user_id_to_post user_id:integer  
 rake db:migrate  
 Post 和 User 表的 关联：belongs_to , has_many  
 PostsController 修改 Post.new 为 current_user.posts.build  

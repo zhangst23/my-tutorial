@@ -1,28 +1,29 @@
 rails new wiki  
+rails s
 // add some gems  
 bundle install  
 
 ***
-git init   
-git status  
-git add -A  
-git commit -m"Initialize repository"  
-git mv README.rdoc README.md  
-git commit -am "Improve the README"  
+		git init   
+		git status  
+		git add -A  
+		git commit -m"Initialize repository"  
+		git mv README.rdoc README.md  
+		git commit -am "Improve the README"  
 ***
 rails g model Article title:string content:text  
 rails g controller Articles  
 // 往articles_controller.rb添加index页面  
 // 往route.rb里添加resources :articles 和 root 'articles#index'   
- rake db:migrate  
+rake db:migrate  
 ***  
 // 创建index.html.haml文件  
 // 往articles_controller.rb添加new create private(article_params)页面  
 // 创建 _form.html.haml new.html.haml create.html.haml 等views文件  
 ***
-git status  
-git add .  
-git commit -am"Add articles model, controller, views"  
+		git status  
+		git add .  
+		git commit -am"Add articles model, controller, views"  
 ***
 rails g simple_form:install --bootstrap  
 rails s  
@@ -32,17 +33,17 @@ rails s
 ***
 rake routes  
 ***
-git status  
-git add .  
-git commit -am"Installed simple_form and created article show pages"  
+		git status  
+		git add .  
+		git commit -am"Installed simple_form and created article show pages"  
 ***
 // 给index.html.haml添加文章日期  
 // 给articles_controller.rb添加def(index)内容：@articles = Article.all.order("created_at DESC")  
 // 给index.html.haml添加@articles.each do |article|并且truncate及它的参数
 ***
-git status  
-git add .  
-git commit -am"Loop articles on index"  
+		git status  
+		git add .  
+		git commit -am"Loop articles on index"  
 ***
 rails g devise:install  
 // config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }  
@@ -59,9 +60,9 @@ User.connection
 User.count  
 User.first  
 ***
-git status  
-git add .  
-git commit -am"Add Devise and Generate User Model"  
+		git status  
+		git add .  
+		git commit -am"Add Devise and Generate User Model"  
 ***
 // 向modles/article.rb添加 belongs_to :user   
 // 向modles/user.rb添加 has_many :articles  
@@ -78,16 +79,16 @@ rails c
   @article = Article.find(2)  
  @article.save  
 ***
-git status  
-git add .  
-git commit -am"Add association between user and article"  
+		git status  
+		git add .  
+		git commit -am"Add association between user and article"  
 ***
 // 向articles_controller.rb添加 	before_action :authenticate_user!, except: [:index, :show]  
 // 向 index.html.haml 中 路由链接 添加 if 语句的条件判断：是否登录。
 ***
-git status  
-git add .  
-git commit -am"Add user authentication"  
+		git status  
+		git add .  
+		git commit -am"Add user authentication"  
 ***
 rails g model Category name:string  
 rake db:migrate  
@@ -122,10 +123,10 @@ Article.count
 ***
 // 向 articles_controller.rb 中 def index  添加 if params[:category].blank?  判断
   
-  ***
-git status  
-git add .  
-git commit -am"Add Categories to Articles"  
+***
+		git status  
+		git add .  
+		git commit -am"Add Categories to Articles"  
 ***
 // 向 articles_controller.rb 中 before_action :find_article, only 添加： :edit, :update, :destroy  
 // 向 articles_controller.rb 添加 def edit， def update， def destroy  
@@ -134,10 +135,10 @@ git commit -am"Add Categories to Articles"
 
 
 
-  ***
-git status  
-git add .  
-git commit -am"Edit & Destroy Articles"  
+***
+		git status  
+		git add .  
+		git commit -am"Edit & Destroy Articles"  
 ***
 
 // 向 app/assets/javascripts/application.js 添加 //= require bootstrap-sprockets  
@@ -149,9 +150,9 @@ git commit -am"Edit & Destroy Articles"
 
 
   ***
-git status  
-git add .  
-git commit -am"Add basic styles"  
+		git status  
+		git add .  
+		git commit -am"Add basic styles"  
 ***
 
 
@@ -162,9 +163,9 @@ git commit -am"Add basic styles"
 
 
   ***
-git status  
-git add .  
-git commit -am"Update README"  
+		git status  
+		git add .  
+		git commit -am"Update README"  
 ***
   
   

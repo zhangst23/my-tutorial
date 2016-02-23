@@ -1,0 +1,9 @@
+---
+layout: post
+title: "开始写blog啦"
+date: 2016-01-11 03:32:10 +0800
+comments: true
+categories: 其他
+---
+我来了
+这是我的第一篇日志，以后多多关注！
