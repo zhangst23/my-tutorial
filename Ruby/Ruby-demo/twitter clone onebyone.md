@@ -43,7 +43,7 @@ gem 'devise'
 bundle  
 rails g devise:install  
 在其他文件中添加 devise 的相关 代码  
-rails g devise:views
+rails g devise:views  
 rails g devise User  
 rake db:migrate
 rails s  

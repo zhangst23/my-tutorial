@@ -28,12 +28,12 @@ def index
 end
 
 # view
-<% @users.each do |user| %>
- <%= user.car.name %>
-<% end %> >
+<% @users.each do |user| % >
+ <%= user.car.name % >
+<% end % >
 
 
-# 我們在View中讀取user.car.name的值。但是這樣的程式導致了N+1 queries問題，假設User有10筆，這程式會產生出11筆Queries，一筆是查User，另外10筆是一筆一筆去查Car，嚴重拖慢效能。
+我們在View中讀取user.car.name的值。但是這樣的程式導致了N+1 queries問題，假設User有10筆，這程式會產生出11筆Queries，一筆是查User，另外10筆是一筆一筆去查Car，嚴重拖慢效能。
 
 # SELECT * FROM `users` LIMIT 10 OFFSET 0
 # SELECT * FROM `cars` WHERE (`cars`.`user_id` = 1)
@@ -51,7 +51,7 @@ def index
 	@users = User.includes(:car).page(params[:page])
 end
 
-# 如此SQL query就只有兩個，只用一個就撈出所有Cars資料。
+如此SQL query就只有兩個，只用一個就撈出所有Cars資料。
 
 # SELECT * FROM `users` LIMIT 10 OFFSET 0
 # SELECT * FROM `cars` WHERE (`cars`.`user_id` IN('1','2','3','4','5','6','7','8','9','10'))

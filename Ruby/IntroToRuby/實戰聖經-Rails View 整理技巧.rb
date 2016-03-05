@@ -7,34 +7,34 @@ http://blog.xdite.net/posts/2013/10/31/maintainable-rails-view-1
 
 1. Move logic to Helper
 
-# <% if current_user && current_user == post.user %>
-# 	<%= link_to("Edit", edit_post_path(post)) %>
-# <% end %>
+<% if current_user && current_user == post.user % >
+	<%= link_to("Edit", edit_post_path(post)) % >
+<% end % >
 
 # 如果只有一個條件，如 if current_user，則不用進行整理
 # 如果在第一次撰寫時，就發現會有兩個條件，則在最初撰寫時，就使用一個簡易的 helper 整理。
 # 例：
 
-# <% if editable?(post) %>
-#   <%= link_to("Edit", edit_post_path(post))%>
-# <% end %>
+<% if editable?(post) % >
+  <%= link_to("Edit", edit_post_path(post))% >
+<% end % >
 
 2. Pre-decorate with Helper (常用欄位預先使用 Helper 整理)
 
 
-在設計 Application 時，常常會遇到某些欄位，其實在初期設計時，就會不斷因為規格擴充，一直加上 helper 裝飾。比如 Topic 的 content ：
+# 在設計 Application 時，常常會遇到某些欄位，其實在初期設計時，就會不斷因為規格擴充，一直加上 helper 裝飾。比如 Topic 的 content ：
 
-    # <%= @topic.content %>
+    <%= @topic.content % >
 
-在幾次的擴充之下，很快就會變成這樣：
+# 在幾次的擴充之下，很快就會變成這樣：
 
-    # <%= auto_link(truncate(simple_format(topic.content), :lenth => 100)) %>
+    <%= auto_link(truncate(simple_format(topic.content), :lenth => 100)) % >
 
-而這樣的內容，整個 Application 可能有 10 個地方。每經過一次規格擴充，developer 就要改十次，還可能改漏掉。
+# 而這樣的內容，整個 Application 可能有 10 個地方。每經過一次規格擴充，developer 就要改十次，還可能改漏掉。
 
-針對這樣的情形，我們是建議在第一次在進行 Application 設計時，就針對這種「可能馬上就會被大幅擴充」的欄位進行 Helper 包裝。而不是「稍候再整理」
+# 針對這樣的情形，我們是建議在第一次在進行 Application 設計時，就針對這種「可能馬上就會被大幅擴充」的欄位進行 Helper 包裝。而不是「稍候再整理」
 
-    # <%= render_topic_content(@topic) %>
+    <%= render_topic_content(@topic) % >
 
 常見的情形如：
 
@@ -48,7 +48,7 @@ render_post_content
 3. Use Ruby in Helper ALL THE TIME ( 全程在 Helper 裡面使用 Ruby )
 
 
-嚴格禁止在 Ruby Helper 裡面穿插任何 HTML 標記。請使用任何可以生成 HTML 的 Ruby Helper 取代。
+# 嚴格禁止在 Ruby Helper 裡面穿插任何 HTML 標記。請使用任何可以生成 HTML 的 Ruby Helper 取代。
 
  def post_tags_tag(post, opts = {})
   tags = post.tags
@@ -75,87 +75,87 @@ user name with glyphicons
 
 5. Tell, Don not ask
 
-有些時候，開發者會在 New Relic 發現某個 view 的 Performance 低落，但是卻抓不出來實際的問題在哪裡。這是因為是慢在 helper 裡面。
+# 有些時候，開發者會在 New Relic 發現某個 view 的 Performance 低落，但是卻抓不出來實際的問題在哪裡。這是因為是慢在 helper 裡面。
 
-這是一個相當經典的範例：
+# 這是一個相當經典的範例：
 
-# def render_post_taglist(post, opts = {})
-#   tags = post.tags
-#   tags.collect { |tag| link_to(tag,posts_path(:tag => tag)) }.join(", ")
-# end
+def render_post_taglist(post, opts = {})
+  tags = post.tags
+  tags.collect { |tag| link_to(tag,posts_path(:tag => tag)) }.join(", ")
+end
 
-# <% @posts.each do |post| %>
-#   <%= render_post_taglist(post) %>
-# <% end %>
+<% @posts.each do |post| % > 
+  <%= render_post_taglist(post) % >
+<% end % >
 
-這是因為在 View / Helper 裡面被 query 的資料是不會 cache 起來的。在 helper 裡面才 撈 tags 出來，這樣的設計容易造成 N+1 問題，也會造成 template rendering 的效率低落。
+# 這是因為在 View / Helper 裡面被 query 的資料是不會 cache 起來的。在 helper 裡面才 撈 tags 出來，這樣的設計容易造成 N+1 問題，也會造成 template rendering 的效率低落。
 
-改進方法：盡量先在外部查詢，再傳入 Helper 裡面「裝飾」
+# 改進方法：盡量先在外部查詢，再傳入 Helper 裡面「裝飾」
 
-# def render_post_taglist(tags, opts = {})
-#   tags.collect { |tag| link_to(tag,posts_path(:tag => tag)) }.join(", ")
-# end
+def render_post_taglist(tags, opts = {})
+  tags.collect { |tag| link_to(tag,posts_path(:tag => tag)) }.join(", ")
+end
 
-# <% @posts.each do |post| %>
-#   <%= render_post_taglist(post.tags) %>
-# <% end %>
+<% @posts.each do |post| % > 
+  <%= render_post_taglist(post.tags) % >  
+<% end % > 
 
-# def index
-#     @posts = Post.recent.includes(:tags)
-# end
+def index
+    @posts = Post.recent.includes(:tags)
+end
 
 
 
 
 6. Wrap into a method ( 包裝成一個 model method )
 
-有時候，我們會寫出這種 Helper code :
+# 有時候，我們會寫出這種 Helper code :
 
-# def render_comment_author(comment)
-#   if comment.user.present?
-#     comment.user.name
-#   else
-#     comment.custom_name
-#   end
-# end
+def render_comment_author(comment)
+  if comment.user.present?
+    comment.user.name
+  else
+    comment.custom_name
+  end
+end
 
-這段程式碼有兩個問題：
+# 這段程式碼有兩個問題：
 
-Ask, Not Tell
-問 name 的責任其實不應放在 Helper 裡面
-可以作以下整理，搬到 Model 裡面，這樣 author_name 也容易實作 cache ：
+# Ask, Not Tell
+# 問 name 的責任其實不應放在 Helper 裡面
+# 可以作以下整理，搬到 Model 裡面，這樣 author_name 也容易實作 cache ：
 
-# def render_comment_author(comment)
-#   comment.author_name
-# end
+def render_comment_author(comment)
+  comment.author_name
+end
 
 
-# class Comment < ActiveRecord::Base
-#   def author_name
-#     if user.present?
-#       user.name
-#     else
-#       custom_name
-#     end
-#   end
-# end
+class Comment < ActiveRecord::Base
+  def author_name
+    if user.present?
+      user.name
+    else
+      custom_name
+    end
+  end
+end
 
 
 
 7. Move code to Partial
-什麼時候應該將把程式碼搬到 Partial 呢？
+# 什麼時候應該將把程式碼搬到 Partial 呢？
 
-# long template | code 超過兩頁請注意
-# highly duplicated | 內容高度重複
-# indepdenent blocks | 可獨立作為功能區塊
+  long template | code 超過兩頁請注意
+  highly duplicated | 內容高度重複
+  indepdenent blocks | 可獨立作為功能區塊
 
 常見情境：
 
-# nav/user_info
-# nav/admin_menu
-# vendor_js/google_analytics
-# vendor_js/disqus_js
-# global/footer
+    nav/user_info
+    nav/admin_menu
+    vendor_js/google_analytics
+    vendor_js/disqus_js
+    global/footer
 
 
 8. Use presenter to clean the view ( 使用 Presenter 解決 logic in view 問題）

@@ -1,0 +1,435 @@
+
+
+1.0  index-title
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render_page_title %>
+    <%= raw SiteConfig.custom_head_html %>
+</head>
+<body data-controller-name="<%= controller_name %>">
+  <div class="header">
+    <nav class="navbar navbar-inverse navbar-static-top navbar-default">
+    ###
+    </nav>
+  </div>
+</body>
+</html>
+
+1.2  index-body
+
+<%= raw SiteConfig.index_html %>
+
+<div class="row home-icons hidden-sm hidden-xs">
+  <div class="col-md-3">Ruby 社区
+  </div>
+  <div class="col-md-3">技术文档 
+  </div>
+  <div class="col-md-3">招聘与求职
+  </div>
+  <div class="col-md-3">精华文章
+  </div>
+</div>
+
+
+<div class="home_suggest_topics panel panel-default">
+  <div class="panel-heading">社区精华帖</div>
+  <div class="panel-body topics row">
+  ###
+  </div>
+  <div class="panel-footer">
+    <%= link_to "查看更多精华帖...", excellent_topics_path %>
+  </div>
+</div>
+
+
+
+
+
+
+2.0  topics
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topics panel panel-default">
+      <div class="panel-heading clearfix">
+        <%= render "topics/node_info", node: @node %>
+      </div>
+
+      <div class="panel-body">
+      ###
+      </div>
+
+      <div class="panel-footer clearfix">
+        <%= will_paginate @topics %>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar col-md-3">
+    <%= render "topics/sidebar_for_topic_index" %>
+  </div>
+</div>
+
+
+2.1  topics-sidebar
+
+<div class="panel panel-default">
+  <div class="panel-heading">新手必读</div>
+  <div class="panel-body">
+    ###
+  </div>
+</div>
+
+
+
+
+2.2 topics-new   topics-edit
+
+<div class="panel panel-default">
+    <div class="panel-heading">发布新话题</div>
+    <div class="panel-body">
+        <%= render 'form' %>
+    </div>
+</div>
+
+
+2.3 topics-topic.html
+<% cache([topic, suggest]) do % >
+<div class="topic media topic-<%= topic.id %>">
+  <div class="avatar media-left">
+	###
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+    </div>
+    <div class="info">
+    ###
+    </div>
+  </div>
+  <div class="count media-right">
+  </div>
+</div>
+<% end % >
+
+
+
+3.0  users-index
+
+
+
+
+4.0 replies-reply.html
+
+<div class="reply">
+    <div class="avatar">#</div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">#</span>
+        <span class="time">#</span>
+        <span class="opts pull-right">#</span>
+      </div>
+      <div class="markdown"></div>
+    </div>
+</div>
+
+
+4.1 replies-edit.html
+
+<div class="panel panel-default">
+  <div class="panel-heading">#</div>
+  <div class="panel-body">
+    <%= simple_form_for([@topic, @reply], html: { class: "" }) do |f| %>
+    <%= render "shared/error_messages", target: @reply %>
+    <div class="edit-tools">#</div>
+    <div class="form-group">#</div>
+    <div class="control-group">#</div>
+    <% end %>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body"># </div>
+</div>
+
+
+
+5.0 notes-index
+
+<div class="row">
+<div class="col-md-9">
+  <div id="notes" class="panel panel-default">
+    <div class="panel-heading">我的记事本
+      <span class="total pull-right">已有 <%= current_user.notes.count %> 条记事</span>
+    </div>
+
+    <div class="panel-body">
+    	<div class="media">
+          <div class="media-body">
+            <div class="media-heading"></div>
+            <div class="info"></div>
+          </div>
+        </div>    
+    </div>
+
+    <div class="panel-footer">
+      <%= will_paginate @notes %>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+6.0 search-index
+
+<div class="search-results panel panel-default">
+  <div class="panel-heading clearfix">
+    关于 “<%= params[:q] %>” 的搜索结果, 共 <%= @result.results.total %> 条
+  </div>
+
+  <div class="panel-body">
+    <% @result.records.each_with_hit do |item, hit| %>
+      <%= render partial: item.class.name.downcase, locals: { item: item, hit: hit } %>
+    <% end %>
+  </div>
+
+  <div class="panel-footer">
+    <%= will_paginate @result %>
+  </div>
+</div>
+
+
+
+
+7.0 sites-index
+
+<div id="site_nodes">
+  <div class="panel panel-default">
+    <div class="panel-body"></div>
+  </div>
+
+  <% cache(["sites/list", t: CacheVersion.sites_updated_at, d: Date.today]) do %>
+    <% @site_nodes.each do |node| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"></div>
+      <div class="panel-body">
+
+        <% node.sites.each do |item| %>
+        <div class="col-md-2 site">
+          <%= image_tag(item.favicon_url, class: "favicon")%>
+          <%= link_to item.name, item.url, target: "_blank", rel: "nofollow", title: item.desc %>
+        </div>
+        <% end %>
+        
+      </div>
+    </div>
+    <% end %>
+
+  <% end %>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

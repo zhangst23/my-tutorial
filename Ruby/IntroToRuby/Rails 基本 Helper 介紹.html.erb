@@ -1,0 +1,130 @@
+Rails 基本 Helper 介紹
+Adler @ 2014-10-25
+
+剛開始撰寫Rails時，假如你跟我一樣看不懂一個html.erb檔案裡面有非常多看不懂的東西，也不知道helper是什麼，那你找對地方了，本篇文章簡單說明基本的helper概念，讓你看得懂helper在幹嘛。
+
+1.0  Helper是什麼
+
+Helper是一種輔助方法，目的是將Ruby code帶入view當中，而不是單純的平舖直敘。這點也是Rails分工的一環，model和controller的method不能在view當中直接使用，只有helper method才行。
+
+1.1  Helper和Helper method差在哪裡？
+Helper是一個概念，而在Rails架構中helper自己有一個資料夾，我們可以在裡面定義helper method，定義完以後就可以在view當中使用。Rails當中有提供很多內建的helper，只要是.erb結尾的檔案，都可以使用helper，包括html.erb、js.erb等等。
+
+當然，helper這個詞並不會使用於controller和model當中。
+
+1.2   <% %>和<%= %>
+複習一下，在.erb結尾的檔案當中，可以利用<% %>符號將Ruby code包覆起來，在裡面執行程式碼。而加上一個等號的<%= %>會將裡面執行的結果print出來。例如：
+
+<% i = 1 %>
+<% if i == 1 %>
+  <p>title</p>
+<% end %>
+# => title
+
+<%= i %>
+# => 1
+在第一個例子當中，只要if情況成立，就會將html標籤顯示出來，若不成立則不顯示。第二個例子則是直接將i的數值顯示出來。而helper也是要放在這個區塊裡面執行，與一般Ruby code相同。
+
+2.0   最常見的 link_to
+了解.erb是如何將Ruby code放到html文件當中以後，接下來先了解最常用的link_to helper，用法如下：
+
+# 公式
+link_to display_text, link_ref, url-options, html-options
+link_to會產生以下html code：
+
+<a href="link_ref">display_text</a>
+所以舉例來說，會寫成這樣：
+
+link_to "Home", root_url, :id => 5, :class => "root-link"
+link_to總共會帶有四個變數，最前面兩個必填，後面是選填。
+
+display_text: 這個連結會產生什麼文字
+link_ref: 要連結到哪個位置
+url_options: 與連結有關的內容，例如要送參數就是放在這裡
+html_options: 跟html前端直接相關的內容，例如給予class和id
+看一個非常典型會使用的例子：
+
+<table class="table">
+    <tbody>
+        <% @posts.each do |post| %> 
+            <tr>
+                <td> <%= post.content %> </td>
+                <td> <%= link_to "Edit", edit_post_path(post) %>
+                <%= link_to "Delete", post_path(post), :method => :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+從第3行開始，依照邏輯逐步講解：
+
+通常這種情況，在controller裡面我們都已經有指定一個@post的instance variable，可以直接在view當中使用。
+@post是一個陣列，所以使用.each這個method，讓每一個element都執行一次do..end的內容。
+後面的|post|代表在這個do...end的block當中，我們要指定post為每一個@post當中的element的變數。
+在do...end當中，首先post.content會讀取帶入的post的content屬性。
+使用link_to helper進行連結，配上顯示文字Edit，以及Rails連結的路徑，以這個寫法來看就是連結到post這個class底下的edit action，並在後方指定傳送參數post到後端。
+第二個delete的連結，最後帶有一個method為delete，這是發送html request時會指定的method，如果純粹是抓取資訊，就會用get，而非delete
+
+
+3.0   form_for
+form_for是Rails用來產生表單的helper，通常會長這樣：
+
+<%= form_for @post do |f| %>
+
+Title: <%= f.text_field :title %>
+
+  <%= f.text_area :content %>
+  <%= f.submit "Create" %>
+<% end %>
+formfor同樣會用do...end block包覆起來，裡面使用f變數來代表表格本身。裡面通常會包含填寫的地方如textfield和text_area，加上最後有一個submit的按鈕或連結，只要點擊就可以傳送表單。
+
+4.0   render
+在view當中，常常也會看到以下三種用法：
+
+<%= render partial: "posts/_form" %>
+
+<%= render template: "posts/new" %>
+
+<%= render file: "views/posts/new.html.erb" %>
+render顧名思義就是產生某些內容，而在Rails當中可以在view中利用render來產生html。
+
+partial代表會去尋找view當中底線開頭的檔案，partial本身就是一個要拿來重複利用的樣板，所以讀取設計上也比較直接。通常重複出現的元素會放在partial方便讀取，例如表格form。
+
+template讀取寫法使用的是"controller/action"，他所產生出來的內容就是該action對應到的template。
+
+file基本上沒什麼好說的，就是讀取檔案，把所有html讀取出來；最直接但閱讀起來最麻煩。
+
+
+
+
+eg:
+<%= form_for @post do |f| %>
+Title: <%= f.text_field :title %>
+  <%= f.text_area :content %>
+  <%= f.submit "Create" %>
+<% end %>
+
+
+
+<%= link_to "Edit", edit_post_path(post) %>
+<%= link_to "Delete", post_path(post), :method => :delete %>
+
+
+<%= render partial: "posts/_form" %>
+<%= render template: "posts/new" %>
+<%= render file: "views/posts/new.html.erb" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
