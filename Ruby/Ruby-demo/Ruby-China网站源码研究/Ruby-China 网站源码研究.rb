@@ -64,3 +64,37 @@ rspec
 17.	 后台管理系统
 
 
+
+18. 可参考其他开源网站源码
+
+社区类:
+campo
+angel-nest
+Wblog
+forem
+rabel
+
+
+电商类:
+spree
+shaoqi
+
+
+其他业务:
+19wu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
