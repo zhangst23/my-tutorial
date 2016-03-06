@@ -307,9 +307,67 @@ return $this->hasManyThrough('App\Post', 'App\User', 'country_id', 'user_id');
 
 
 9.0  关联查询
+9.1 根据关联条件查询
 $posts = Post::has('comments')->get();
 
 $posts = Post::has('comments', '>=', 3)->get();
+
+9.2 动态熟悉
+
+
+
+10.0  预载入
+<!-- 预载入是用来减少 N + 1 查询问题。例如，一个 Book 模型数据会关联到一个 Author 。关联会像下面这样定义： -->
+class Book extends Model {
+
+    public function author()
+    {
+        return $this->belongsTo('App\Author');
+    }
+
+}
+<!-- 现在考虑下面的代码： -->
+foreach (Book::all() as $book)
+{
+    echo $book->author->name;
+}
+
+<!-- 很幸运地，我们可以使用预载入大量减少查询次数。使用 with 方法指定想要预载入的关联对象： -->
+foreach (Book::with('author')->get() as $book)
+{
+	echo $book -> author->name;
+}
+
+<!-- 当然，也可以同时载入多种关联： -->
+$books = Book::with('author', 'publisher')->get();
+<!-- 甚至可以预载入巢状关联： -->
+$books = Book::with('author.contacts')->get();
+
+
+
+
+
+
+
+
+11 新增关联模型
+11.1 附加一个关联模型
+<!-- 您常常会需要加入新的关联模型。例如新增一个 comment 到 post 。除了手动设定模型的 post_id 外键，也可以从上层的 Post 模型新增关联的 comment ： -->
+$comment = new Comment(['message' => 'A new comment.'])
+$post = Post::find(1);
+$comment = $post->comments()->save($comment);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
