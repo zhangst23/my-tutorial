@@ -1,0 +1,8 @@
+%h1 New Article
+
+= render 'form'
+  .form-group
+  	= rucaptcha_input_tag(class: 'form-control', placeholder: 'Input Captcha')
+	= rucaptcha_image_tag(alt: 'Captcha')
+
+= link_to "Back", root_path

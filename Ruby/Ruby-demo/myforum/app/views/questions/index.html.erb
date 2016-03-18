@@ -1,0 +1,38 @@
+<h1>Forum</h1>
+
+<%= flash[:alert] %>
+
+<%= link_to 'New Question', new_question_path %>
+<br>
+<br>
+
+<% @questions.each do |question| %>
+<div style="border: 1px solid black; background-color: #add8e6;">
+  <h3><%= question.content %></h3>
+  <%= time_ago_in_words(question.created_at) %> ago by <%= question.user.email %>
+  <br>
+  <% if can? :update, question %>
+    <%= link_to 'Edit', edit_question_path(question) %>
+  <% end %>
+
+  <% if can? :update, question %>
+    <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+  
+  <% if question.answers.any? %>
+    <h4>Answers</h4>
+    <%= render question.answers %>
+  <% end %>
+  <br>
+  <p>Add Answer</p>
+  <%= form_for([question, question.answers.build]) do |f| %>
+    <%= f.text_area :content %>
+    <%= submit_tag "Add" %>
+  <% end %>
+</div>
+<br>
+<br>
+<% end %>
+
+<br>
+
