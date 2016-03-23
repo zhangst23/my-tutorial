@@ -153,8 +153,10 @@ http://blog.lanvige.com/2014/12/08/build-rest-api-with-grape-and-doorkeeper/
 
 5.1 如何构建一套适合Mobile应用的API。
 
-# Grape是一个基于Rack的非常轻量级的框架，用于快速的开发API。一般来说，Rails对于单独的API来说，太过于重量级；而Sinatra虽然足够小巧，但是又没有为开发API提供足够的默认支持。
-# Doorkeeper 作为 OAuth Provider，为OAuth 认证提供很方便的Rails集成。在系统中对用户的管理，依然使用Devise，Doorkeeper也很方便和Devise进行集成。
+# Grape是一个基于Rack的非常轻量级的框架，用于快速的开发API。一般来说，Rails对于单独的API来说，太过于重量级；
+# 而Sinatra虽然足够小巧，但是又没有为开发API提供足够的默认支持。
+# Doorkeeper 作为 OAuth Provider，为OAuth 认证提供很方便的Rails集成。在系统中对用户的管理，
+# 依然使用Devise，Doorkeeper也很方便和Devise进行集成。
 # Doorkeeper本身为Rails提供认证服务，对Grape不是原生支持，需要WineBouncer来帮忙。
 # Swagger都不陌生，其新版也支持了OAuth。可以很方便查看和测试API。
 
@@ -347,6 +349,173 @@ end
 
 use Rack::Session::Cookie
 run Rack::Cascade.new [API, Web]
+
+
+
+12.  API-grape-sample-blog.rb
+
+
+
+require 'grape'
+
+module Blog
+
+  class API < Grape: :API
+
+    resource :weblogs do
+      get do
+        Weblog.all
+      end
+
+      get ':id' do
+        Weblog.find(params[:id])
+      end
+
+      get ':id/posts' do
+        weblog = Weblog.find(params[:id])
+        weblog.posts
+      end
+
+      post ':id/posts' do
+        @weblog = Weblog.find(params[:id])
+        @post = Post.new
+        @post.title = params[:title] if params[:title]
+        @post.body = params[:body] if params[:body]
+        @weblog.posts << @post
+
+        status 201
+        @post
+      end
+
+      delete ':id/posts' do
+        @weblog = Weblog.find(params[:id])
+        @weblog.posts.clear
+      end
+
+      post do
+        @weblog = Weblog.new
+        @weblog.title = params[:title] if params[:title]
+        @weblog.description = params[:description] if params[:description]
+        @weblog.save
+
+        status 201
+        @weblog
+      end
+
+      put ':id' do
+        @weblog = Weblog.find(params[:id])
+        @weblog.title = params[:title] if params[:title]
+        @weblog.description = params[:description] if params[:description]
+        @weblog.save
+
+        @weblog
+      end
+
+      delete do
+        Weblog.destroy_all()
+      end
+
+      delete ':id' do
+        Weblog.destroy(params[:id])
+      end
+
+      resource :posts do
+        get do
+          Post.all
+        end
+
+        get ':id' do
+          Post.find(params[:id])
+        end
+
+        get ':id/comments' do
+          @post = Post.find(params[:id])
+          @post.comments
+        end
+
+        delete ':id/comments' do
+          @post = Post.find(params[:id])
+          @post.comments.clear
+        end
+
+        post ':id/comments' do
+          @post = Post.find(params[:id])
+          @comment = Comment.new
+          @comment.name = params[:name] if params[:name]
+          @comment.name = params[:body] if params[:body]
+          @post.comments << @comment
+
+          status 201
+          @comment
+        end
+
+        delete ':id' do
+          Post.destroy(params[:id])
+        end
+
+        put ':id' do
+          @post = Post.find(params[:id])
+          @post.title = params[:title] if params[:title]
+          @post.body = params[:body] if params[:body]
+          @post.save
+
+          @post
+        end
+
+        delete do
+          Post.destroy_all()
+        end
+      end
+
+      resource :comments do
+        get do
+          Comment.all
+        end
+
+        get ':id' do
+          Comment.find(params[:id])
+        end
+
+        put ':id' do
+          @comment = Comment.find(params[:id])
+          @comment.name = params[:name] if params[:name]
+          @comment.body = params[:body] if params[:body]
+          @comment
+        end
+
+        delete ':id' do
+          Comment.destroy(params[:id])
+        end
+
+        delete do
+          Comment.destroy_all()
+        end
+      end
+
+    end
+
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

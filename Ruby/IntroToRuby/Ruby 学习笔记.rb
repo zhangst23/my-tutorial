@@ -251,23 +251,109 @@ end
 
 
 
+####################   实践过程中遇到的ruby问题   ###################
+
+
+1.   ruby的collect或者map
+
+ids = @pages.collect { |p| p.id }.join(',')
+# ids类似： 23,32,53,64,155
+# 取出所有符合条件的 id
+# 说明：
+ ~  each——连续访问集合的所有元素
+ ~  collect—-从集合中获得各个元素传递给block，block返回的结果生成新的集合。
+ ~  map——-同collect。
+ ~  inject——遍历集合中的各个元素，将各个元素累积成返回一个值。
+
+# 例子：
+def debug(arr)
+    puts '--------'
+    puts arr
+end
+ 
+h = [1,2,3,4,5]
+h1 = h
+h1.each{|v|puts sprintf('values is:%s',v)}
+ 
+h2 = h.collect{|x| [x,x*2]}
+debug h2
+ 
+h3 = h.map{|x| x*3 }
+debug h3
+ 
+h4 = h.inject{|sum,item| sum+item}
+debug h4   
+
+结果：
+values is:1
+values is:2
+values is:3
+values is:4
+values is:5
+--------
+
+####
+
+当你需要从数据库中查找某一列数据时，通常会有下面三种做法：
+
+User.select(:id).collect(&:id)
+User.select(:id).map(&:id)
+User.pluck(:id)
+
+很显然前两种中的map与collect其实应该被归结为同一种方式，因为map实际上是collect方法的别名。并且，
+这种方式其实是通过select方法，获取一个User对象数组，之后通过对每个对象循环调用id方法，最后返回一个包含
+符合条件的id数组。
+
+而对于第三种pluck方法，则不用，其并不会对User对象模型进行操纵，而是直接使用SQL语句对数据库进行查询
+并直接返回包含id的结果数组。
+
+这两者的区别用一句话表示就是「pluck返回的是直接结果数据，select返回的则是结果模型」，二者的差异导致的
+直接结果就是pluck的执行效率要相比select更高一些，
 
 
 
 
 
+2.    update(id, attributes)
+
+update会调用模型的validation方法，只有当所有validation条件验证通过，才能被保存到数据库中，否则会返回错误，错误信息存储到对象的errors中。
+
+Model.update(1,:language => “ruby”,:framework => “rails”)
+Model.update([1,2],[{:language => “ruby”,:framework => “rails”},{:ide => “aptana”}])
 
 
+2.1 update_all(updates)
+
+调用update_all更新数据，不会触发模型的回调方法和validation方法，并且所有的修改都会在一条SQL语句中执行。
+
+# Update all customers with the given attributes
+Customer.update_all wants_email: true
+
+# Update all books with 'Rails' in their title
+Book.where('title LIKE ?', '%Rails%').update_all(author: 'David')
+
+# Update all books that match conditions, but limit it to 5 ordered by date
+Book.where('title LIKE ?', '%Rails%').order(:created_at).limit(5).update_all(author: 'David')
 
 
+2.2  update_attribute(name, value)
+
+用来更新记录中的某一字段。特别适合用来更新类似boolean类型，计数一类的字段。它也会触发validation方法，不过仍然会触发回调方法。
+
+obj = Model.find_by_id(params[:id])
+obj.update_attribute :language, “php”
 
 
+2.3  update_attributes
+
+update_attribute方法的升级版，可以同时更新一条记录的多个字段，与update_attribute一样不会触发validation方法。
+
+attributes = {:name => “xyz”, :age => 20}
+obj = Model.find_by_id(params[:id])
+obj.update_attributes(attributes)
 
 
-
-
-
-
+更多的细节，大家可以去参阅Rails API文档。 :)
 
 
 

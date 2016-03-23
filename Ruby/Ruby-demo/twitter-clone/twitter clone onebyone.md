@@ -142,9 +142,9 @@ bundle
 ***
 gem 'devise'  
 bundle  
-rails g devise:install  
-rails g devise:views   
+rails g devise:install     
 rails g devise User
+rails g devise:views
 ***
 rails g migration AddUsernameToUsers   
 rake db:migrate  
