@@ -488,15 +488,25 @@ BigDecimal.new(5.00, 6).to_s  # => "5.0"
 
 
 
+35
+rails g scaffold myModel --no-stylesheets
 
 
 
+35  编辑器文本输入框大小
+* {
+  font-family: "Delicious";
+ }
+
+textarea {
+  height:500px;
+}
 
 
-
-
-
-
+36  rails c
+Post.first
+Post.first.tags << Tag.first
+Post.first.tags
 
 
 

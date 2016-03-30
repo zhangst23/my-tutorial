@@ -135,10 +135,23 @@ has_many :following, through: :active_relationships, source: :followed
 
 
 
+##############################################################
+
+##############################################################
+
+##############################################################
 
 
 
+ 
+1.0    文章列表
+<h1><%= @blog.name %></h1>
+<hr />
+<% @posts.each do |post| %>
 
+<h3><%=link_to "post.title", post %></h3>
+<p><%= truncate post.body, length: 160 %></p>
+<% end %>
 
 
 

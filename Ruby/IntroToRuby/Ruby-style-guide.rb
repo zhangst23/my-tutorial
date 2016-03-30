@@ -70,20 +70,76 @@ result = some_codition ? something : something_else
 
 
 
+##############################################################
 
+############  Improve the Smell of Your Code with Microrefactorings ########################
 
+##############################################################
 
+1.0
+# before
+sum = 0
+numbers.each do |number|
+	sum += number
+end
+sum
 
+# after
+numbers.inject(:+)
 
+2.0
+# before
+anagrams = []
+candidates.each do |candidate|
+	if anagram_of?(subject, candidate)
+		anagrams << candidate
+	end
+end
+anagrams
 
+# after
+candidates.select do |candidate|
+	anagram_of?(subject, candidate)
+end
 
+3.0 
+# before
+mutations = 0
+(0...strand1.length).each do |i|
+	if strand1[i] != strand2[i]
+		mutations += 1
+	end
+end
+mutations
 
+# after
+(0...strand1.length).count { |i| strand[i] != strand2[i] }
 
+4.0
+# before
+oldest = ""
+highest = 0
+kids.each do |kid|
+	if kid.age > highest
+		oldest = kid.name
+		highest = age
+	end
+end
+oldest
 
+# after
+kids.sort_by { |kid| kid.age }.last.name
+# even more after
+kids.max_by { |kid| kid.age }.name
 
-
-
-
+5.0 
+# before
+words.inject([]) do |censured, word|
+	censured << word if word.size == 4
+	censured
+end
+# after
+words.select { |word| word.size == 4 }
 
 
 

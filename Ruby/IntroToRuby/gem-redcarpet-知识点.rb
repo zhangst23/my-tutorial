@@ -27,6 +27,13 @@ gem 'coderay'
   end
 
 
+################  或者  app/helper/application_helper.rb #############
+
+  def markdown(content)
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true, fenced_code_blocks: true)
+    @markdown.render(content)
+  end
+
 3.0 
 第一步是添加了一个markdown方法，配置了一些显示方面的细节，比如autolink, hard_wrap之类的。
 
