@@ -16,7 +16,9 @@
 
 8. Right. I forgot about Concern
 
+9. But I think this is really ugly
 
+There is no need to anwer the 3 problems above, Any simple solution to the Notification System is preferable , thanks....
 
 
 

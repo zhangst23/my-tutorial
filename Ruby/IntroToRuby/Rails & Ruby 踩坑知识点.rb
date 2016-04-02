@@ -510,6 +510,42 @@ Post.first.tags
 
 
 
+37  rails respond_to 的原理与使用
+rails 的 respond_to 的使用和原理
+respond_to 实现了根据客户端的请求来返回不同的类型资源
+原理：
+在HTTP协议中，客户端会在他们的HTTP首部包含一些元信息（meta-information)，这些元信息按照“字段：值”的方式来组织，HTTP协议预定义了很多标准字段，其中的一个字段就是“Accept-type“,它代表发送请求的客户端能够支持或者说理解的资源表示类型，如果没有为这个键指定值，服务端会认为客户端能够理解标准的HTML文档，当然，客户端可以为这个字段指定任意的符合MIME规范的类型值，假设客户端设置这个字段为”Accept-Type: text/xml“，则服务端必须返回资源的XML表示。
+
+所以respond_to事实上就是根据HTTP首部的Accept-Type字段来决定向客户端返回那种类型的资源表示，如果不使用respond_to
+
+实际使用的时候不需要知道客户端的请求到底是那种类型，你只需要告诉Rails你准备支持那些类型的请求，Rails会自动帮你处理剩下的事情。
+所以，这里我们告诉Rails，对于HTML和JS类型的请求，采用默认的实现，而对XML则使用我们在Block内提供的实现。
+
+到了rails3 开始，使用了resopond_with取代了respond_to do |format| 的格式
+
+
+38 
+When you do rake db:reset, what rails does is rake db:drop -> rake db:create -> rake db:migrate -> rake db:seed.
+
+You DO NOT need to rake db:seed again.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
