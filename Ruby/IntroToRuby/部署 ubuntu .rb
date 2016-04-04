@@ -1,6 +1,6 @@
 部署ubuntu .rb
 
-
+apt-get install rbenv
 
 1.0 # rbenv 安装 ruby
 rbenv install --list  # 列出所有 ruby 版本

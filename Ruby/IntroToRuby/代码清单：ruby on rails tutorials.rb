@@ -160,16 +160,9 @@ has_many :following, through: :active_relationships, source: :followed
 ##############################################################
 
 
-rails new example-devise
-rails g devise:install
-rails g devise User
-rails g devise:views
-rake db:migrate
 ***
-rails g migration add_username_to_users username:string
-rake db:migrate
 
-***
+
 
 class CreateRelationships < ActiveRecord::Migration
   def change
@@ -188,70 +181,63 @@ end
 
 ***
 
-models/user.rb
-class User < ActiveRecord::Base
-  has_many :posts, dependent: destroy
-  has_many :active_relationships, class_name: "Relationship",
-                    foreign_id: "followed_id",
-                    dependent: destroy
 
-    has_many :passive_relationships, class_name: "Relationship",
-                     foreigin_id: "follower_id",
-                     dependent: destroy
-
-    has_many :following, through: active_relationships, source: :followed
-    has_many :followers, through: passive_relationships, source: :follower                 
-
-    def feed
-
-    end
-
-    def follow(other_user)
-      active_relationships.create(followed_id: other_user.id)
-    end
-
-    def unfollow(other_user)
-      active_relationships.create(followed_id: other_user.id).destroy
-    end
-
-    def following?(other_user)
-      following.include?(other_user)
-    end
-
-
-end
-
-
-
-***
-
-models/relationship.rb
 class Relationship < ActiveRecord::Base
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
   validates :follower_id, presence: true
   validates :followed_id, presence: true
+end
+
+
+***
+
+class User < ActiveRecord::Base
+  has_many :posts, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                    foreigin_key: "follower_id",
+                    dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship",
+                     foreigin_keys: "followed_id",
+                     dependent: :destory
+
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  def feed
+  end
+
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  private
 
 end
 
 
 ***
 
-routes.rb
+
+
 Rails.application.routes.draw do
   resources :posts
-  devise_for: users
+  devise_for :users
+
   resources :users do
-    member
+    member do
       get :following, :followers
     end
   end
 end
-
-
-
-
-
 
 
 
