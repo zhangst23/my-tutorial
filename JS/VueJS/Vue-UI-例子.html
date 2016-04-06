@@ -1,0 +1,844 @@
+Vue-UI-例子.html
+
+
+1. Navigation Menu
+<div id="main">
+	<nav v-bind:class="active" v-on:click.prevent>
+		<a href="#" class="home" v-on:click="makeActive('home')">Home</a>
+		<a href="#" class="projects" v-on:click="makeActive('projects')">projects</a>
+		<a href="#" class="services" v-on:click="makeActive('services')">services</a>
+		<a href="#" class="contact" v-on:click="makeActive('contact')">contact</a>
+		<p></p>
+	</nav>
+	<p>You chose <b>{{active}}</b> </p>
+</div>
+
+<script>
+	var demo = new Vue({
+		el: '#main',
+		data: {
+			active: 'home'
+		},
+		methods: {
+			makeActive: function(item){
+				this.active = item;
+			}
+		}
+	});
+</script>
+
+<style>
+	*{
+	margin:0;
+	padding:0;
+	}
+
+	body{
+		font:15px/1.3 'Open Sans', sans-serif;
+		color: #5e5b64;
+		text-align:center;
+	}
+
+	a, a:visited {
+		outline:none;
+		color:#389dc1;
+	}
+
+	a:hover{
+		text-decoration:none;
+	}
+
+	section, footer, header, aside, nav{
+		display: block;
+	}
+
+	/*-------------------------
+		The menu
+	--------------------------*/
+
+	nav{
+		display:inline-block;
+		margin:60px auto 45px;
+		background-color:#5597b4;
+		box-shadow:0 1px 1px #ccc;
+		border-radius:2px;
+	}
+
+	nav a{
+		display:inline-block;
+		padding: 18px 30px;
+		color:#fff !important;
+		font-weight:bold;
+		font-size:16px;
+		text-decoration:none !important;
+		line-height:1;
+		text-transform: uppercase;
+		background-color:transparent;
+
+		-webkit-transition:background-color 0.25s;
+		-moz-transition:background-color 0.25s;
+		transition:background-color 0.25s;
+	}
+
+	nav a:first-child{
+		border-radius:2px 0 0 2px;
+	}
+
+	nav a:last-child{
+		border-radius:0 2px 2px 0;
+	}
+
+	nav.home .home,
+	nav.projects .projects,
+	nav.services .services,
+	nav.contact .contact{
+		background-color:#e35885;
+	}
+
+	p{
+		font-size:22px;
+		font-weight:bold;
+		color:#7d9098;
+	}
+
+	p b{
+		color:#ffffff;
+		display:inline-block;
+		padding:5px 10px;
+		background-color:#c4d7e0;
+		border-radius:2px;
+		text-transform:uppercase;
+		font-size:18px;
+	}
+</style>
+
+
+2. Inline Editor
+
+<div id="main" v-cloak v-on:click="hideTooltip">
+	<div class="tooltip" v-on:click.stop v-if="show_tooltip">
+		<input type="text" v-model="text_content">
+	</div>
+	<p v-on:click.stop="toogleTooltip">{{text_content}}</p>
+</div>
+
+<script>
+	var demo = new Vue({
+		el: '#main',
+		data: {
+			show_tooltip:false,
+			text_content: 'Edit me.'
+		},
+		methods: {
+			hideTooltip: function(){
+				this.show_tooltip = false;
+			},
+			toggleTooltip: function(){
+				this.show_tooltip = !this.show_tooltip;
+			}
+		}
+	})
+</script>
+
+<style>
+	/* Hide un-compiled mustache bindings
+	until the Vue instance is ready */
+
+	[v-cloak] {
+	  display: none;
+	}
+
+	*{
+		margin:0;
+		padding:0;
+	}
+
+	body{
+		font:15px/1.3 'Open Sans', sans-serif;
+		color: #5e5b64;
+		text-align:center;
+	}
+
+	a, a:visited {
+		outline:none;
+		color:#389dc1;
+	}
+
+	a:hover{
+		text-decoration:none;
+	}
+
+	section, footer, header, aside, nav{
+		display: block;
+	}
+
+
+	/*-------------------------
+		The edit tooltip
+	--------------------------*/
+
+	.tooltip{
+		background-color:#5c9bb7;
+
+		background-image:-webkit-linear-gradient(top, #5c9bb7, #5392ad);
+		background-image:-moz-linear-gradient(top, #5c9bb7, #5392ad);
+		background-image:linear-gradient(top, #5c9bb7, #5392ad);
+
+		box-shadow: 0 1px 1px #ccc;
+		border-radius:3px;
+		width: 290px;
+		padding: 10px;
+
+		position: absolute;
+		left:50%;
+		margin-left:-150px;
+		top: 80px;
+	}
+
+	.tooltip:after{
+		/* The tip of the tooltip */
+		content:'';
+		position:absolute;
+		border:6px solid #5190ac;
+		border-color:#5190ac transparent transparent;
+		width:0;
+		height:0;
+		bottom:-12px;
+		left:50%;
+		margin-left:-6px;
+	}
+
+	.tooltip input{
+		border: none;
+		width: 100%;
+		line-height: 34px;
+		border-radius: 3px;
+		box-shadow: 0 2px 6px #bbb inset;
+		text-align: center;
+		font-size: 16px;
+		font-family: inherit;
+		color: #8d9395;
+		font-weight: bold;
+		outline: none;
+	}
+
+	p{
+		font-size:22px;
+		font-weight:bold;
+		color:#6d8088;
+		height: 30px;
+		cursor:default;
+	}
+
+	p b{
+		color:#ffffff;
+		display:inline-block;
+		padding:5px 10px;
+		background-color:#c4d7e0;
+		border-radius:2px;
+		text-transform:uppercase;
+		font-size:18px;
+	}
+
+	p:before{
+		content:'✎';
+		display:inline-block;
+		margin-right:5px;
+		font-weight:normal;
+		vertical-align: text-bottom;
+	}
+
+	#main{
+		height:300px;
+		position:relative;
+		padding-top: 150px;
+	}
+</style>
+
+
+3. Order Form
+<form id="main" v-cloak>
+	<h1>Services</h1>
+	<ul>
+		<li v-for="service in services" v-on:click="toggleActive(service)" v-bind:class="{ 'active': service.active }">
+			{{service.name}} <span>{{service.price | currency}}</span>
+		</li>
+	</ul>
+	<div class="total">
+		Total: <span>{{ total() | currency }}</span>
+	</div>
+</form>
+
+<script>
+	var demo = new Vue({
+		el: '#main',
+		data: {
+	    	// Define the model properties. The view will loop
+	        // through the services array and genreate a li
+	        // element for every one of its items.
+	        services: [
+	        	{
+	        		name: 'Web Development',
+	        		price: 300,
+	        		active:true
+	        	},{
+	        		name: 'Design',
+	        		price: 400,
+	        		active:false
+	        	},{
+	        		name: 'Integration',
+	        		price: 250,
+	        		active:false
+	        	},{
+	        		name: 'Training',
+	        		price: 220,
+	        		active:false
+	        	}
+	        ]
+	    },
+	    methods: {
+	    	toggleActive: function(s){
+	    		s.active = !s.active;
+	    	},
+	    	total: function(){
+	    		var total = 0;
+	    		this.services.forEach(function(s){
+	    			if(s.active){
+	    				total += s.price;
+	    			}
+	    		});
+	    		return total;
+	    	}
+	    }
+	})
+</script>
+
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Cookie);
+
+	/* Hide un-compiled mustache bindings
+	until the Vue instance is ready */
+
+	[v-cloak] {
+	  display: none;
+	}
+
+	*{
+		margin:0;
+		padding:0;
+	}
+
+	body{
+		font:15px/1.3 'Open Sans', sans-serif;
+		color: #5e5b64;
+		text-align:center;
+	}
+
+	a, a:visited {
+		outline:none;
+		color:#389dc1;
+	}
+
+	a:hover{
+		text-decoration:none;
+	}
+
+	section, footer, header, aside, nav{
+		display: block;
+	}
+
+	/*-------------------------
+		The order form
+	--------------------------*/
+
+	form{
+		background-color: #61a1bc;
+		border-radius: 2px;
+		box-shadow: 0 1px 1px #ccc;
+		width: 400px;
+		padding: 35px 60px;
+		margin: 50px auto;
+	}
+
+	form h1{
+		color:#fff;
+		font-size:64px;
+		font-family:'Cookie', cursive;
+		font-weight: normal;
+		line-height:1;
+		text-shadow:0 3px 0 rgba(0,0,0,0.1);
+	}
+
+	form ul{
+		list-style:none;
+		color:#fff;
+		font-size:20px;
+		font-weight:bold;
+		text-align: left;
+		margin:20px 0 15px;
+	}
+
+	form ul li{
+		padding:20px 30px;
+		background-color:#e35885;
+		margin-bottom:8px;
+		box-shadow:0 1px 1px rgba(0,0,0,0.1);
+		cursor:pointer;
+	}
+
+	form ul li span{
+		float:right;
+	}
+
+	form ul li.active{
+		background-color:#8ec16d;
+	}
+
+	div.total{
+		border-top:1px solid rgba(255,255,255,0.5);
+		padding:15px 30px;
+		font-size:20px;
+		font-weight:bold;
+		text-align: left;
+		color:#fff;
+	}
+
+	div.total span{
+		float:right;
+	}
+</style>
+
+
+4.  Instant Search
+
+<form action="" id="main">
+	<div class="bar">
+		<input type="text" v-model="searchString" placeholder="Enter your search terms">
+	</div>
+	<ul>
+		<li v-for="i in articles | searchFor searchString">
+			<a v-bind:href="i.url"><img v-bind:src="i.image"></a>
+			<p>{{ i.title }}</p>
+		</li>
+	</ul>
+</form>
+
+<script>
+	Vue.filter('searchFor', function(value, searchString){
+		var result = [];
+		if(!searchString){
+			return value;
+		}
+
+		searchString = searchString.trim().toLowerCase();
+
+		result = value.filter(function(item){
+			if(item.title.toLowerCase().indexOf(searchString) !== -1){
+				return item;
+			}
+		})
+		return result;
+	})
+
+	var demo = new Vue({
+		el: '#main',
+		data: {
+			searchString: "",
+
+			articles: [
+                {
+                    "title": "What You Need To Know About CSS Variables",
+                    "url": "http://tutorialzine.com/2016/03/what-you-need-to-know-about-css-variables/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2016/03/css-variables-100x100.jpg"
+                },
+                {
+                    "title": "Freebie: 4 Great Looking Pricing Tables",
+                    "url": "http://tutorialzine.com/2016/02/freebie-4-great-looking-pricing-tables/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/great-looking-pricing-tables-100x100.jpg"
+                },
+                {
+                    "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
+                    "url": "http://tutorialzine.com/2016/02/20-interesting-javascript-and-css-libraries-for-february-2016/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/interesting-resources-february-100x100.jpg"
+                },
+                {
+                    "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
+                    "url": "http://tutorialzine.com/2016/02/quick-tip-easiest-way-to-make-responsive-headers/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/quick-tip-responsive-headers-100x100.png"
+                },
+                {
+                    "title": "Learn SQL In 20 Minutes",
+                    "url": "http://tutorialzine.com/2016/01/learn-sql-in-20-minutes/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2016/01/learn-sql-20-minutes-100x100.png"
+                },
+                {
+                    "title": "Creating Your First Desktop App With HTML, JS and Electron",
+                    "url": "http://tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/",
+                    "image": "http://cdn.tutorialzine.com/wp-content/uploads/2015/12/creating-your-first-desktop-app-with-electron-100x100.png"
+                }
+            ]
+        }
+    });
+</script>
+
+<style>
+	/* Hide un-compiled mustache bindings
+	until the Vue instance is ready */
+
+	[v-cloak] {
+	  display: none;
+	}
+
+	*{
+	    margin:0;
+	    padding:0;
+	}
+
+	body{
+	    font:15px/1.3 'Open Sans', sans-serif;
+	    color: #5e5b64;
+	    text-align:center;
+	}
+
+	a, a:visited {
+	    outline:none;
+	    color:#389dc1;
+	}
+
+	a:hover{
+	    text-decoration:none;
+	}
+
+	section, footer, header, aside, nav{
+	    display: block;
+	}
+
+
+	/*-------------------------
+	    The search input
+	--------------------------*/
+
+	.bar{
+	    background-color:#5c9bb7;
+
+	    background-image:-webkit-linear-gradient(top, #5c9bb7, #5392ad);
+	    background-image:-moz-linear-gradient(top, #5c9bb7, #5392ad);
+	    background-image:linear-gradient(top, #5c9bb7, #5392ad);
+
+	    box-shadow: 0 1px 1px #ccc;
+	    border-radius: 2px;
+	    width: 400px;
+	    padding: 14px;
+	    margin: 45px auto 20px;
+	    position:relative;
+	}
+
+	.bar input{
+	    background:#fff no-repeat 13px 13px;
+	    background-image:url();
+
+	    border: none;
+	    width: 100%;
+	    line-height: 19px;
+	    padding: 11px 0;
+
+	    border-radius: 2px;
+	    box-shadow: 0 2px 8px #c4c4c4 inset;
+	    text-align: left;
+	    font-size: 14px;
+	    font-family: inherit;
+	    color: #738289;
+	    font-weight: bold;
+	    outline: none;
+	    text-indent: 40px;
+	}
+
+	ul{
+	    list-style: none;
+	    width: 428px;
+	    margin: 0 auto;
+	    text-align: left;
+	}
+
+	ul li{
+	    border-bottom: 1px solid #ddd;
+	    padding: 10px;
+	    overflow: hidden;
+	}
+
+	ul li img{
+	    width:60px;
+	    height:60px;
+	    float:left;
+	    border:none;
+	}
+
+	ul li p{
+	    margin-left: 75px;
+	    font-weight: bold;
+	    padding-top: 12px;
+	    color:#6e7a7f;
+	}
+</style>
+
+
+5. Switchable Grid
+
+<form id="main" v-cloak>
+	<div class="bar">
+		<a class="list-icon" v-bind:class="{ 'active': layout == 'list' }" v-on:click="layout = 'list"></a>
+		<a class="grid-icon" v-bind:class="{ 'active': layout == 'grid' }" v-on:click="layout = 'grid"></a>
+	</div>
+	<ul v-if="layout == 'grid" class="grid">
+		<li v-for="a in articles">
+			<a v-bind:href="a.url" target="_blank"><img v-bind:src="a.image.large" ></a>
+		</li>
+	</ul>
+	<ul v-if="layout == 'list'" class="list">
+		<li v-for="a in articles">
+			<a a-bind:href="a.url" target="_blank"><img v-bind:src="a.image.small" ></a>
+			<p>{{ a.title }}</p>
+		</li>
+	</ul>
+</form>
+
+<script>
+	var demo = new Vue({
+		el: '#main',
+		data: {
+			layout: 'grid',
+			articles: [
+			{
+				"title": "What You Need To Know About CSS Variables",
+	            "url": "http://tutorialzine.com/2016/03/what-you-need-to-know-about-css-variables/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/03/css-variables.jpg",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/03/css-variables-150x150.jpg"
+	            }
+			},
+			{
+	            "title": "Freebie: 4 Great Looking Pricing Tables",
+	            "url": "http://tutorialzine.com/2016/02/freebie-4-great-looking-pricing-tables/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/great-looking-pricing-tables.jpg",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/great-looking-pricing-tables-150x150.jpg"
+	            }
+	        },
+	        {
+	            "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
+	            "url": "http://tutorialzine.com/2016/02/20-interesting-javascript-and-css-libraries-for-february-2016/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/interesting-resources-february.jpg",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/interesting-resources-february-150x150.jpg"
+	            }
+	        },
+	        {
+	            "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
+	            "url": "http://tutorialzine.com/2016/02/quick-tip-easiest-way-to-make-responsive-headers/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/quick-tip-responsive-headers.png",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/quick-tip-responsive-headers-150x150.png"
+	            }
+	        },
+	        {
+	            "title": "Learn SQL In 20 Minutes",
+	            "url": "http://tutorialzine.com/2016/01/learn-sql-in-20-minutes/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/01/learn-sql-20-minutes.png",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/01/learn-sql-20-minutes-150x150.png"
+	            }
+	        },
+	        {
+	            "title": "Creating Your First Desktop App With HTML, JS and Electron",
+	            "url": "http://tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/",
+	            "image": {
+	                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2015/12/creating-your-first-desktop-app-with-electron.png",
+	                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2015/12/creating-your-first-desktop-app-with-electron-150x150.png"
+	            }
+	        }]
+		}
+	});
+</script>
+
+<style>
+	/* Hide un-compiled mustache bindings
+	until the Vue instance is ready */
+
+	[v-cloak] {
+	  display: none;
+	}
+
+	*{
+		margin:0;
+		padding:0;
+	}
+
+	body{
+		font:15px/1.3 'Open Sans', sans-serif;
+		color: #5e5b64;
+		text-align:center;
+	}
+
+	a, a:visited {
+		outline:none;
+		color:#389dc1;
+	}
+
+	a:hover{
+		text-decoration:none;
+	}
+
+	section, footer, header, aside, nav{
+		display: block;
+	}
+
+	/*-------------------------
+		The search input
+	--------------------------*/
+
+	.bar{
+		background-color:#5c9bb7;
+
+		background-image:-webkit-linear-gradient(top, #5c9bb7, #5392ad);
+		background-image:-moz-linear-gradient(top, #5c9bb7, #5392ad);
+		background-image:linear-gradient(top, #5c9bb7, #5392ad);
+
+		box-shadow: 0 1px 1px #ccc;
+		border-radius: 2px;
+		width: 580px;
+		padding: 10px;
+		margin: 45px auto 25px;
+		position:relative;
+		text-align:right;
+		line-height: 1;
+	}
+
+	.bar a{
+		background:#4987a1 center center no-repeat;
+		width:32px;
+		height:32px;
+		display:inline-block;
+		text-decoration:none !important;
+		margin-right:5px;
+		border-radius:2px;
+		cursor:pointer;
+	}
+
+	.bar a.active{
+		background-color:#c14694;
+	}
+
+	.bar a.list-icon{
+		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzNkFCQ0ZBMTBCRTExRTM5NDk4RDFEM0E5RkQ1NEZCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzNkFCQ0ZCMTBCRTExRTM5NDk4RDFEM0E5RkQ1NEZCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjM2QUJDRjgxMEJFMTFFMzk0OThEMUQzQTlGRDU0RkIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjM2QUJDRjkxMEJFMTFFMzk0OThEMUQzQTlGRDU0RkIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7h1bLqAAAAWUlEQVR42mL8////BwYGBn4GCACxBRlIAIxAA/4jaXoPEkMyjJ+A/g9MDJQBRhYg8RFqMwg8RJIUINYLFDmBUi+ADQAF1n8ofk9yIAy6WPg4GgtDMRYAAgwAdLYwLAoIwPgAAAAASUVORK5CYII=);
+	}
+
+	.bar a.grid-icon{
+		background-image:url();
+	}
+
+	.bar input{
+		background:#fff no-repeat 13px 13px;
+
+		border: none;
+		width: 100%;
+		line-height: 19px;
+		padding: 11px 0;
+
+		border-radius: 2px;
+		box-shadow: 0 2px 8px #c4c4c4 inset;
+		text-align: left;
+		font-size: 14px;
+		font-family: inherit;
+		color: #738289;
+		font-weight: bold;
+		outline: none;
+		text-indent: 40px;
+	}
+
+	/*-------------------------
+		List layout
+	--------------------------*/
+
+	ul.list{
+		list-style: none;
+		width: 500px;
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	ul.list li{
+		border-bottom: 1px solid #ddd;
+		padding: 10px;
+		overflow: hidden;
+	}
+
+	ul.list li img{
+		width:120px;
+		height:120px;
+		float:left;
+		border:none;
+	}
+
+	ul.list li p{
+		margin-left: 135px;
+		font-weight: bold;
+		color:#6e7a7f;
+	}
+
+	/*-------------------------
+		Grid layout
+	--------------------------*/
+
+	ul.grid{
+		list-style: none;
+		width: 570px;
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	ul.grid li{
+		padding: 2px;
+		float:left;
+	}
+
+	ul.grid li img{
+		width:280px;
+		height:280px;
+		object-fit: cover;
+		display:block;
+		border:none;
+	}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

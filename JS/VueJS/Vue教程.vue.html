@@ -1,0 +1,612 @@
+
+
+1.0
+<!-- 
+npm install -g webpack
+npm install -g vue-cli
+ -->
+vue init webpack my-project
+cd my-project
+npm insdtall
+npm run dev
+
+
+
+2.0 MVVM 数据绑定
+2.1
+<!-- 指令 -->
+<span v-text="msg"></span>
+<!-- 插值 -->
+<span>{{msg}}</span>
+<!-- 双向绑定 -->
+<input v-model="msg">
+
+2.2
+<!-- 模板 -->
+<div id="app">
+	{{msg}}
+</div>
+
+<script>
+// 原生对象即数据
+var data = {
+	msg: 'hello!'
+}
+
+// 创建一个 ViewModel 实例
+var vm = new Vue({
+	// 选择目标元素
+	el: '#app',
+	// 提供初始数据
+	data: data
+})
+
+</script>
+
+<!-- 渲染结果 -->
+<div id="app">
+	hello!
+</div>
+
+
+3.0 组件系统
+
+<!-- 注册一个 Vue.js 组件十分简单: -->
+<script>
+Vue.component('my-component', {
+	// 模板
+	template: '<div>{{msg}} {{privateMsg}}</div>',
+	// 接收参数
+	props: {
+		msg: String <br/>
+	},
+	// 私有数据，需要在函数中返回以避免多个实例共享一个对象
+	data: function () {
+		return {
+			privateMsg: 'component!'
+		}
+	}
+})
+</script>
+
+<!-- 注册之后即可在父组件模板中以自定义元素的形式调用一个子组件：  -->
+<my-component msg="hello"></my-component>
+
+<!-- 渲染结果： -->
+<div>hello component!</div>
+
+<!-- 
+Vue.js的组件可以理解为预先定义好了行为的ViewModel类。一个组件可以预定义很多选项，但最核心的是以下几个：
+
+模板（template）：模板声明了数据和最终展现给用户的DOM之间的映射关系。
+
+初始数据（data）：一个组件的初始数据状态。对于可复用的组件来说，这通常是私有的状态。
+
+接受的外部参数(props)：组件之间通过参数来进行数据的传递和共享。参数默认是单向绑定（由上至下），但也可以显式地声明为双向绑定。
+
+方法（methods）：对数据的改动操作一般都在组件的方法内进行。可以通过v-on指令将用户输入事件和组件方法进行绑定。
+
+生命周期钩子函数（lifecycle hooks）：一个组件会触发多个生命周期钩子函数，比如created，attached，destroyed等等。在这些钩子函数中，我们可以封装一些自定义的逻辑。和传统的MVC相比，可以理解为 Controller的逻辑被分散到了这些钩子函数中。
+
+私有资源（assets）：Vue.js当中将用户自定义的指令、过滤器、组件等统称为资源。由于全局注册资源容易导致命名冲突，一个组件可以声明自己的私有资源。私有资源只有该组件和它的子组件可以调用。
+
+除此之外，同一颗组件树之内的组件之间还可以通过内建的事件API来进行通信。Vue.js提供了完善的定义、复用和嵌套组件的API，让开发者可以像搭积木一样用组件拼出整个应用的界面。这个思路的可行性在Facebook开源的React当中也得到了印证。
+ -->
+
+
+
+4.0
+<!-- 基于构建工具的单文件组件格式
+
+Vue.js的核心库只提供基本的API，本身在如何组织应用的文件结构上并不做太多约束。但在构建大型应用时，推荐使用Webpack+vue-loader这个组合以使针对组件的开发更高效。
+
+Webpack是由Tobias Koppers开发的一个开源前端模块构建工具。它的基本功能是将以模块格式书写的多个JavaScript文件打包成一个文件，同时支持CommonJS和AMD格式。但让它与众不同的是，它提供了强大的loader API来定义对不同文件格式的预处理逻辑，从而让我们可以将CSS、模板，甚至是自定义的文件格式当做JavaScript模块来使用。Webpack 基于loader还可以实现大量高级功能，比如自动分块打包并按需加载、对图片资源引用的自动定位、根据图片大小决定是否用base64内联、开发时的模块热替换等等，可以说是目前前端构建领域最有竞争力的解决方案之一。
+
+我在Webpack的loader API基础上开发了vue-loader插件，从而让我们可以用这样的单文件格式 (*.vue) 来书写Vue组件： -->
+
+<style>
+.my-component h2 {
+  color: red;
+}
+</style>
+
+<template>
+  <div class="my-component">
+    <h2>Hello from {{msg}}</h2>
+    <other-component></other-component>
+  </div>
+</template>
+
+<script>
+// 遵循 CommonJS 模块格式
+var otherComponent = require('./other-component')
+
+// 导出组件定义
+module.exports = {
+  data: function () {
+    return {
+      msg: 'vue-loader'
+    }
+  },
+  components: {
+    'other-component': otherComponent
+  }
+}
+</script>
+<!-- 同时，还可以在*.vue文件中使用其他预处理器，只需要安装对应的Webpack loader即可：  -->
+<style lang="stylus">
+.my-component h2
+  color red
+</style>
+
+<template lang="jade">
+div.my-component
+  h2 Hello from {{msg}}
+</template>
+
+<script lang="babel">
+// 利用 Babel 编译 ES2015
+export default {
+  data () {
+    return {
+      msg: 'Hello from Babel!'
+    }
+  }
+}
+</script>
+<!-- 
+这样的组件格式，把一个组件的模板、样式、逻辑三要素整合在同一个文件中，即方便开发，也方便复用和维护。另外，Vue.js本身支持对组件的异步加载，配合Webpack的分块打包功能，可以极其轻松地实现组件的异步按需加载。
+ -->
+
+
+
+
+###########################
+###########################
+###########################
+
+0.0  Creating a Vue Instance with new Vue()
+
+
+<script>
+  var vm = new Vue({
+    el: '#vue-instance';
+    })
+</style>
+
+
+1.0  2-way Data Binding 
+v-model
+
+
+
+<div id="vue-instance">
+  <!-- this will be the DOM element we will mount our VueJs instance to -->
+  Enter a greeting: <input type="text" v-model="greeting">
+    <p>{{ greeting }}</p>
+</div>
+
+
+<div id="vue-instance">
+  <!-- this will be the DOM element we will mount our VueJs instance to -->
+  Enter a greeting: <input type="text" v-model="greeting">
+</div>
+
+<script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+
+<script>
+  // our VueJs instance bound to the div with an id of vue-instance
+  var vm = new Vue({
+    el: '#vue-instance',
+    data: {
+      greeting: 'Hello VueJs!'
+    }
+  });
+</script>
+
+
+2.0  Handing Events 
+v-on
+
+<div id="vue-instance">
+  Enter your name: <input type="text" v-model="name">
+  <button v-on:click="sayHello">Hey there!</button>
+</div>
+
+<script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+
+<script>
+  var vm = new Vue({
+    el: '#vue-instance',
+    data: {
+      name: ''
+    },
+    methods: {
+      sayHello: function(){
+        alert('Hey there, ' + this.name);
+      }
+    }
+  });
+</script>
+
+#####
+
+
+<button v-on:click="sayHello">Hey there!</button>
+
+with an equivalent @ version:
+
+<button @click="sayHello">Hey there!</button>
+
+
+
+
+
+3.0   Conditional Rendering
+v-if/v-else   
+v-show/v-else
+
+
+<body>
+
+<div id="vue-instance">
+  <div v-if="isLoggedIn">
+    Welcome to coligo!
+    <button @click="login" type="submit">Logout</button>
+  </div>
+  <div v-else>
+    <input type="text" placeholder="username">
+    <input type="password" placeholder="password">
+    <button @click="login" type="submit">Login</button>
+  </div>
+</div>
+
+<script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+
+<script>
+  var vm = new Vue({
+    el: '#vue-instance',
+    data: {
+      isLoggedIn: false
+    },
+    methods:{
+      login: function(){
+        // 'this' refers to the vm instance
+        this.isLoggedIn = !this.isLoggedIn;
+      }
+    }
+  });
+</script>
+
+</body>
+
+...
+
+
+v-show can be used in pretty much the same was as v-if and you can see that for yourself by replacing the v-if in the pervious example with a v-show like so:
+
+<div id="vue-instance">
+  <div v-show="isLoggedIn">
+    Welcome to coligo!
+    <button @click="login" type="submit">Logout</button>
+  </div>
+  <div v-else>
+    <input type="text" placeholder="username">
+    <input type="password" placeholder="password">
+    <button @click="login" type="submit">Login</button>
+  </div>
+</div>
+
+
+4.0  Rendering Lists in Vue
+v-for
+
+<body id="vue-instance">
+  <ul>
+    <li v-for="item in inventory">
+      {{ item.name }} - ${{ item.price }}
+    </li>
+  </ul>
+</body>
+
+<script>
+  var vm = new Vue({
+    el: '#vue-instance',
+    data: {
+      inventory: [
+        {name: 'MacBook Air', price: 1000},
+        {name: 'MacBook Pro', price: 1800},
+        {name: 'Lenovo W530', price: 1400},
+        {name: 'Acer Aspire One', price: 300}
+      ]
+    }
+  });
+</script>
+
+
+<!-- 如果你比较细心的话，在数据还未加载完时是会有闪烁的情况出现，解决方法也很简单，使用v-cloak,然后定义css: -->
+ [v-cloak] { display: none }
+
+
+
+###################
+<!-- Using the special $index variable: -->
+<div id="vue-instance">
+  <ul>
+    <li v-for="item in inventory">
+      {{ $index }} - {{ item.name }} - ${{ item.price }}
+    </li>
+  </ul>
+</div>
+
+<!-- or using an alias: -->
+<div id="vue-instance">
+  <ul>
+    <li v-for="(index, item) in inventory">
+      {{ index }} - {{ item.name }} - ${{ item.price }}
+    </li>
+  </ul>
+</div>
+
+
+5.0  Computed Properties   计算属性
+
+<!-- 计算属性可以帮助我们完成一些复杂的逻辑计算，比如我们需要添加一个书的总价，在vue实例中添加computed: -->
+<script>
+new Vue({
+    /.../
+    computed: {
+            sum: function() {
+                var result = 0;
+                for (var i = 0; i < this.books.length; i++) {
+                    result = Number(this.books[i].price) + result;
+                };
+                return result;
+            }
+        },
+     /.../
+})
+// 在app.html中使用插值表达式: 
+{{sum}}
+</script>
+
+
+6.0 vue-resource
+<!-- vue-resource作为vue插件的形式存在，通过 XMLHttpRequest 或 JSONP 发起请求并处理响应。在开发中也非常常见，现在我们用vue-resource来请求books:
+ -->
+6.1 引入
+npm install vue-resource --save
+
+<!-- 如果你的项目遵循CommonJS: -->
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+
+6.2  get
+
+<script>
+  // 在vue中新增ready对象，当页面加载完成时就去请求:
+  new Vue({
+    el: '#app',
+    ready: function(){
+      this.$http.get('book.json', function(data){
+        this.$set('books', data);
+      }).error(function(data, status, request){
+        console.log('fail' + status + "," - request);
+      })
+    },
+    data: {
+      ...
+      books: ''
+    },
+    ...
+  })
+
+</script>
+
+<!-- 为了演示，这里将json格式的数据保存在book.json中,这段数据你可以直接使用JSON.stringify()得到： -->
+
+[{"id":1,"author":"曹雪芹","name":"红楼梦","price":32},{"id":2,"author":"施耐庵","name":"水浒传","price":30},{"id":"3","author":"罗贯中","name":"三国演义","price":24},{"id":4,"author":"吴承恩","name":"西游记","price":20}]
+
+<!-- 接下来你需要将app.html中运行在一个服务器中，否则由于浏览器安全的限制，是无法直接读取的，如果你嫌麻烦可以用这个参数启动chrome。
+ -->
+.\chrome.exe --allow-file-access-from-files
+<!-- 如果你使用了npm，想要启动一个服务器就太简单了: -->
+
+npm install http-server -g
+<!-- //在当前目录 -->
+http-server
+//然后访问localhost:8080/app.html
+
+
+6.3 post
+<!-- post的语法也很简单： -->
+
+this.$http.post(url,postdata,function callback）
+
+<!-- 在使用的时候遇到一个小坑,这个$http请求和jquery的ajax还是有点区别，这里的post的data默认不是以form data的形式，而是request payload。解决起来也很简单：
+在vue实例中添加headers字段: -->
+
+http: {
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       }
+
+<!-- 后来翻了下vue-resource的源码，发现有更加简单的做法: -->
+Vue.http.options.emulateJSON = true;
+
+
+
+
+###########################
+#############     与API沟通     ##############
+###########################
+
+
+<!-- index.html -->
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vue Demo</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <a class="navbar-brand"><i class="glyphicon glyphicon-bullhorn"></i> Vue Events Bulletin Board</a>
+    </div>
+  </nav>
+
+  <div class="container" id="events">
+    <!-- 添加内容 -->
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Add an Event</h3>
+        </div>
+        <div class="panel-body">
+        <div class="form-group">
+            <input class="form-control" placeholder="title" v-model="event.name">
+        </div>
+
+          <div class="form-group">
+            <textarea class="form-control" placeholder="内容" v-model="event.description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="date" class="form-control" placeholder="日期" v-model="event.date">
+        </div>
+
+        <button class="btn btn-primary" v-on="click: addEvent">添加</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 显示添加的内容 -->
+    <div class="col-sm-6">
+      <div class="list-group">
+        <a href="#" class="list-group-item" v-repeat="event in events">
+          <h4 class="list-group-item-heading">
+            <i class="glyphicon glyphicon-bullhorn"></i> 
+            {{ ev ent.name }}
+          </h4>
+
+        <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> {{ event.date }}</h5>
+
+        <p class="list-group-item-text" v-if="event.description">{{ event.description }}</p>
+
+        <button class="btn btn-xs btn-danger" v-on="click: deleteEvent($index)">Delete</button>
+      </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
+<!-- app.js -->
+<script>
+  new Vue({
+    el: '#events', //管理的 DOM 节点
+    data: {
+      event: { name: '', description: '', date: '' },
+      events: []
+    },
+    //页面加载时会调用这个函数，执行里面的方法
+    ready: function(){
+      this.fetchEvents();
+    },
+
+    //这里写你想要注册的方法
+    methods: {
+      fetchEvents: function(){
+        var events = [];
+
+        // model 里的 $set 方法        
+        this.$set('events', events);
+        // 如果你想从后台接口 get 获取 json 数据，可以这么写
+        this.$http.get('api/events').success(function(events){
+          this.$set('events', events);
+        }).error(function(error){
+          console.log(error);
+        });
+      },
+      //添加最后的保存事件
+      addEvent: function(){
+        if(this.event.name){
+          this.events.push(this.event);
+          this.event = { name: '', description: '', date: '' };
+        }
+        // 如果你想 Post 提交到后台，可以这么写
+        this.$http.post('api/events', this.event).success(function(response){
+          this.events.push(this.event);
+          console.log("Event added!");
+        }).error(function(error){
+          console.log(error);
+        });
+      },
+      // 删除已经添加的列表
+      deleteEvent: function(index){
+        if(confirm("确定要删除吗?")){
+          // Model 里的 $remove 方法，为啥不用 $delete ？
+          this.events.$remove(index);
+        }
+
+        // 如果你想从数据库里删除,可以这么写
+        this.$http.delete('api/events', index).success(function(response){
+          this.events.$remove(index);
+        }).error(function(error){
+          console.log(error);
+        });
+      }
+    }
+  })
+</script>
+
+
+###########################
+#############     Vue Demo     ##############
+###########################
+
+new Vue ({
+  el: '#id',
+  data: {},
+  methods: {
+    addBook: function(){}
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
