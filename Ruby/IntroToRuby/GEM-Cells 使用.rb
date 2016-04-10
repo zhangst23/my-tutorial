@@ -33,7 +33,8 @@ end
 
 
 2.0 衍生的問題
-實作這個頁面時，開發者會遇到一些衍生的 issue。這個頁面一次要撈太多資料了，所以需要上 Cache。那麼 Cache 的標準是依照什麼呢？是針對 User 的 Update At 嗎？
+實作這個頁面時，開發者會遇到一些衍生的 issue。這個頁面一次要撈太多資料了，所以需要上 Cache。那麼 Cache 的標準
+是依照什麼呢？是針對 User 的 Update At 嗎？
 
 好像不太有效率。假如我希望 Recent Post 與 Recent Comments 被 Cache 的時間長短不同呢？
 

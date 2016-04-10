@@ -8,7 +8,6 @@ group :production do
 end  
 
 group :production do  
-  gem 'mysql2' 
   gem 'pg'
   gem 'rails_12factor' 
 end  
@@ -70,7 +69,7 @@ $ heroku apps:rename newname --app oldname
 
 
 
-
+fierce-atoll-28333
 
 
 

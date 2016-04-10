@@ -1,5 +1,10 @@
 gem-kaminari 知识点.rb
 
+gem 'kaminari'
+bundle
+rails g kaminari:config
+rails g kaminari:views default/bootstrap3
+
 1.0
   def index
     @lists = List.all.order(created_at: :desc).page(params[:page]).per(5)
