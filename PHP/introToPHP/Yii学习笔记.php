@@ -1,46 +1,9 @@
 Yii学习笔记.php
 
 
-1.0   Yii2.0 对数据库 查询的一些简单的操作
-
-User::find()->all();    此方法返回所有数据；
-
-User::findOne($id);   此方法返回 主键 id=1  的一条数据(举个例子)； 
-
-User::find()->where(['name' => '小伙儿'])->one();   此方法返回 ['name' => '小伙儿'] 的一条数据；
-
-User::find()->where(['name' => '小伙儿'])->all();   此方法返回 ['name' => '小伙儿'] 的所有数据；
-
-User::find()->orderBy('id DESC')->all();   此方法是排序查询；
-
-User::findBySql('SELECT * FROM user')->all();  此方法是用 sql  语句查询 user 表里面的所有数据；
-
-User::findBySql('SELECT * FROM user')->one();  此方法是用 sql  语句查询 user 表里面的一条数据；
-
-User::find()->andWhere(['sex' => '男', 'age' => '24'])->count('id');   统计符合条件的总条数；
-
-User::find()->one();    此方法返回一条数据；
-
-User::find()->all();    此方法返回所有数据；
-
-User::find()->count();    此方法返回记录的数量；
-
-User::find()->average();    此方法返回指定列的平均值；
-
-User::find()->min();    此方法返回指定列的最小值 ；
-
-User::find()->max();    此方法返回指定列的最大值 ；
-
-User::find()->scalar();    此方法返回值的第一行第一列的查询结果；
-
-User::find()->column();    此方法返回查询结果中的第一列的值；
-
-User::find()->exists();    此方法返回一个值指示是否包含查询结果的数据行；
-
-User::find()->batch(10);  每次取 10 条数据 
-
-User::find()->each(10);  每次取 10 条数据， 迭代查询
-
+- YII基础 
+- YII扩展 
+- YII工具
 
 
 2.0  Activeform表单部分组件使用方法 [ 2.0 版本 ]
@@ -57,54 +20,21 @@ User::find()->each(10);  每次取 10 条数据， 迭代查询
  -->
 <?php
 $form = ActiveForm::begin(['action' => ['test/getpost'],'method'=>'post',]); ?>
- 
 <? echo $form->field($model, 'username')->textInput(['maxlength' => 20]) ?>
-
 <? echo $form->field($model, 'password')->passwordInput(['maxlength' => 20]) ?>
-
 <? echo $form->field($model, 'sex')->radioList(['1'=>'男','0'=>'女']) ?>
-
 <? echo $form->field($model, 'edu')->dropDownList(['1'=>'大学','2'=>'高中','3'=>'初中'], ['prompt'=>'请选择','style'=>'width:120px']) ?>
-
 <? echo $form->field($model, 'file')->fileInput() ?>
-
 <? echo $form->field($model, 'hobby')->checkboxList(['0'=>'篮球','1'=>'足球','2'=>'羽毛球','3'=>'乒乓球']) ?>
-
 <? echo $form->field($model, 'info')->textarea(['rows'=>3]) ?>
-
 <? echo $form->field($model, 'userid')->hiddenInput(['value'=>3]) ?>
-
 <? echo Html::submitButton('提交', ['class'=>'btn btn-primary','name' =>'submit-button']) ?>
-   
 <? echo Html::resetButton('重置', ['class'=>'btn btn-primary','name' =>'submit-button']) ?>
-
 <?php ActiveForm::end(); ?>
 
 
 
 
-3.0    用 Gii 生成代码
-3.1 开启: yii\base\Application::modules 属性开启. 通常 config/web.php 文件中有以下配置代码：
-$config = [ ... ];
-if(YII_ENV_DEV){
-	$config['bootstrap'][] = 'gii';
-	$config['modules']['gii'] = 'yii\gii\Module';
-}
-
-3.2   生成活动记录类
-Table Name : contry
-Model Class : Contry
-Namespace : app\models
-Base Class : yii\db\ActiveRecord
-Database Connection ID : db
-Generate Relations
-
-
-3.3  生成 CRUD 代码
-<!-- CRUD 代表增，查，改，删操作，这是绝大多数 Web 站点常用的数据处理方式。选择 Gii 中的 “CRUD Generator” （点击 Gii 首页的链接）去创建 CRUD 功能。本例 “country” 中需要这样填写表单： -->
-Model Class : app\models\Contry
-Search Model Class : app\models\ContrySearch
-Controller Class : app\controllers\ContryController
 
 4  Saying Hello
 4.1 创建操作
@@ -233,7 +163,7 @@ http://hostname/index.php?r=site/entry
 
 
 ################################
-################################
+###############    YII基础     #################
 ################################
 ################################
 
@@ -559,25 +489,492 @@ class HelloController extends Controller{
 
 		// 根据顾客查询他的订单的信息
 		$customer = Customer::find()->where(['name'=>'zhangsan'])->one();
-		$orders = $customer->hasMany('app\models\Order', ['customer id'=>'id'])->all();
+		// $orders = $customer->hasMany(Order::className(), ['customer_id'=>'id'])->all();
+
+		// $orders = $customer->getOrders();
+		$orders = $customer->getOrders();
 
 		print_r($orders);
-
-
-
-
-
-
-
-
-
-
-
 
 
 	}
 }
 ?>
+
+
+<!-- Customer.php -->
+<?php
+namespace app\models;
+
+use yii\db\ActiveRecord;
+class Customer extends ActiveRecord{
+
+	// 帮助顾客获取订单信息   一对多关系
+	public function getOrders(){
+		$orders = $this->hasMany(Order::className(), ['customer_id'=>'id'])->asArray();
+		return $orders;
+	}
+
+}
+
+
+#######################################################
+
+// 根据订单查询顾客的信息   一对一
+
+$order = Order::find()->where(['id'=>1])->one();
+$customer = $order->customer
+
+
+// 根据订单查询顾客的信息  Order.php
+public function getCustomer(){
+	return $this->hasOne(Customer::className(), ['id'=>'customer_id'])->asArray();
+
+}
+
+
+#######################################################
+1.0   Yii2.0 对数据库 查询的一些简单的操作
+
+User::find()->all();    此方法返回所有数据；
+User::findOne($id);   此方法返回 主键 id=1  的一条数据(举个例子)； 
+User::find()->where(['name' => '小伙儿'])->one();   此方法返回 ['name' => '小伙儿'] 的一条数据；
+User::find()->where(['name' => '小伙儿'])->all();   此方法返回 ['name' => '小伙儿'] 的所有数据；
+User::find()->orderBy('id DESC')->all();   此方法是排序查询；
+User::findBySql('SELECT * FROM user')->all();  此方法是用 sql  语句查询 user 表里面的所有数据；
+User::findBySql('SELECT * FROM user')->one();  此方法是用 sql  语句查询 user 表里面的一条数据；
+User::find()->andWhere(['sex' => '男', 'age' => '24'])->count('id');   统计符合条件的总条数；
+User::find()->one();    此方法返回一条数据；
+User::find()->all();    此方法返回所有数据；
+User::find()->count();    此方法返回记录的数量；
+User::find()->average();    此方法返回指定列的平均值；
+User::find()->min();    此方法返回指定列的最小值 ；
+User::find()->max();    此方法返回指定列的最大值 ；
+User::find()->scalar();    此方法返回值的第一行第一列的查询结果；
+User::find()->column();    此方法返回查询结果中的第一列的值；
+User::find()->exists();    此方法返回一个值指示是否包含查询结果的数据行；
+User::find()->batch(10);  每次取 10 条数据 
+User::find()->each(10);  每次取 10 条数据， 迭代查询
+#######################################################
+
+
+
+3.6   数据模型之关联查询性能问题 
+
+
+// 关联查询结果缓存
+$customer = Customer::find()->where(['name'=>'zhangsan'])->one();
+
+unset($customer->orders);
+
+$orders = $customer->getOrders();
+
+
+//关联查询的多次查询
+// select * from customer
+// select * from order where customer_id in(...)
+$customers = Customer::find()->with('orders')->all();
+foreach($customers as $customer){
+
+	$orders = $customer->orders;
+}
+
+?>
+
+
+
+
+
+################################
+################    YII高效     ################
+################################
+################################
+
+
+1.0  Gii
+
+ 开启: yii\base\Application::modules 属性开启. 通常 config/web.php 文件中有以下配置代码：
+$config = [ ... ];
+if(YII_ENV_DEV){
+	$config['bootstrap'][] = 'gii';
+	$config['modules']['gii'] = 'yii\gii\Module';
+}
+
+1.1  Model Generator
+Table Name : contry
+Model Class : Contry
+Namespace : app\models
+Base Class : yii\db\ActiveRecord
+Database Connection ID : db
+Generate Relations
+
+
+
+1.2 Controller Generator
+
+Controller : app\controllers\TestController
+Action IDs : index test test2
+Basic Class : yii\web\Controller
+
+
+1.3  生成 CRUD 代码
+<!-- CRUD 代表增，查，改，删操作，这是绝大多数 Web 站点常用的数据处理方式。选择 Gii 中的 “CRUD Generator” （点击 Gii 首页的链接）去创建 CRUD 功能。本例 “country” 中需要这样填写表单： -->
+Model Class : app\models\Contry
+Search Model Class : app\models\ContrySearch
+Controller Class : app\controllers\ContryController
+
+1.4  Module Generator  模块
+
+Module Class : app\modules\Article
+Module ID : article
+
+
+
+
+1.5 Extension Generator
+
+
+
+
+
+
+2.0 延迟加载
+
+
+
+3.0 数据缓存
+
+
+4.0 片段缓存
+
+5.0 页面缓存
+
+6.0 HTTP缓存
+
+
+
+################################
+################    YII扩展     ################
+################################
+################################
+
+1.0 模块化
+
+blog->users
+		-头像
+		-password
+		-...
+		-配置文件(上面子模块的开启关闭状态)
+	->articles
+	->comments
+	->ads
+	->配置文件
+
+
+1.1
+config\web.php   配置文件
+
+1.2   GII:
+app\modules\article\Article
+article
+
+app\modules\comment\Comment
+comment
+
+
+<?php
+namespace app\controllers;
+use yii\web\Controller;
+
+class HelloController extends Controller{
+
+	public function actionIndex() {
+
+		// 获取子模块
+		$article = \YII::$app->getModule('article');
+
+		// 调用子模块的操作
+		$article->runArticle('default/index');
+	}
+}
+
+
+1.2.2  子模块
+
+GII:
+app\modules\article\modules\category\Category
+category
+
+
+// Article.php
+<?php
+namespace app\modules\article;
+
+class Article extends \yii\base\Module
+{
+	public $controllerNamespace = 'app\modules\article\controllers';
+
+	public function init(){
+		parent::init();
+		$this->modules = [
+			'category' => [
+				'class' => 'app\modules\article\modules\category\Category',
+			]
+		]
+	}
+}
+
+
+
+
+
+2.0  事件机制
+
+->扫描式
+->绑定式
+	-trigger()
+	-on()
+
+
+2.1
+animal
+	-Cat.php
+	-Mourse.php
+	-Dog.php
+
+
+// Cat.php
+<?php
+namespace vendor\animal;
+use \yii\base\Component;
+use \yii\base\Event;
+
+class MyEvent extends Event{
+	public $message;
+}
+
+class Cat extends Component{
+
+	public function shout(){
+		echo 'miao miao miao <br>';
+		$me = new MyEvent;
+		$me->message = 'hello my event <br>';
+		$this->trigger('miao', $me);
+	}
+}
+
+
+// Mourse.php
+<?php
+namespace vendor\animal;
+use \yii\base\Component;
+
+class Mourse{
+	public function run($e){
+		echo $e->message;
+		echo 'i am running! <br>';
+	}
+}
+
+
+// Dog.php
+<?php
+namespace vendor\animal;
+
+class Dog{
+	public function look(){
+		echo 'i am looking! <br>';
+	}
+}
+
+
+
+
+// base\controllers\AnimalController.php
+<?php
+namespace app\controllers;
+use yii\web\Controller;
+use vendor\animal\Cat;
+use vendor\animal\Mourse;
+use vendor\animal\Dog;
+use \yii\base\Event;
+
+
+class AnimalController extends Controller{
+
+	public function actionIndex() {
+
+
+		\YII::$app->on(\yii\base\Application::EVENT_AFTER_REQUEST, function(){
+			echo 'event after request <br>';
+		})
+		echo 'hello index action <br>';
+		// $cat = new Cat;
+		// $cat2 = new Cat;
+		// $mourse = new Mourse;
+		// $dog = new Dog;
+
+
+		// // Event::on(Cat::className(), 'miao', [$mouse, 'run']);  //类级别的事件绑定
+		// // $cat->on('miao', [$mourse, 'run']);
+		// // $cat->on('miao', [$dog, 'look']);
+		// // $cat->off('miao', [$dog, 'look']);
+		// Event::on(Cat::className(), 'miao', function(){
+		// 	echo 'miao event has triggered <br>';
+		// });
+
+		// $cat->shout();
+		// $cat2->shout();
+	}
+}
+
+
+
+3.0  mixin
+
+
+-类的混合
+-对象的混合
+
+3.1  类的混合
+// Behavior1.php
+<?php
+namespace app\Behaviors;
+use yii\base\Bahavior;
+use 
+
+class Behavior1 eventds Behavior{
+
+	public $height;
+	public function eat(){
+		echo 'dog eat';
+	}
+
+	public function events(){
+		return [
+			'wang'=>'shout'
+		];
+	}
+
+	public function shout($event){
+		echo 'wang wang wang <br>';
+	}
+}
+
+
+// Dog.php
+<?php
+namespace vendor\animal;
+use app\behaviors\Behavior1;
+use yii\base\Component;
+
+class Dog extends Component{
+	public function behaviros(){
+		return [
+			Behaviro1::className()
+		];
+	}
+
+	public function look(){
+		echo 'i am looking! <br>';
+	}
+
+}
+
+
+// base\controllers\AnimalController.php
+<?php
+namespace app\controllers;
+use yii\web\Controller;
+use vendor\animal\Cat;
+use vendor\animal\Mourse;
+use vendor\animal\Dog;
+use \yii\base\Event;
+
+
+class AnimalController extends Controller{
+
+	public function actionIndex() {
+
+		$dog = new Dog();
+		$dog->trigger('wang');
+		// $dog->look();
+		// $dog->eat();
+		// $dog->height = '15cm';
+		// echo $dog->height;
+	}
+}
+?>
+
+
+3.1 对象的混合
+
+
+
+4.0  依赖注入  -  解决对象的耦合度
+
+-容器 定义并解决依赖关系
+-服务定位器 配置服务的参数信息
+
+
+
+
+
+
+
+
+
+
+
+
+################################
+################    YII工具     ################
+################################
+################################
+
+
+1.0 Composer  管理依赖关系的工具,方便下载第三方库
+
+swiftmailer
+fpdf
+bootstrap
+gii
+...
+
+1.1
+
+composer.phar install
+
+
+
+2.0  debug
+
+basic/web/index/php?r=debug
+
+3.0 GII
+
+basic/web/index/php?r=gii
+
+
+
+
+
+
+################################
+################    YII入门     ################
+################################
+################################
+
+
+1.0 文件上传
+
+
+
+
+
+
+
+
 
 
 

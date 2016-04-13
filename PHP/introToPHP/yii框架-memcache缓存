@@ -1,0 +1,39 @@
+yii框架-memcache缓存
+
+
+1. 使用
+
+$data = $cache->get($key);
+if($data == false){
+	// 从db或其他地方获取data
+	$cache->set($key, $data);
+}
+
+MemCache
+ApcCache
+DbCache
+FileCache
+yii\redis\Cache
+
+
+get 
+set
+add
+mget
+mset
+madd
+exists
+delete
+flush
+
+
+
+
+
+
+
+
+
+
+
+

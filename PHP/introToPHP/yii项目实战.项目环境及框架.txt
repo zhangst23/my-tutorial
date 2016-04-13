@@ -1,0 +1,182 @@
+yii项目实战  - 项目环境及框架准备
+
+1、环境架设
+
+ubuntu
+apt-get 
+
+centos
+yum
+
+lnmp
+l linux  mac
+n nginx   apache
+m mysql
+p php
+
+brew
+
+brew安装：
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+
+自检：
+brew doctor
+
+brew update
+brew search php55
+brew tap josegonazlez/php
+brew install php55 php54
+brew removew php55
+brew upgrade php55
+brew options php55
+brew info php55
+brew home php55
+
+安装cask：
+brew tap phinze/homebrew-cask && brew install brew-cask 
+
+安装开发包
+brew install wget watch tmux cmake openssl imagemagick graphicsmagick gearman geoip readline autoconf multitail source-highlight autojump zsh-completions sshfs 
+
+#升级一下系统自带的vim
+#brew install ctags macvim --env-std --override-system-vim
+
+
+
+安装MySQL
+brew install mysql
+
+开机启动：
+ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
+安装完成之后开启MySQL安全机制：
+/usr/local/opt/mysql/bin/mysql_secure_installation
+根据终端提示，输入root密码，然后依次确认一些安全选项
+
+
+
+安装PHP
+添加brew的PHP扩展库：
+brew update
+brew tap homebrew/dupes
+brew tap josegonzalez/homebrew-php
+
+安装PHP 5.5
+brew install php55 --with-fpm --with-gmp --with-imap --with-tidy --with-debug --with-mysql --with-libmysql
+
+安装以下PHP扩展
+brew install php55-apcu\
+ php55-gearman\
+ php55-geoip\
+ php55-gmagick\
+ php55-imagick\
+ php55-mcrypt\
+ php55-memcache\
+ php55-memcached\
+ php55-mongo\
+ php55-opcache\
+ php55-pdo-pgsql\
+ php55-redis\
+ php55-sphinx\
+ php55-swoole\
+ php55-uuid\
+ php55-xdebug;
+
+添加环境变量
+echo 'export PATH="$(brew --prefix php55)/bin:$PATH"' >> ~/.bash_profile  #for php
+echo 'export PATH="$(brew --prefix php55)/sbin:$PATH"' >> ~/.bash_profile  #for php-fpm
+echo 'export PATH="/usr/local/bin:/usr/local/sbib:$PATH"' >> ~/.bash_profile #for other brew install soft
+source ~/.bash_profile
+
+#测试php-fpm配置
+php-fpm -t
+php-fpm -c /usr/local/etc/php/5.5/php.ini -y /usr/local/etc/php/5.5/php-fpm.conf -t
+
+#启动php-fpm
+php-fpm -D
+php-fpm -c /usr/local/etc/php/5.5/php.ini -y /usr/local/etc/php/5.5/php-fpm.conf -D
+
+PHP-FPM开机启动：
+ln -sfv /usr/local/opt/php55/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
+
+
+
+安装php composer
+brew install composer
+#检查一下情况
+composer --version
+
+
+
+安装Nginx
+brew install nginx --with-http_geoip_module
+
+Nginx启动关闭命令：
+
+#测试配置是否有语法错误
+nginx -t
+
+#打开 nginx
+sudo nginx
+
+#重新加载配置|重启|停止|退出 nginx
+nginx -s reload|reopen|stop|quit
+
+Nginx开机启动
+ln -sfv /usr/local/opt/nginx/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+
+Nginx监听80端口需要root权限执行，因此：
+sudo chown root:wheel /usr/local/Cellar/nginx/1.6.2/bin/nginx
+sudo chmod u+s /usr/local/Cellar/nginx/1.6.2/bin/nginx
+
+配置nginx.conf
+vim /usr/local/etc/nginx/nginx.conf
+
+设置nginx php-fpm配置文件
+vim /usr/local/etc/nginx/conf.d/php-fpm
+
+创建需要用到的目录：
+mkdir -p /usr/local/var/logs/nginx
+mkdir -p /usr/local/etc/nginx/sites-available
+mkdir -p /usr/local/etc/nginx/sites-enabled
+mkdir -p /usr/local/etc/nginx/conf.d
+mkdir -p /usr/local/etc/nginx/ssl
+sudo mkdir -p /var/www
+sudo chown :staff /var/www
+sudo chmod 775 /var/www
+
+启动|停止Nginx
+launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+
+#创建 info.php index.html 404.html 403.html文件到 /var/www 下面
+vi /var/www/info.php
+vi /var/www/index.html
+vi /var/www/403.html
+vi /var/www/404.html
+
+创建默认虚拟主机default
+vim /usr/local/etc/nginx/sites-available/default：
+[2.defaut.txt]
+
+创建虚拟主机软连接，开启虚拟主机
+ln -sfv /usr/local/etc/nginx/sites-available/default /usr/local/etc/nginx/sites-enabled/default
+
+
+localhost/info.php
+
+phpinfo();
+
+安装redis,memcached
+brew install redis memcached
+
+
+
+
+
+2、框架
+
+basic
