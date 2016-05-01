@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#main_nav{
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: #fff;
+		}
+		.with_nav #main_nav {
+		    display: block;
+		}
+		#main_nav:target{
+			display: block;
+		}
+
+.access_aid {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 0;
+    padding-top: 40px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+.access_aid {
+    /* In addition to the existing declarations... */
+    background: white 10px 10px / 20px 20px no-repeat;
+}
+
+#access_nav {
+    background-image: -webkit-repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);
+    background-image: repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);
+}
+
+#access_top {
+    background-image: linear-gradient(45deg, transparent 13px, #ccc 13px, #ccc 15px, transparent 0), linear-gradient(-45deg, white 13px, #ccc 13px, #ccc 15px, white 0);
+}
+	</style>
+	<script>
+		var nav = document.getElementById('access_nav'),
+			body = document.body;
+
+		nav.addEventListener('click', function(e){
+			body.className = body.className? '' : 'with_nav';
+			e.preventDefault();
+		});
+	</script>
+</head>
+<body id="body">
+	<p><a href="#main_nav" id="access_nav" class="access_aid">Skip to navigation</a></p>
+	<article>
+		
+	</article>
+	<nav id="main_nav">
+		<ul>
+			<li><a href="">This</a></li>
+			<li><a href="">That</a></li>
+			<li><a href="">The other</a></li>
+		</ul>
+		<p><a href="#body" id="access_top" class="access_aid">Skip to top</a></p>
+	</nav>
+
+
+</body>
+</html>
