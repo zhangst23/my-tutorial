@@ -9,7 +9,7 @@ var CommentList = React.createClass({
 		return(
 			<div className="CommentList">
 			Hello,world!I am a CommentList.
-			</div>
+			</div> /
 			);
 	}
 });
@@ -20,7 +20,7 @@ var CommentForm = React.createClass({
 		return(
 			<div className="CommentForm">
 			Hello,world!I am a CommentForm.
-			</div>
+			</div> /
 		);
 	}
 });
@@ -47,7 +47,7 @@ var CommentList = React.createClass({
 			<div className="CommentList">
 			<Comment author="Pete Hunt">This is one comment</Comment>
 			<Comment author="Jordan Walke">This is *another* comment</Comment>
-			</div>
+			</div> /
 		);
 	}
 });
@@ -95,14 +95,14 @@ var CommentBox = React.createClass({
 			<div className="commentBox">
 			<h1>Comments<h1>
 			<CommentList date={this.props.data} />
-			<CommentForm />
+			<CommentForm /> /
 			</div>
 			);
 	}
 });
 
 React.render(
-	<CommentBox data={data} />,
+	<CommentBox data={data} />, /
 	document.getElementById('content')
 	);
 //现在数据在CommentList中可用了，让我们动态的渲染评论
@@ -110,12 +110,12 @@ var CommentList = React.createClass({
 	render:function(){
 		var commentNodes = this.props.data.map(function(comment){
 			return(
-				<Comment author={comment.author}>{comment.text}</Comment>
+				<Comment author={comment.author}>{comment.text}</Comment> /
 				);
 		});
 
 	return(
-		<div className="CommentList">{commentNodes}</div>
+		<div className="CommentList">{commentNodes}</div> /
 		);
 	}
 });
@@ -138,7 +138,7 @@ var CommentBox = React.createClass({
 			<div className="commentBox">
 				<h1>Comments</h1>
 				<CommentList data={this.state.data}>
-				<CommentForm />
+				<CommentForm /> /
 			</div>
 			)
 	}
@@ -175,7 +175,7 @@ var CommentBox = React.createClass({
 			<h1>Comments</h1>
 			<CommentList data={this.state.data} />
 			<CommentForm />
-			</div>
+			</div> /
 			);
 	}
 });
@@ -205,15 +205,15 @@ var CommentBox = React.createClass({
 		return:(
 			<div className="commentBox">
 				<h1>Comments</h1>
-				<CommentList data={this.state.data} />
+				<CommentList data={this.state.data} /> 
 				<CommentForm />
-			</div>
+			</div> /
 			);
 	}
 });
 
 React.render(
-	<CommentBox url="comment.json" pollInterval={2000} />,
+	<CommentBox url="comment.json" pollInterval={2000} />, /
 	document.getElementById('content')
 	);
 
@@ -225,7 +225,7 @@ var CommentForm = React.createClass({
 				<input type="text" placeholder="Your name" />
 				<input type="text" placeholder="Say something..." />
 				<input type="submit" value="Post" />
-			</form>
+			</form> /
 			);
 	}
 });
@@ -252,7 +252,7 @@ var CommentForm = React.createClass({
 				<input type="text" placeholder="Your name" ref="author" />
 				<input type="text" placeholder="Say something..." ref="text" />
 				<input type="submint" value="Post" />
-			</form>
+			</form> /
 			);
 	}
 });

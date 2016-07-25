@@ -6,7 +6,7 @@ var arr2 = [1,2,3]
 $each(arr2,function(){alert(this);})
 
 //2.0
-$(finction(){
+$(function(){
 	$('.text').click{
 		function(){
 			alert($(this).text());
@@ -139,7 +139,7 @@ $(function(){
 		$(this).removeClass("focus");
 	})
 })
-那个没送按摩床的顾客地址有变，您选择性备注下：北京市朝阳区望京北路39号澳洲康都3号楼四单元3G，白佳鑫，18610248843
+
 //复选框应用
 $("#send").click(function(){
 	var str="你选中的是:\r\n";
@@ -267,7 +267,7 @@ $(function(){
 			var content = $(data).find("comment content").text();
 			var txtHtml = "<div class='comment'>
 			<h6>"+username+":</h6>
-			<p class='[ara'>"+content+"</p>
+			<p class='ara'>"+content+"</p>
 			</div>"
 			$("#resText").html(txtHtml);	//将返回的数据添加到页面上
 		})

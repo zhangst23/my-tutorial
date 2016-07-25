@@ -266,7 +266,7 @@ $(function(){
 	var $product = $(".pro_detail_right");
 	$("#cart a").click(function(){
 		var pro_name = $product.find("h4:first").text();
-		var pro_size = $product.find(".pro_size strong"),text();
+		var pro_size = $product.find(".pro_size strong").text();
 		var pro_color = $(".color_change strong").text();
 		var pro_num = $product.find("#num_sort").val();
 		var pro_price = $product.find(".pro_price span").text();

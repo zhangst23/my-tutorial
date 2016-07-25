@@ -1,0 +1,63 @@
+Layout Math with CSS: Understanding calc.css
+
+/*Example1:Vertical Flush Margins*/
+
+<img src="kirkjufellsfoss.jpg" alt style="width:50%; margin-right: 2rem; float: left;">
+
+/**/
+img ~ p {
+	margin-left: calc(50% + 2rem);
+}
+
+/*Example2:Full-Width Elements In Padded Containers*/
+<article>
+	<header>
+		<img src="fredvang.jpg" alt>
+	</header>
+	<p>Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout...
+</article>
+
+/**/
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #000;
+	font-family: Edelsans, sans-serif;
+	line-height: 1.5;
+}
+
+article {
+	width: 80%; margin: 0 auto;
+	background: #fff;
+	padding: 0 2rem;
+	color: #000;
+}
+
+article header img {
+	width: 100%; height: auto;
+}
+
+/**/
+article header {
+	width: calc(100% + 4rem); margin-left: -2rem;
+}
+
+
+
+/*3 */
+.box {
+	background: rgba(255, 0, 0, calc(.3 * 2));
+}
+
+.box {
+	transform: rotate(calc(45deg - 2.31rad));
+}
+
+
+
+
+
+
+

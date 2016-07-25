@@ -19,7 +19,7 @@
         $(formToLookAt + "input:checked").each(function(){
         	keepList = keepList.filter("."+$(this).attr("name"));
         });
-        </div>
+        </div>/
 
 
 3. 任何使用has()来检查某个元素是否包含某个类或是元素
@@ -53,7 +53,8 @@
 7. 如何设置IE特有的功能
 
      if ($.browser.msie) {
-     	//IE 其实不那么好用   }
+     	//IE 其实不那么好用  
+         }
 
 
 8. 如何使用jQuery来代替一个元素

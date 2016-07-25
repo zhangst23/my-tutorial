@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>taobao首页轮播原生js面对对象封装版</title>
+<title>taobao首页轮播原生js面对对象封装版</title>/
 <style>
 
 body, ul, li, p {
@@ -63,7 +63,7 @@ body {
 	filter:alpha(opacity=70);
 }
 
-</style>
+</style>/
 <script>
 function runImg(){}
 runImg.prototype={
@@ -206,7 +206,7 @@ window.onload=function(){
 <center><h1>Author:wyf</h1><p>2012/2/25</p></center>
 <div id="box"></div>
 </body>
-</html>
+</html>/
 
 
 2.0    焦点图轮播jq

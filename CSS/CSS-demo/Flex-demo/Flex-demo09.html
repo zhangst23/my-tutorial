@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+/*		#flex {
+			display: flex;
+			padding: 2rem;
+			flex-direction: column;
+		}*/
+		#flex {
+			height: 500%;
+			justify-content: flex-end;
+			flex-direction: column-reverse;
+			align-items: center;
+		}
+		#triangle {
+			width: 0; height: 0;
+			border-bottom: 114px solid hsl(240, 30%, 50%);
+			border-left: 63px solid transparent;
+			border-right: 63px solid transparent;
+		}
+		#square-vert {
+			width: 126px; height: 126px;
+			/*border-radius: 50%;*/
+			background: hsl(300, 30%, 50%); 
+		}
+		#circle-vert {
+			width: 126px; height: 126px;
+			border-radius: 50%;
+			background: hsl(340, 30%, 50%);
+		}
+	</style>
+</head>
+<body>
+	<figure id="flex">
+		<div id="triangle"></div>
+		<div id="square-vert"></div>
+		<div id="circle-vert"></div>
+	</figure>
+</body>
+</html>

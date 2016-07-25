@@ -1,0 +1,114 @@
+var {
+	AppRegistry,
+	StyleSheet,
+	Text,
+	View
+} = React;
+
+var Email = React.createClass({
+	render: function(){
+		return (
+			<View style={styles.container}>
+				<Text style={style.text}>{this.props.name}</Text>
+				<Text style={styles.text}>{this.props.url}</Text>
+			</View>
+		);
+	}
+});
+
+var styles = StyleSheet.create({
+	container:{
+		flex:1,
+		paddingTop:40,
+	},
+	text:{
+		color:'red'
+	}
+});
+
+var App = React.createClass({
+	render: function(){
+		return(
+			<Email name="框架研发部" url="www.ctrip.com"/>
+		);
+	}
+});
+
+AppRegistry.registerComponent('CtripFxReact', () => App);
+
+//
+var {
+	AppRegistry,
+	StyleSheet,
+	Text,
+	View
+} = React;
+
+//第一步该做我们的组件
+var Acticle = React.createClass({
+	render: function(){
+		return (
+			<View style={styles.container}>
+				<Text style={[style.text, styles.title]}>{this.props.title}</Text>
+				<Text style={styles.text}>{this.props.author}</Text>
+				<Text style={styles.text}>{this.props.time}</Text>
+			</View>
+		)
+	}
+})
+
+var styles = StyleSheet.create({...});
+
+//定义数据model和循环
+var App = React.createClass({
+	getInitialState: function(){
+		var data = [
+		{
+			title: "React-Native入门指南",
+			author: "vczero",
+			time: "2015-06-28"
+		},
+		{
+            title: "为什么世界不一样",
+            author: "vczero",
+            time: "2015-06-8"
+        },
+        {
+            title: "你来，我就告诉你",
+            author: "vczero",
+            time: "2015-04-01"
+        }
+    	];
+    	return {
+    		articles: data
+    	};
+	},
+	render: function(){
+		return(
+			<ScrollView>
+			{this.state.articles.map(function(article){
+				return <Article title={article.title} author={article.author} time={article.time}/>
+			})}
+			</ScrollView>
+		);
+	}
+});
+
+AppRegistry.registerComponent('List', () => App);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+CSS的7中居中方式.html
+
+
+
+<div class="center">
+	<img src="jimmy-choo-shoe.jpg" alt="">
+</div>
+
+
+<!-- 1.0 Horizontal centering with text-alignment -->
+
+div.center {
+	text-align: center;
+	background: hsl(0, 100%, 97%);
+}
+
+div.center img {
+	width: 33%; height: auto;
+}
+
+
+<!-- 2.0 Centering with margin: auto -->
+div.center {
+	background: hsl(60, 100%, 97%);
+}
+
+div.center img {
+	display: block;
+	width: 33%;
+	height: auto;
+	margin: 0 auto;
+}
+
+
+<!-- 3.0 table-cell centering -->
+.center-aligned {
+	display: table;
+	background: hsl(120, 100%, 97%);
+	width: 100%;
+}
+.center-core {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.center-core img {
+	width: 33%;
+	height: auto;
+}
+
+
+<!-- 4.0 Absolute Centering -->
+
+.absolute-aligned {
+	position: relative;
+	min-height: 500px;
+	background: hsl(200, 100%, 97%);
+}
+
+.absolute-aligned img {
+	width: 50%;
+	min-width: 200px;
+	height: auto;
+	overflow: auto;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+}
+
+
+<!-- 5.0 Centering With translate -->
+
+.center {
+	background: hsl(180, 100%, 97%);
+	position: relative;
+	min-height: 500px;
+}
+
+.center img {
+	position: absolute;
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+	width: 30%; height: auto;
+}
+
+
+
+<!-- 6.0 Flexbox centering -->
+.center {
+	background: hsl(240, 100%, 97%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center img {
+	width: 30%; height: auto;
+}
+
+<!-- 7.0 Centering With calc -->
+.center {
+	background: hsl(300, 100%, 97%);
+	min-height: 600px;
+	position: relative;
+}
+
+.center img {
+	width: 40%;
+	height: auto;
+	position: absolute;
+	top: calc(50% - 20%);
+	left: calc(50% - 20%);
+}
+
+
+
+
+
+
+
