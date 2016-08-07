@@ -23,6 +23,22 @@
     height: 150px;
     background-color: hsl(22,88%,50%);
 }
+
+exampleContainer: {
+    width: 320,
+    height: 200,
+    backgroundColor: 'gray'
+}
+
+
+
+
+
+
+
+
+
+
 </style>
 
 
@@ -49,6 +65,131 @@
     <div class="square"></div>
     <div class="circle"></div>
 </div>
+
+<!-- 1.0  Getting Start -->
+react-native init LearnFlexBox
+cd LearnFlexBox/
+react-native run-ios
+
+render() {
+    return (
+        <View style={styles.contaienr}>
+            <View style={styles.exampleContainer}>          
+
+            </View>
+        </View>
+    );
+}
+
+
+<!-- 2.0 flexDirection -->
+
+<View style={styles.exampleContainer1}>
+    <View style={styles.exampleItem}></View>
+    <View style={styles.exampleItem}></View>
+    <View style={styles.exampleItem}></View>
+</View>
+
+exampleContainer1: {
+    width:320,
+    height:200,
+    backgroundColor:'gray',
+    flexDirection:'column'
+},
+
+<!-- 3.0 alignItems -->
+<!-- flex-start   
+flex-end
+center
+stretch -->
+
+<View style={{width:320,height:200,background:'gray',alignItems:'stretch',flexDirection:'row'}}>
+    <View style={{width:50,background:'green'}}></View>
+    <View style={{width:50,background:'blue'}}></View>
+    <View style={{width:50,height:50,backgroundColor:'red'}}></View>
+    <View style={{width:50,height:60,backgroundColor:'orange'}}></View>
+</View>
+
+
+<!-- 4.0 alignSelf  5个值，当Item有这个属性的时候，会优先读取itme的alignSelf来布局，也就是说会覆盖Container的alignItems。-->
+
+
+<!-- 5.0 justifyContent 水平轴上的位置关系 -->
+<!-- flex-start  flex-end   center  space-between   space-around -->
+
+<View style={{width:320,height:200,backgroundColor:'gray',justifyContent:'space-around',flexDirection:'row'}}>
+    <View></View>
+    <View></View>
+    <View></View>
+    <View></View>
+</View>
+
+
+<!-- 6.0  flex  占据剩余空间的权重 -->
+<View style={{width:320,height:200,backgroundColor:'gray',flexDirection:'row'}}>
+    <View style=![这里写图片描述](http://img.blog.csdn.net/20160524){{flex:1,height:30,background:'green'}}></View>
+    <View style={{flex:1,height:30,backgroundColor:'blue'}}></View>
+    <View style={{flex:1,height:30,backgroundColor:'red'}}></View>
+</View>
+
+
+<!-- 7.0 flexWrap  决定在flex的方向上填满后是否换行 -->
+<!-- wrap  nowrap -->
+
+<View style={{width:320,height:200,backgroundColor:'gray',flexDirection:'column',flexWrap:'wrap'}}>
+    <View></View>
+    <View></View>
+    <View></View>
+    <View></View>
+</View>
+
+
+<!-- 8.0 top bottom left right -->
+<View style={{top:10, left:10, width:30, height:50, backgraoundColor:'green'}}></View>
+
+
+<!-- 9.0 padding -->
+<!-- padding paddingBottom paddingLeft paddingRight paddingTop paddingVertical paddingHorizontal -->
+
+
+<!-- 10.0 Border -->
+borderWidth
+borderTopWidth
+borderRightWidth
+borderLeftWidth
+borderBottomWidth
+
+
+<!-- 11 margin -->
+marginBottom
+marginHorizontal
+marginLeft
+marginRight
+marginTop
+marginVertical
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
