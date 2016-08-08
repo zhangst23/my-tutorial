@@ -1,0 +1,61 @@
+<style type="text/jsx">
+
+
+
+var MessageBox = React.createClass({
+	getInitialState:function(){
+		return {
+			isVisible: true,
+			titleMessage: '你好世界（来自state哦）',
+			suMessages:[
+				'我会代码搬砖',
+				'以及花式搬砖',
+				'不说了，工头叫我去搬砖。。。',
+			]
+		}
+	},
+	render:function(){
+		return (
+			<div>
+				<h1>{this.state.titleMessage}</h1>
+				<Submessage messages={this.state.subMessage} />
+			</div>
+		)
+	}
+});
+
+var Submessage = React.createClass({
+	getDefaultProps:function(){
+		return {
+			messages: ['默认的子消息'];
+		}
+	},
+
+
+	return:function(){
+			var msgs = [];
+			this.props.messages.forEach(function(msg,index){
+				msgs.push(
+					<p>码农说： {msg}</p>;
+				)
+			})
+
+		return (
+			<h3>写代码很有意思<h3>
+		)
+	};
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>

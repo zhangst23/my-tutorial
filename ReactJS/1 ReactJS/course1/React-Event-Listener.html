@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloundflare.com/ajax/libs/react/0.13.3/react.js"></script>
+	<script src="https://cdnjs.cloundflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+</head>
+<body>
+	
+
+	<div id="container">
+		
+	</div>
+
+	<script type="text/jsx">
+		var TestClickComponent = React.createClass({
+			render: function(){
+				return (
+					<div>
+						<button>
+							显示 | 隐藏
+						</button>
+						<span>测试点击</span>
+					</div>
+				);
+			}
+		});
+
+
+		var TestInputComponent = React.creatClass({
+			getInitialState: function(){
+				return {
+					inputContent: ''
+				}
+			},
+
+			render: function(){
+			  return (
+				<div>
+					<input type="text" /><span>{this.state.inputContent}</span>
+				</div>
+			  );
+			}
+		});
+
+		React.render(Test)
+
+
+
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
