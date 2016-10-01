@@ -1,0 +1,50 @@
+{
+  "pages":[
+    "pages/search_company/search_company",
+    "pages/center/center",
+    "pages/offline_card_ocr/offline_card_ocr",
+    "pages/message_center/message_center",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#dddddd",
+    "selectedColor": "#3cc51f",
+    "borderStyle":"black",
+    "backgroundColor":"#fff",
+    "list":[{
+      "pagePath":"index",
+      "text":"首页",
+      "iconPath":"images/tabBar/my-card.png",
+      "selectedIconPath":"images/tabBar/my-card-active.png"
+    },{
+      "pagePath":"offline_card_ocr",
+      "iconPath":"images/tabBar/photo-bar.png",
+      "selectedIconPath":"images/tabBar/photo-bar.png"
+    },{
+      "pagePath":"center1",
+      "text":"我",
+      "iconPath":"images/tabBar/my.png",
+      "selectedIconPath":"images/tabBar/my-search.png"
+    }]
+  },
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

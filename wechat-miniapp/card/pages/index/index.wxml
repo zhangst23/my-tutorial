@@ -1,0 +1,10 @@
+<wx-view>
+	<wx-view class="page-title">接口</wx-view>
+	<wx-view>
+		<wx-repeat items="{APIList}" item="API">
+			<wx-navigator url="{{API.url}}">
+				<wx-button type="primary">{{API.name}}</wx-button>
+			</wx-navigator>
+		</wx-repeat>
+	</wx-view>
+</wx-view>

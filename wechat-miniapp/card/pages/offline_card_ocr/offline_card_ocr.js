@@ -1,0 +1,1 @@
+offline_card_ocr.js
