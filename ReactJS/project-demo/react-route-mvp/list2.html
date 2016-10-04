@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title></title>
+	<script src="./src/react-with-addons.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="demo">
+		<script type="text/babel">
+			var ItemComponent = React.createClass({
+				render:function(){
+					return (
+						<li>{this.props.item}</li>
+					)
+				}
+			});
+
+			var ListComponent = React.createClass({
+				render:function(){
+					return(
+						<ul>
+							{
+								this.props.listArr.map(function(item, index){
+									return <ItemComponent key={index} item={item} />
+								})
+							}
+						</ul>
+					)
+				}
+			});
+
+			var FirstComponent = React.createClass({
+				mixins:[React.addons.LinkedStateMinin],
+				getInitialState:function(){
+					return {
+						mes:this.props.value
+					}
+				},
+				render:function(){
+					return(
+						<div>
+							<h1>{this.props.title}</h1>
+							<input type="text" valueLink={this.linkState('mes')} />
+							<input type="text" value={this.props.sendName} />
+							<p>{this.state.mes}</p>
+							<ListComponent listArr = {this.props.listArr}/>
+						</div>
+					)
+				}
+			});
+
+			var obj = {
+				title:'欢迎来到react的世界',
+				sendName:'提交',
+				value:"请输入留言",
+				listArr:[1,2,3,4,5,6,7,9]
+			}
+
+			ReactDOM.render(
+				<FirstComponent {...obj} />,
+				document.getElementById("demo"),
+				function(){
+					console.log("页面渲染完成");
+				}
+			);
+
+		</script>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
