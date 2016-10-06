@@ -13,7 +13,7 @@ var HelloWorld = React.createClass({
 				</ul>
 				<button onClick={this.handleSort}>Sort</button>
 				<button onClick={this.handleScott}>Scott</button>
-			</div>
+			</div> /
 		);
 	},
 	handleSort(){
@@ -28,12 +28,45 @@ var HelloWorld = React.createClass({
 });
 
 React.render(
-	<HelloWorld names={speakers} />,
+	<HelloWorld names={speakers} />, /
 	document.body
 );
 
 
 
+//
+
+var Letter = React.createClass({
+	var letterStyle = {
+		padding: 10,
+		margin: 10,
+		backgroundColor: this.props.bgcolor,
+		color: "#333",
+		display: "inline-block",
+		fontFamily: "monospace",
+		fontSize: "32",
+		textAlign: "center"
+	};
+
+	render: function(){
+		return (
+			<div>{this.props.children}</div> /
+		)
+	}
+})
+
+var destination = document.querySelector("#container");
+
+ReactDOM.render(
+	<div>
+		<Letter>A</Letter>
+		<Letter>B</Letter>
+		<Letter>C</Letter>
+		<Letter>D</Letter>
+		<Letter>F</Letter>
+	</div>,
+	destination
+);
 
 
 

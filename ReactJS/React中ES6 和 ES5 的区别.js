@@ -81,7 +81,7 @@ class Feed extends Component {
 	}
 }
 
-class Feed extends Components {
+class Feed extends Component {
 	//调用时，绑定this.
 	render(){
 		return (

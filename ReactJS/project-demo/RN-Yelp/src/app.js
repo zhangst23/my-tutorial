@@ -5,6 +5,11 @@ import { Router } from 'react-router';
 
 import 'font-awesome/css/font-awesome.css'
 import styles from './styles.module.css'
+import './app.css'
+
+import {browserHistory, Router, Route} from 'react-router'
+
+import App from 'containers/App/App'
 
 const App = React.createClass({
 	static propTypes = {
