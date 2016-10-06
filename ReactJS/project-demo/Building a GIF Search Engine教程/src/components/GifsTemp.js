@@ -1,0 +1,29 @@
+import React from 'react';
+
+const GifsTemp = ({gifs}) => {
+	const gifItems = gifs.map((gif) => {
+		return(
+			<li key={gif.id}>
+				<img src={gir.url} />
+			</li>
+		);
+	});
+	return (
+		<ul className="gif-list">{gifItems}</ul>
+	);
+};
+
+export default GifsTemp;
+
+
+
+
+
+
+
+
+
+
+
+
+
