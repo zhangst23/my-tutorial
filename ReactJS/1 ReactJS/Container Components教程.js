@@ -69,7 +69,12 @@ class CommentListContainer extends React.Component{
 
 // 2.0  Use Containers
 
-// The reason you want to use containers that pass down the data is because you want to avoid having to connect every view to a store when dealing with Flux/Redux. The best way to do this is to create two containers. One containing all secure views (views that need authentication) and one containing all insecure views. The best way to create a parent container is to clone the children and pass down the desired props.
+// The reason you want to use containers that pass down the data is because you want to 
+// avoid having to connect every view to a store when dealing with Flux/Redux. The best 
+// way to do this is to create two containers. One containing all secure views (views 
+// that need authentication) and one containing all insecure views. The best way to 
+// create a parent container is to clone the children and pass down the desired props.
+
 // Example:
 class Container extends React.Component {
 	render(){
