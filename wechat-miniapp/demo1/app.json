@@ -1,0 +1,66 @@
+{
+  "pages":[
+    "index",
+    "message_center",
+    "offline_card_ocr",
+    "search_company",
+    "center",
+    "page/card/card_detail",
+    "page/card/card_album_list",
+    "page/card/card_edit",
+    "page/card/card_edit_2"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "color":"#dddddd",
+    "selectedColor":"#3cc51f",
+    "borderStyle":"black",
+    "backgroundColor":"#fff",
+    "list":[{
+      "pagePath":"index",
+      "iconPath":"images/wechat.png",
+      "selectedIconPath":"images/wechatHL.png",
+      "text":"接口"
+    },{
+      "pagePath":"components",
+      "iconPath":"images/wechat.png",
+      "selectedIconPath":"images/wechatHL.png",
+      "text":"组件"
+    },{
+      "pagePath":"example",
+      "iconPath":"images/wechat.png",
+      "selectedIconPath":"images/wechatHL.png",
+      "text":"示例"
+    }]
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

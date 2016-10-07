@@ -1,0 +1,1 @@
+card_album_list.js

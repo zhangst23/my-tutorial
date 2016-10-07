@@ -1,0 +1,1 @@
+card_detail.js
