@@ -33,6 +33,32 @@ onPullDownRefreash	Function	页面相关事件处理函数--监听用户下拉�
 
 
 
+    // "enablePullDownRefresh": true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,33 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="section section_gap swiper_box">
+		<swiper class="swiper" indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+			<block wx:for-item="{{images}}">
+				<swiper-item>
+					<image class="slide-image" src="{{item}}"/>
+				</swiper-item>
+			</block>
+		</swiper>
+	</view>
+
+	<view class="section index-nav">
+		<block wx:for-items="{{navs}}">
+			<view class="l-c-c" catchtap="go" data-type="{{item.text}}">
+				<image class="slide-image" src="{{item.image}}"/>
+				<text>{{item.text}}</text>
+			</view>
+		</block>
+	</view>
+
+	<view class="text">
+		<view class="line_y"></view>
+		<text>精品特价</text>
+	</view>
+
+	<block wx:for-items="{{items}}">
+		<view class="item">
+			<image class="slide-image" src="{{item.image}}"/>
+		</view>
+	</block>
+
+</view>
