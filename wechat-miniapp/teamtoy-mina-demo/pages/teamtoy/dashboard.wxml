@@ -1,0 +1,10 @@
+<view class="page">
+	<view class="page__hd">
+		<text class="page__title">我的TODO</text>
+		<view class="todocard" wx:for="{{todolist}}">
+			{{item.content}}
+		</view>
+
+		<view><button class="todobtn" bindtap="todoAdd">添加 TODO</button></view>
+	</view>
+</view>
