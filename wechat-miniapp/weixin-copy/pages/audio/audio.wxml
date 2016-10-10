@@ -1,0 +1,12 @@
+<scroll-view scroll-y="true">
+	<view class="padding">
+		<text>播放器示例</text>
+	</view>
+	<view>
+		<audio src="{{src}}" poster="{{poster}}" name="{{name}}" author="{{author}}" action="{{audioAction}}" class="flex-center"></audio>
+		<view>
+			<button type="primary" bindtap="audioPlay">播放</button>
+			<button type="primary" bindtap="audioPause">暂停</button>
+		</view>
+	</view>
+</scroll-view>
