@@ -1,0 +1,5 @@
+<import src="../common/movie-list.wxml"/>
+<view class="page-header">
+	<input type="text" class="page-header-text" placeholder="{{subtitle}}" bindchange="search"/>
+</view>
+<template is="movie-list" data="{{ movies, loading, hasMore, loadMore }}" />

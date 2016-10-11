@@ -33,11 +33,11 @@ onPullDownRefreash	Function	页面相关事件处理函数--监听用户下拉�
 
 
 
-    // "enablePullDownRefresh": true
+// "enablePullDownRefresh": true
+是否开启下拉刷新
 
 
-
-
+// wx:for   wx:if    for-item
 
 
 
