@@ -1,0 +1,12 @@
+.home {
+  height: 100%;
+}
+.posts-list {
+  margin-top: 36px;
+}
+.posts-item {
+  background: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #80bd01;
+}
+

@@ -1,0 +1,13 @@
+<view class="home">
+	<scroll-view class="posts-list" scroll-y="true" bindscrolltolower="lower" style="height:100%">
+		<block wx:for="{{postsList}}">
+			<view class="posts-item" index="{{index}}" id="{{item.id}}" catchtap="{{redirectDitail}}">
+				<view class="posts-title">{{item.title}}</view>
+			</view>
+		</block>
+	</scroll-view>
+
+	<loading hidden="{{hidden}}">
+		加载中...
+	</loading>
+</view>
