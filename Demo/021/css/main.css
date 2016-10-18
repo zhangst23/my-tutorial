@@ -1,0 +1,179 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+}
+body {
+	background-color: #F5F5F5;
+}
+
+/* Header */
+.header {
+	height: 100px;
+	width: 100%;
+}
+
+.logo {
+	float: left;
+	margin-left: 40px;
+	width: 70px;
+	height: 70px;
+}
+
+.nav {
+	display: inline;
+
+}
+.navLeft, .navRight {
+	float: left;
+}
+.navLeft li {
+	float: left;
+	list-style-type: none;
+	margin-left: 20px;
+	height: 70px;
+	line-height: 70px;
+}
+.navLeft li a {	
+	font-size: 20px;
+	text-decoration: none;
+	color: #282D3A;
+}
+
+.navRight {
+	float: right;
+	display:inline-block;
+	margin-right: 200px;
+	line-height: 70px;
+}
+
+.searchText {
+	width: 300px;
+}
+
+.searchBtn {
+	height: 30px;
+	width: 60px;
+}
+
+
+
+
+/* wrap */
+
+
+.wrap {
+	margin: 20px 30px;
+	display: block;
+}
+
+.howToBox {
+	display: block;
+	height: 200px;
+}
+
+.title {
+	line-height: 35px;
+	height: 35px;
+	margin-bottom: 15px;
+	background-color: #91B8F2;
+}
+.titleLeft {
+	float: left;
+	margin-left: 20px;
+}
+.titleRight {
+	float: right;
+	margin-right: 10px;
+}
+.howToList li {
+	float: left;
+	list-style-type: none;
+	margin-right: 30px;
+	border: 1px solid #91B8F2;
+}
+.howToList li img{
+	width:80px;
+	height: 80px;
+}
+.HTitemTitle {
+	display: block;
+	text-align: center;
+}
+
+.awesomeBox {
+	display: block;
+	height: 200px;
+}
+
+.awesomeList li {
+	float: left;
+	list-style-type: none;
+	margin-right: 30px;
+	border: 1px solid #91B8F2;
+}
+.awesomeList li img{
+	width:80px;
+	height: 80px;
+}
+
+.AweItemTitle {
+	display: block;
+	text-align: center;
+}
+
+
+
+/*.studyBox {
+}*/
+.studyListTitle {
+	font-size: 26px;
+}
+
+.studyList li {
+	list-style-type: none;
+	margin-top: 20px;
+}
+.studyItem h3{
+	margin-bottom: 5px;
+
+}
+
+.studyItemTitle a:link, .studyItemTitle a:visited {
+	font-size: 20px;
+	text-decoration: none;
+	color: #7797C7;
+}
+
+.starCount {
+	border: 1px solid #B2B7C4;
+	margin-right: 10px;
+}
+.studyBio {
+	margin-top: 5px;
+}
+
+
+
+
+/* footer */
+
+.footer {
+	height: 100px;
+	background-color: #eee;
+}
+
+.footer li {
+	float: left;
+	list-style-type: none;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	margin-left: 30px;
+
+}
+
+.slogn {
+	display: block;
+	margin: 0 auto;
+}
