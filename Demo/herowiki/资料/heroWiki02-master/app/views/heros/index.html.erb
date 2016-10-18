@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<div class="topbox">
+  <!-- Header --> 
+    <div class="serach well well-lg">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h3 class="text-center">神一样的人物，值得人类骄傲 <%= link_to '请编写', new_hero_path(@hero), class: "btn btn-success navbar-btn", type: "button" %></h3>
+          <div class="input-group ">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+      </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <h4>标签云:</h4>
+      <div id="tag_cloud">
+        <% tag_cloud Hero.tag_counts, %w[s m l] do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="mainbox">
+  <div class="container">
+    <div class="row">
+      <% @heros.each do |hero| %>
+      <div class="col-xs-6 col-md-3">
+        <br>     
+        <div class="thumbnail">
+          <%= image_tag hero.image %>
+          <div class="caption">       
+            <h3><%= hero.name %></h3>
+            <p><%= link_to '详细', hero_path(hero), class: "btn btn-primary", role: "button" %></p>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>神人百科</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to '首页', heros_path(@hero), class: "navbar-brand" %>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+          
+          <% if user_signed_in? %>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <button type="button" class="btn btn-default navbar-btn navbar-right">退出</button>
+            <% end %>
+              <div class="navbar-left navbar-brand">Hello, <%= current_user.email %></div>
+          <% else %>
+              <%= link_to new_user_session_path do %>
+                <button type="button" class="btn btn-default navbar-btn">登陆</button>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+<%= yield %>
+
+<footer>
+	<p class="navbar-text text-center navbar-bottom">反馈邮箱: 2243980491@qq.com </p>
+</footer>
+</body>
+</html>

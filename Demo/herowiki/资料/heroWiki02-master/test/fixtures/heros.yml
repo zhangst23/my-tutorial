@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  birthday: 1
+  country: MyString
+  school: MyString
+  description: MyText
+  constellation: MyString
+
+two:
+  name: MyString
+  birthday: 1
+  country: MyString
+  school: MyString
+  description: MyText
+  constellation: MyString

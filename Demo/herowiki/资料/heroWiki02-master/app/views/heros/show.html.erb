@@ -1,0 +1,137 @@
+<p id="notice"><%= notice %></p>
+<div class="topbox">
+  <!-- Header -->
+    <div class="header well well-sm">
+      <h4 class="text-center">有哪些人堪称「神人」，却不为大众所知？
+        <%= link_to '请编写', new_hero_path(@hero), class: "btn btn-success navbar-btn", type: "button" %>
+      </h4>     
+    </div> 
+
+</div>
+
+<div class="mainbox">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="touxiang">
+            <%= image_tag @hero.image_url if @hero.image? %>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="destroy">
+          <h2 class="name"><%= @hero.name %></h2>
+          <p class="destroy"><%= @hero.description %></p>
+        </div>
+        <table class="table table-striped">
+          <tr>
+            <td class="active">出生日期：<%= @hero.birthday %></td>
+            <td class="success">国家：<%= @hero.country %>(出生地)</td>
+          </tr>
+          <tr>
+            <td class="warning">标签: <%= raw @hero.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></td>
+            <td class="danger">星座：<%= @hero.constellation %></td>
+          </tr>
+          <tr>
+            <td class="danger">毕业院校：<%= @hero.school %></td>
+            <td class="info">其他</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">       
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active video_list"><a href="#video_list" aria-controls="video_list" role="tab" data-toggle="tab">大神视频</a></li>
+
+          <li role="presentation" class="hero_article_list"><a href="#hero_hero_picture" aria-controls="hero_hero_picture" role="tab" data-toggle="tab">图片</a></li>
+
+          <li role="presentation" class="video_picture"><a href="#article_list" aria-controls="article_list" role="tab" data-toggle="tab">文字</a></li>
+
+          <li role="presentation" class="successful_list"><a href="#successful_list" aria-controls="successful_list" role="tab" data-toggle="tab">成就</a></li>
+
+          <li role="presentation" class="hero_comment"><a href="#hero_comment" aria-controls="hero_comment" role="tab" data-toggle="tab">评论区</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="video_list">
+            <br>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">清单</h3>
+              </div>
+              <div class="panel-body">
+                <article>
+                  <%= raw @hero.video_list %>
+                </article>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="hero_picture">
+            <br>
+            #
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="article_list">
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">清单</div>
+              <div class="panel-body">
+                <%= @hero.article_list %>
+              </div>
+            </div>
+
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="successful_list">
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">清单</div>
+              <div class="panel-body">
+                <%= @hero.successful_list %>
+              </div>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="hero_comment">
+            <br>
+            <ul class="media-list">
+              <li class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="..." alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Media heading</h4>
+                  ...
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <%= link_to '修改', edit_hero_path(@hero) %> |
+      <%= link_to '返回首页', heros_path %>
+            
+    </div>
+  </div>
+</div>

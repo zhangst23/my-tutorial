@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+  <ol class="breadcrumb">
+    <li><a href="/">首页</a></li>
+    <li class="active">节点</li>
+  </ol>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+
+      <h3>节点分类导航</h3>
+      <div class="panel-body">
+        <div class="row node-list">         
+            <span class="media-left">数理化</span> <br>              
+            <div class="btn-group" role="group" aria-label="...">
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+            </div>     
+        </div>
+        <br>
+        <div class="row node-list">         
+            <span class="media-left">数理化</span> <br>              
+            <div class="btn-group" role="group" aria-label="...">
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+            </div>     
+        </div>
+        <br>
+        <div class="row node-list">         
+            <span class="media-left">数理化</span> <br>              
+            <div class="btn-group" role="group" aria-label="...">
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+              <a title="Sinatra" href="/topics/node43"><button type="button" class="btn btn-default">数学</button></a>
+            </div>     
+        </div>
+      </div>
+   </div>
+  </div>
+</div>     
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+    <h3>其他节点</h3>
+    <br>
+      <% @nodes.each do |node| %>
+        <%= node.id %>
+        <%= node.name %> | 
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+<br>
+<%= link_to 'New Node', new_node_path %>
