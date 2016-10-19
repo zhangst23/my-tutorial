@@ -1,0 +1,87 @@
+简要教程
+material-cards是一款基于谷歌Material color palette的Material Design风格的人物信息介绍卡片设计。该插件可以简单使用jQuery代码来实现，也可以以jQuery插件的形式来管理各种参数选项。
+ 安装
+你可以通过bower来安装该Material Design风格卡片插件。
+
+bower install material-cards             
+              
+ 使用方法
+你可以通过简单的jQuery代码来实现这个Material Design风格卡片效果，如DEMO1。或者也可以使用jquery.material-cards.js来将它作为jQuery插件的形式来使用，以管理各种参数，方法和事件。
+<script src="js/jquery.material-cards.js"></script>                
+              
+ HTML结构
+
+一张信息卡片的基本HTML结构如下：
+<article class="material-card Red">
+    <h2>
+        <span>Christopher Walken</span>
+        <strong>
+            <i class="fa fa-fw fa-star"></i>
+            The Deer Hunter
+        </strong>
+    </h2>
+    <div class="mc-content">
+        <div class="img-container">
+            <img class="img-responsive" src="img/thumb-christopher-walken.jpg">
+        </div>
+        <div class="mc-description">
+            人物描述信息...
+        </div>
+    </div>
+    <a class="mc-btn-action">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="mc-footer">
+        <h4>
+            Social
+        </h4>
+        <a class="fa fa-fw fa-facebook"></a>
+        <a class="fa fa-fw fa-twitter"></a>
+        <a class="fa fa-fw fa-linkedin"></a>
+        <a class="fa fa-fw fa-google-plus"></a>
+    </div>
+</article>   
+              
+ 初始化插件
+
+在页面DOM元素加载完毕之后，可以通过下面的方法来初始化该Material Design风格卡片插件。
+$('.material-card').materialCard(options);                
+              
+ 配置参数
+options = {
+    icon_close     : 'fa-arrow-left', //string
+    icon_open      : 'fa-bars',       //string
+    icon_spin      : 'fa-spin-fast',  //string
+    card_activator : 'click'          //string: click or hover
+});                
+              
+图标使用的是 Font Awesom字体图标，fa-spin-fast和fa-spin相同，但是会旋转得更快一些。
+默认的card_activator是鼠标点击事件，你也可以设置为鼠标滑过事件（这会将按钮移除）。
+ 方法
+toggle：改变选择的卡片的状态。
+$('.material-card').materialCard('toggle');
+open：打开选择的卡片。
+$('.material-card').materialCard('open');
+close：关闭选择的卡片。
+$('.material-card').materialCard('close');
+isOpen：检查卡片的状态，返回true或false。
+if($('.material-card:eq(3)').materialCard('isOpen') === true) {
+    // do something
+}
+ 事件
+show.material-card：在open方法被调用时会立刻被触发。
+shown.material-card：当卡片变为可见时触发（会等到CSS transitions结束才触发）。
+hide.material-card：在close方法被调用时会立刻被触发。
+hidden.material-card：当卡片被隐藏时触发（会等到CSS transitions结束才触发）。
+ 应用举例
+$('.material-card').on('shown.material-card', function (event) {
+    console.log(event.type, event.namespace, $(this));
+    //that return
+    //shown material-card [article.material-card...]
+});                
+              
+var fullCardEvent = 'shown.material-card show.material-card hide.material-cards hidden.material-cards';
+$('.material-cards').on(fullCardEvent, function (event) {
+    //   do something
+});                
+       
