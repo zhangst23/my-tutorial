@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+
+	/*navigation*/
+		#nav {
+			margin: 0;
+			padding: 0;
+			background: #808259 url(nav_bg.jpg) 0 0 repeat-x;
+			float: left;
+			width: 100%;
+			border: 1px solid #42432d;
+			border-width: 1px 0;
+		}
+		#nav li {
+			display: inline;
+			padding: 0;
+			margin: 0;
+		}
+		#nav a:link, #nav a:visited {
+			color: #000;
+			background: #b2b580;
+			padding: 20px 40px 4px 10px;
+			float: left;
+			width:auto;
+			border-right: 1px solid #42432d;
+			text-decoration:none;
+			font bold 1em/1em Arial, Helvetica, sans-serif;
+			text-transform: uppercase;
+			text-shadow: 2px 2px 2px #555;
+		}
+		#nav li:first-child a {
+			border-left: 1px solid #42432d;
+		}
+		#nav a:hover, #nav a:focus {
+			color: #fff;
+			background: #727454;
+		}
+
+
+/*level*/
+
+#level0 {
+	background: #FC0;
+}
+#level1 {
+	margin-left: 143px;
+	padding-left: 9px;
+	background: #FFF;
+}
+#level2 {
+	background: #FFF3AC;
+}
+#level3 {
+	margin-right: 143px;
+	padding-right: 9px;
+	background: #FFF;
+}
+#main {
+	background: #CCC;
+}
+#topBar {
+	background: #FC0;
+}
+#advBar {
+	background: #FFF3AC;
+}
+
+
+
+/* navigation2 */
+.navigation2 li {
+	float: left;
+	list-style: none;
+	background-color: #666;
+}
+.navigation2 a {
+	display: block;
+	background-image: url(css-tabs/tabright.gif);
+	background-position:top right;
+	background-repeat: no-repeat;
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+.navigation2 span {
+	display: block;
+	padding: 5px 15px;
+}
+.navigation2 a:hover {
+	background-position: right -198px;
+}
+.navigation a:hover span {
+	background-position: 0 -198px;
+}
+
+.navigation2 li ul {
+position: absolute;
+width: 10em;
+left: -999em;
+margin-left: 2px;
+font-size: 90%;
+}
+
+
+.navigation2 li ul a, .navigation2 li ul a:link {
+background-image: none;
+padding: 5px;
+width: 10em;
+background-color: #666;
+}
+.navigation2 li ul a:hover {
+background-color: #333;
+}
+
+.navigation2 li:hover ul, .navigation2 li.sfhover ul {
+left: auto;
+}
+
+
+	</style>
+</head>
+<body>
+
+<!-- navigation -->
+<div class="navigation">
+	<ul id="nav">
+		<li id="nav-home"><a href="">Home</a></li>
+		<li id="nav-About"><a href="">About</a></li>
+		<li id="nav-Archive"><a href="">Archive</a></li>
+		<li id="nav-Lab"><a href="">Lab</a></li>
+		<li id="nav-Reviews"><a href="">Reviews</a></li>
+		<li id="nav-Contact"><a href="">Contact</a></li>
+	</ul>
+</div>
+
+<!-- level -->
+	<div id="level0">
+		<div id="level1">
+			<div id="topBar">
+				This is the top navigation bar.
+				<div id="advBar">
+					This is the advertisement bar.
+				</div>
+			</div>
+			<div id="level2">
+				<div id="level3">
+					<div id="main">The code you are reading.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="navigation2">
+		<ul id="navigation2">
+			<li><a href=""><span>Home</span></a></li>
+			<li><a href=""><span>About</span></a>
+				<ul>
+					<li><a href="">My Qualifications</a></li>
+					<li><a href="">My Personal Details</a></li>
+				</ul>
+			</li>
+			<li><a href=""><span>Services</span></a>
+				<ul>
+					<li><a href="">HTML</a></li>
+					<li><a href="">CSS</a></li>
+					<li><a href="">Accessibility</a></li>
+				</ul>
+			</li>
+			<li><a href=""><span>Portfolio</span></a></li>
+			<li><a href=""><span>Contact</span></a></li>
+			<li><a href=""><span>Links</span></a></li>
+		</ul>
+	</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
