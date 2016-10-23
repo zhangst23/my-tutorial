@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>KangFu</title>
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+	<link rel="stylesheet" href="css/main2.css" type="text/css">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".tougao").click(function(){
+				$(".xiaoshi").hide();
+			});
+			$(".xiaoshi").click(function(){
+				$(".topic").hide();
+				alert("Text: " + $(".topic").text());
+			})
+			$(".logo").click(function(){
+				$(".banner").css("background-color","#7797C7").css("background-color","#E0CAEA");
+				$(".kangfu11").slideToggle();
+			})
+			$(".kangfu11").hide();
+			$(".kangfu1").click(function(){
+				alert($(".kangfu12").attr("href"));
+			})
+			$(".title").click(function(){
+				$(".newsList").toggle(1000);
+				$(".title").toggleClass("blue");
+				// $(".title").removeClass("blue");
+			});
+			$(".kangfu4").click(function(){
+				$(".kangfu4").append("康复5");
+				$(".kangfu3").before("康复6");
+				$(".kangfu2").remove();
+				return false;
+			});
+			// $(".kangfu2").click(function(){
+			// 	$(".kangfu2").siblings().addClass("red");
+			// 	$(".newDetial p").first()addClass("red");
+			// });
+			// $(".searchBtn").click(function(){
+			// 	// $(".tougao").load('/js/test1.txt');
+			// 	htmlobj=$.ajax({url:"/js/test1.txt", async:false});
+			// 	$(".searchBtn").html(htmlobj.responseText);
+			// })
+
+		});
+	</script>
+</head>
+<body>
+	<header>
+		<div class="top">
+			<img src="img/logo.png" alt="" class="logo">
+			<div class="search">
+				<input class="searchInput" >
+				<button class="searchBtn" type="button">搜索</button>
+				<span class="tougao">我要投稿</span>
+				<span class="xiaoshi">消失</span>
+			</div>
+		</div>
+		<div class="nav">
+			<ul>
+				<li><a href="">首页</a></li>
+				<li class="kangfu1"><a href="www.baidu.com">康复1</a>
+					<div class="kangfu11">
+						<a class="kangfu12" href="www.baidu.com">子菜单</a>
+						<a class="kangfu12" href="www.baidu.com">子菜单</a>
+						<a class="kangfu12" href="www.baidu.com">子菜单</a>
+					</div>
+				</li>
+				<li class="kangfu2"><a href="">康复2</a></li>
+				<li class="kangfu3"><a href="">康复3</a></li>
+				<li class="kangfu4"><a href="">康复4</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<div class="wrap">
+		<div class="container">
+			<div class="banner"></div>
+			<div class="topic">
+				<ul>
+					<li>
+						<img src="img/logo.png" alt="" class="topicImg">
+						<topicTitle>专题一入口</topicTitle>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="topicImg">
+						<topicTitle>专题一入口</topicTitle>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="topicImg">
+						<topicTitle>专题一入口</topicTitle>
+					</li>
+				</ul>
+			</div>
+		</div>
+	
+		<div class="news">
+			<h2 class="title">康复动态</h2>
+			<div class="newsList">
+				<ul>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/logo.png" alt="" class="newsImg">
+						<div class="newsDetial">
+							<div class="newsTitle"><a href="">这是康复网的文章标题</a></div>
+							<span class="newsAuthor">张三</span>
+							<span class="newsTime">2015.10.21</span>
+							<span class="newsCate">康复机器人</span>
+							<p class="newsBio">康复机器人康复机器人康复机器人康复机器人</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="frendLink">
+			<ul>
+				<li><a href="">友情链接:</a></li>
+				<li><a href="">友情链接</a></li>
+				<li><a href="">友情链接</a></li>
+				<li><a href="">友情链接</a></li>
+				<li><a href="">友情链接</a></li>
+			</ul>
+		</div>
+		<div class="gongsi">
+			<ul>
+				<li><a href="">关于我们</a></li>
+				<li><a href="">关于我们</a></li>
+				<li><a href="">关于我们</a></li>
+				<li><a href="">关于我们</a></li>
+			</ul>
+		</div>
+		<div class="slogn">康复网是一个...</div>
+	</footer>
+</body>
+</html>
