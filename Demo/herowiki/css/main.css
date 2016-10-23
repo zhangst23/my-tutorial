@@ -1,0 +1,38 @@
+
+
+
+.nav {
+	margin: 0 auto;
+	weight: 1000px;
+}
+.nav li {
+	list-style-type: none;
+	display: flex;
+	flex: row;
+	margin-left: 10px;
+}
+
+.nav a {
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,45 @@
 	<title>Document</title>
 	<style>
 
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+
+ol, ul {
+  list-style: none; }
+
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+
+
+
+
+
+
+
+
+
 	/*navigation*/
 		#nav {
 			margin: 0;
@@ -121,21 +160,50 @@ left: auto;
 }
 
 
+
+/*nav3*/
+
+.nav3 {
+	margin-top: 100px;
+
+}
+.nav31 {
+	display: inline-block;
+	padding-left: 20px;
+}
+.nav32 {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</style>
 </head>
 <body>
 
 <!-- navigation -->
-<div class="navigation">
-	<ul id="nav">
-		<li id="nav-home"><a href="">Home</a></li>
-		<li id="nav-About"><a href="">About</a></li>
-		<li id="nav-Archive"><a href="">Archive</a></li>
-		<li id="nav-Lab"><a href="">Lab</a></li>
-		<li id="nav-Reviews"><a href="">Reviews</a></li>
-		<li id="nav-Contact"><a href="">Contact</a></li>
-	</ul>
-</div>
+	<div class="navigation">
+		<ul id="nav">
+			<li id="nav-home"><a href="">Home</a></li>
+			<li id="nav-About"><a href="">About</a></li>
+			<li id="nav-Archive"><a href="">Archive</a></li>
+			<li id="nav-Lab"><a href="">Lab</a></li>
+			<li id="nav-Reviews"><a href="">Reviews</a></li>
+			<li id="nav-Contact"><a href="">Contact</a></li>
+		</ul>
+	</div>
 
 <!-- level -->
 	<div id="level0">
@@ -176,6 +244,31 @@ left: auto;
 			<li><a href=""><span>Links</span></a></li>
 		</ul>
 	</div>
+
+<!-- navigation3 -->
+
+	<div class="nav3">
+		<ul>
+			<li class="nav31"><a href=""><span>首页1</span></a>
+				<ul>
+					<li class="nav32"><a href=""></a><span>项目一</span></li>
+					<li class="nav32"><a href=""></a><span>项目二</span></li>
+				</ul>
+			</li>
+			<li class="nav31"><a href=""><span>首页2</span></a></li>
+			<li class="nav31"><a href=""><span>首页3</span></a>
+				<ul>
+					<li class="nav32"><a href=""></a><span>项目一</span></li>
+					<li class="nav32"><a href=""></a><span>项目二</span></li>
+					<li class="nav32"><a href=""></a><span>项目三</span></li>
+				</ul>
+			</li>
+			<li class="nav31"><a href=""><span>首页4</span></a></li>
+			<li class="nav31"><a href=""><span>首页5</span></a></li>
+		</ul>
+	</div>
+
+
 
 
 

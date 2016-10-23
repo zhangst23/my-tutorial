@@ -10,7 +10,10 @@ body {
 
 /* header */
 .top {
-	display: inline-block;
+	width: 1000px;
+	height: 100px;
+	background-color: #F2F2EA;
+	margin: 0px auto;
 }
 header img {
 	float: left;
@@ -21,18 +24,19 @@ header img {
 }
 
 .search {
-	display: inline-block;
 	float: right;
 	margin-right: 30px;
-	margin-top: 20px;
+	height: 50px;
+	line-height: 50px;
 }
 .nav {
 	background-color: #7797C7;
+	margin:10px auto;
 }
 .nav li{
 	list-style-type: none;
 	float: left;
-	margin-left: 30px;
+	margin-left: 60px;
 }
 .nav a:link, .nav a:visited{
 	background-color: #DEDEC7;
@@ -47,16 +51,15 @@ header img {
 .container {
 	width: 1000px;
 	height: 300px;
-	margin-left: 30px;
 }
 .banner {
-	float: left;
+	display: inline-block;
 	width: 700px;
 	height: 300px;
 	background-color: #7797C7;
 }
 .topic {
-	float: left;
+	display: inline-block;
 	width: 250px;
 	margin-left: 5px;
 }
