@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>万能浮动层下拉层插件</title>
+    <style>
+    	#header{position:static;}
+		.float_list_box {position:absolute;}
+
+		.float_list_ul {
+			padding: 8px 10px;
+			border: 1px solid #bfbfbf;
+			background-color: #fff;
+			line-height: 1.7;
+		}
+    </style>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery-powerFloat.js" type="text/javascript"></script>
+	<script>
+	$(function() {
+	    $(".menu").powerFloat({
+	        width: 96,
+	        offsets: {
+	            x: 0,
+	            y: -1    
+	        },
+	        targetMode: "list",
+	        target: [{
+	            href: "#",
+	            text: "已买到的宝贝"    
+	        },{
+	            href: "#",
+	            text: "已卖出的宝贝"    
+	        }],
+	        position: "3-2",
+	        showCall: function() {
+	            $(this).addClass("hover");    
+	        },
+	        hideCall: function() {
+	            $(this).removeClass("hover");
+	        }
+	    });    
+	});
+	</script>
+</head>
+<body>
+
+	<div id="header">
+		<div id="site-nav">
+	    	<ul class="quick-menu">
+	        	<li class="mytaobao menu-item">
+	            	<div class="menu">
+	                	<a href="###" class="menu-hd">我的淘宝<b></b></a>
+	                </div>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+</body>
+</html>

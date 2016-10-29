@@ -3,9 +3,10 @@
 <head>
 	<meta charset=utf-8>
 	<title>企业网站</title>
-	<link rel="stylesheet" href="css/main.css" type="text/css">
+	<link rel="stylesheet" href="css/main2.css" type="text/css">
 	<!-- <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script> -->
 	<script type="text/javascript" src="js/myfocus-2.0.1.min.js"></script><!--引入myFocus库-->
+		<!-- 焦点轮播图 -->
 	<script type="text/javascript">
 		myFocus.set({
 			id:'boxID',
@@ -17,6 +18,55 @@
 			txtHeight: 'default'
 		});
 	</script>
+		<!-- 返回顶部 -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("a[href='top']").click(function(){
+				$("html, body").animate({ scrollTop: 0 }, "slow");
+				return false;
+			});
+		})
+	</script>
+	<!-- 检查jQuery是否加载 -->
+	<script type="text/javascript">
+		if (type jQuery == 'undefined') {
+			console.log('jQuery hasn\'t loaded');
+		} else {
+			console.log('jQuery has loaded');
+		}
+	</script>
+	<!-- 返回顶部 -->
+	<script>
+		$(document).ready(function(){
+			$("#back-top").hide();
+
+			$(function(){
+				$(window).scroll(function(){
+					if ($(this).scrollTop() > 100) {
+						$('#back-top').fadeIn();
+					} else {
+						$('#back-top').fadeOut();
+					}
+				});
+
+				$('#back-top a').click(function(){
+					$('body,html').animate({
+						scrollTop: 0
+					}, 800);
+					return false;
+				});
+			});
+		});
+	</script>
+
+
+
+
+
+
+
+
+
 
 </head>
 <body>
@@ -141,7 +191,12 @@
 		        <img src="images/qrcode.jpg" alt="我的微信公众号" width="102" height="102" />
 		        <p>微信公众号</p>
 		    </div>
+			<p id="back-top">
+				<a href="#top"><span></span>返回顶部</a>
+			</p>
 	</div>
+	<a id="top" href="#top">返回顶部</a>
 </footer>
+
 </body>
 </html>

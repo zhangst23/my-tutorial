@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tab标签</title>
+	<style>
+	  * { margin:0; padding:0; border:0; outline:0; }
+      body { font:25pt Tahoma; background:#FFF; color:#000; }
+	</style>
+	<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+	<script type="text/javascript">
+		$("#usual1 ul").idTabs();
+	</script>
+</head>
+<body>
+	<div id="usual1" class="usual">
+		<ul>
+			<li><a href="#tab1" class="selected">Tab 1</a></li>
+			<li><a href="#tab2">Tab 2</a></li>
+			<li><a href="#tab3">Tab 3</a></li>
+		</ul>
+		<div id="tab1">This is tab 1</div>
+		<div id="tab2">More content in tab 2.</div>
+		<div id="tab3">Tab 3 is always last!</div>
+	</div>
+
+</body>
+</html>

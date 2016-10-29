@@ -258,9 +258,57 @@ body {
 	text-decoration: underline;
 }
 
+/* 1 */
 
+#top {
+	background-color: red;
+	width: 40px;
+	height: 40px;
+	float: right;
+	margin-right: 40px;
+	margin-top: -60px;
+}
 
+/* 2 */
 
-
-
+#back-top {
+	position: fixed;
+	bottom: 30px;
+	margin-left: -90px;
+}
+#back-top a {
+	width: 108px;
+	display: block;
+	text-align: center;
+	font: 11px/100% Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: red;
+	/* background color transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover {
+	color: #000;
+}
+/* arrow icon (span tag) */
+#back-top span {
+	width: 88px;
+	height: 88px;
+	display: block;
+	margin-bottom: -15px;
+	background: #ddd url(up-arrow.png) no-repeat center center;
+	/* rounded corners */
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/* background color transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover span {
+	background-color: #777;
+}
 

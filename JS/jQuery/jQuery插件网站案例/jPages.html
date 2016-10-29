@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jPages.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/jPages.js"></script>
+</head>
+<body>
+<!-- navigation holder -->
+	<div class="holder">
+	</div>
+
+<!-- item container -->
+	<ul id="itemContainer">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+
+	<script>
+		$(function(){
+			$("div.holder").jPages({
+				containerID : "itemContainer"
+			});
+		});
+	</script>
+</body>
+</html>

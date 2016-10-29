@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SuperSlide焦点图</title>
+	<style>
+
+
+	</style>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="http://www.ijquery.cn/js/cityselect/jquery.cityselect.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#city_1").citySelect({
+			nodata:"none",
+			required: false
+		});
+		$("#city_2").citySelect({
+			prov:"北京",
+			nodata: "none"
+		});
+
+	})
+	</script>
+</head>
+<body>
+	<div id="city">
+		<select class="prov"></select>
+		<select class="city" disabled="disabled"></select>
+		<select class="dist" disabled="disabled"></select>
+	</div>
+
+
+</body>
+</html>
