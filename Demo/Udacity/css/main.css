@@ -1,0 +1,427 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+
+ol, ul {
+  list-style: none; }
+a {
+	text-decoration: none;
+}
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+
+
+
+
+
+
+
+
+
+
+/* body */
+body {
+	min-width: 1000px;
+}
+
+
+
+
+/* 报名 */
+.baoming {
+	width: 100%;
+	background-color: #6a849e;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+/*.baomingText, .baomingButton {
+	text-align: center;
+}*/
+.baomingText {
+	color: white;
+}
+.baomingButton {
+	margin-left: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+.baomingButton a {
+	border-bottom: 0.5px solid white;
+	color: white;
+}
+.baomingDelete img {
+	margin-right: 15px;
+}
+
+
+
+/* header */
+.header {
+	background-color: white;
+	height: 100px;
+	line-height: 100px;
+}
+
+.logo {
+	float: left;
+	margin-left: 10px;
+}
+.nav {
+	float: right;
+}
+
+.nav li {
+	display: inline-block;
+	margin-right: 30px;
+}
+.nav a {
+	/*text-decoration: none;*/
+	color: #56626e;
+}
+
+.nav a:hover {
+	color: #697681;
+}
+
+
+
+/* banner */
+
+.banner {
+	height: 600px;
+	width: 100%;
+	display: block;
+	background-image: url(../img/homepage_hero.jpg); 
+	background-size: cover;
+}
+
+.banner a:hover{
+	background-color: #008BC6;
+}
+
+.bannerText {
+	display: inline-block;
+	margin-top: 200px;
+	margin-left: 30px;
+}
+
+.bannerText h1 {
+	font-size: 40px;
+	font-weight: 300;
+	color: #fff;
+	min-width: 300px;
+}
+
+.bannerText p {
+	  color: #fafbfc;
+    font-size: 1.375em;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+.bannerText .btn-primary{
+	  display: block;
+    text-align: center;
+    padding: 1em .25em;
+    color: #fff;
+    font-weight: 600;
+    font-size: .8125em;
+    border-radius: .307692308em;
+    background: #02b3e4;
+    max-width: 20em;
+    width: 100%;
+    border: none;
+    transition: background .3s ease;
+    margin-top: 30px;
+}
+
+/* course */
+.course {
+	padding-top: 60px;
+}
+
+.course a:hover{
+	background-color: #008BC6;
+	color: white;
+}
+.course h1 {
+	font-size: 40px;
+	font-weight: 300;
+	color: #2e3d49 ;
+	text-align: center;
+}
+.courseList {
+
+	display: inline-block;
+	margin: 20px auto;
+	width: 100%;
+}
+
+/*.courseCard {
+	padding-
+}*/
+.courseCard {
+	width: 28%;
+	margin: 10px 20px;
+	border: 1px solid #eee;
+	display: inline-block;
+
+}
+
+
+.courseImgText {
+	background-position: center;
+	background-image: url(../img/mlnd-bg.png);
+	background-size: cover;
+	height: 200px;
+}
+
+.courseImgText h4 {
+	color: white;
+	padding-top: 35px;
+	text-align: center;
+	font-size: 25px;
+}
+.courseImgText p {
+	color: white;
+	padding-top: 10px;
+	text-align: center;
+}
+
+.courseCom {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #f4f4ef;
+}
+
+.btn-course {
+	border: 1px solid #02b3e4;
+	font-size: 16px;
+	display: inline-block;
+	border-radius: .307692308em;
+	color: #2e3d49;
+	padding: 10px 10px;
+	width: 100px;
+	margin: 10px 90px 10px 90px;
+}
+
+
+.courseCard h3 {
+	color: #A8C8DA;
+	padding-top: 35px;
+	text-align: center;
+	font-size: 25px;
+}
+
+.btn-courseAll {
+	color: white;
+	background-color: #02b3e4;
+	padding: 20px;
+	text-align: center;
+	font-size:25px;
+	width: 300px;
+	/*margin: 10px 300px 50px 300px;*/
+	border-radius: 10px;
+	display: inline-block;
+	margin-left: 32.5%;
+}
+
+/* company */
+
+.company {
+	background-color: #F9FBF9;
+	padding-bottom: 30px;
+/*	border-bottom: 1px solid #eee;
+*/}
+
+.company h3 {
+	font-size: 30px;
+	text-align: center;
+	padding-top: 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.companyList {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.companyItem{
+	flex: 1;
+	width: 230px;
+	height: 80px;
+	border: 1px solid #eee;
+	margin: 5px 10px;
+}
+
+.companyItem img {
+	width: 230px;
+	height: 80px;	
+}
+
+
+
+/* value */
+
+.value {
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	padding: 50px 10px;
+}
+
+.value h3 {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 30px;	
+}
+
+.valueItem {
+	display: inline-block;
+	text-align: center;
+	width: 33%;
+}
+
+
+/*comment*/
+
+.comment {
+	padding: 50px 30px;
+	background-color: #F9FBF9;
+}
+.comment h3 {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 30px;	
+}
+.commentList {
+	display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+
+}
+
+.commentItem {
+  background-color: #fff;
+  padding: 30px 20px;
+  text-align: left;
+  border: 1px solid #f4f4ef;
+  box-shadow: 0 1.5px 0 #f4f4ef;
+  width: 85%;
+  margin-right: 20px;
+}
+
+.avatar {
+    width: 5em;
+    vertical-align: middle;
+}
+.avatar img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.intro {
+		display: inline-block;
+    vertical-align: middle;
+    margin-left: .9em;
+}
+.intro h1 {
+    color: #2e3d49;
+    margin: .1em;
+}
+.intro p {
+    color: #02b3e4;
+}
+.commentContent {
+  margin-top: 10px;
+}
+.commentContent p{
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+
+/*meiti*/
+.meiti {
+	width: 100%;
+	background-color: #92FC92;
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+.meitiIntro h1 {
+	font-size: 30px;
+	text-align: center;
+}
+.meitiIntro p {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+
+
+/* footer */
+
+.footer {
+	width: 100%;
+	background-color: #FDFCF9;
+	height: 200px;
+	text-align: center;
+	line-height: 200px;
+}
+
+/* top */
+.top {
+	position: fixed;
+	border-radius: 50%;
+	right: 20px;
+	bottom: 20px;
+	width: 48px;
+	height: 48px;
+	cursor: pointer;
+	background-position: 50%;
+  background-color: #01b3e4;
+  border: 1px solid #008bbc;
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-image: url(../img/top.png);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
