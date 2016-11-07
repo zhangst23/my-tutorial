@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.shengbei {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+		header,
+		footer {
+			flex: 1;
+		}
+		.main {
+			flex: 1;
+			display: flex;
+		}
+		.left, 
+		.right {
+			flex: 0 0 12em;
+		}
+		.left {
+			order: -1;
+		}
+		.content {
+			flex: 1;
+		}
+
+		@media(max-width: 768px){
+			.main {
+				flex: 1;
+				flex-direction: column;
+			}
+			.left, .right, .content {
+				flex: auto;
+			}
+		}
+
+		header, footer, .left, .content, .right {
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+
+
+
+	</style>
+</head>
+<body class="shengbei">
+	<header>Header</header>
+	<div class="main">
+		<div class="left">Left</div>
+		<div class="content">Content</div>
+		<div class="right">Right</div>
+	</div>
+	<footer>Footer</footer>
+
+</body>
+</html>

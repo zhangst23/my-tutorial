@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.Grid {
+			display: flex;
+		}
+		.Grid-cell {
+			flex: 1;
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+		.Grid-cell.u-full {
+			flex: 0 0 100%;
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+		.Grid-cell.u-1of2 {
+			flex: 0 0 50%;
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+		.Grid-cell.u-1of3 {
+			flex: 0 0 33.33%;
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+		.Grid-cell.u-1of4 {
+			flex: 0 0 25%;
+			background-color: green;
+			border: 1px solid #000;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="Grid">
+		<div class="Grid-cell u-1of4">1/4</div>
+		<div class="Grid-cell">auto</div>
+		<div class="Grid-cell u-1of3">1/3</div>
+	</div>
+	<div class="Grid">
+		<div class="Grid-cell">auto</div>
+		<div class="Grid-cell u-1of3">1/3</div>
+	</div>
+	<div class="Grid">
+		<div class="Grid-cell u-1of2">1/2</div>
+		<div class="Grid-cell">auto</div>
+		<div class="Grid-cell">auto</div>
+	</div>
+</body>
+</html>
