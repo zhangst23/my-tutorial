@@ -35,36 +35,326 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: flex;
   flex-direction: column;
 }
+header, footer, .selectRoom, .airbnbClassic, .airbnbStory, .exploreWorld, .cityPlay, .airbnbConnect {
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+.selectRoom, .airbnbClassic, .airbnbStory, .exploreWorld, .cityPlay {
+  margin: 20px 20px;
+}
 
-.logo, .roomFather, .help, .signUp, .signIn {
+
+
+/* header */
+
+header {
+  display: flex;
+  flex-direction: row;
+}
+.logo, .search, .roomFather, .help, .signUp, .signIn {
   border: 1px solid #eee;
+}
+.search{
+
+}
+header a {
+  display: block;
+  height: 3em;
+  text-align: center;
+  line-height: 3em;
+  color: #5C7179;
+}
+header a:hover {
+  background-color: #F3F7FA;
+}
+
+.logo {
+  flex-basis: 120px;
+} 
+.search {
+  flex: 1;
+} 
+
+.roomFather, .help, .signUp, .signIn {
+  flex-basis: 80px;
+}
+
+
+
+/* selectRoom */
+
+.selectRoom {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.selectRoom h1 {
+  flex: 1;
+  font-size: 2em;
+  margin: 50px 1px;
+}
+.selectList {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+.selectCity, .selectTime, .selectGuest {
+  flex: 1;
+  border: 1px solid #eee;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+}
+
+
+/* airbnbClassic */
+.airbnbClassic {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.airbnbClassic h3 {
+  flex: 1;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+.houseList {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.houseItem {
+  flex: 1;
+  /*border: 1px solid #eee;*/
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.houseItem img {
+  width: 300px;
+  height: 200px;
+
+}
+
+
+
+  /* 来自社区的故事  airbnbStory  同上 */
+.airbnbClassic {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.airbnbClassic h3 {
+  flex: 1;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+.houseList {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.houseItem {
+  flex: 1;
+  /*border: 1px solid #eee;*/
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.houseItem img {
+  width: 300px;
+  height: 200px;
+
+}
+
+
+/* airbnbStory */
+
+.airbnbStory h3{
+  flex: 1;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+
+/* exploreWorld */
+
+.exploreWorld {
+  display: flex;
+  flex-direction: column;
+  width: 80%; 
+}
+.exploreWorld h3{
+  flex: 1;
+  font-size: 1.5em;
+  margin-bottom: 15px;  
+}
+/*.exploreList {
+  flex: 1;
+  display: flex;
+  flex-flow: row || wrap;
+ 
+}
+.exploreItem {
+  flex: 1;
+}
+.exploreItem img{
+  flex: 1;
+  width: 80px;
+  height: 200px;
+}
+.B img{
+  flex: 2;
+  width: 220px;
+  height: 420px;  
+}
+*/
+
+.exploreUp {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.exploreUpLeft {
+  flex: 1;
+}
+.exploreUpMiddle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.exploreUpRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.exploreUpLeft, .exploreUpMiddle, .exploreUpRight {
+  margin: 10px;
+}
+
+.exploreDown {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.eorItem {
+  flex: 1;
+}
+.exploreDownLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.exploreDownMiddle {
+  flex: 1;
+}
+.exploreDownRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column; 
+}
+
+.exploreDownLeft, .exploreDownMiddle, .exploreDownRight {
+  margin: 10px;
+}
+
+
+
+
+.A {
+  width: 200px;
+  height: 120px;
+}
+.B {
+  width: 400px;
+  height: 260px;
+}
+
+
+
+
+/* cityPlay */
+
+.cityPlay {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.cityPlay h3{
+  flex: 1;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.cityList {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cityItem {
+  flex: 1;
+  /*border: 1px solid #eee;*/
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.cityItem img {
+  width: 300px;
+  height: 200px;
+
+}
+
+
+/*  airbnbConnect  */
+
+.airbnbConnect {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0 auto;
+}
+.phone, .AliPay, .zhima {
+  flex: 1;
+  text-align: center;
+  padding: 40px 30px;
+  border: 1px solid #eee;
+
 }
 
 
 
 
 
+/* footer */
+footer {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.about, .faxian, .chuzu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /*border: 1px solid #eee;*/
+  margin: 30px auto;
+}
+footer h4{
+  font-size: 16px;
+  font-weight: bold;
+}
+footer span{
+  padding: 3px;
+}
 
 
 
