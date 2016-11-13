@@ -1,0 +1,136 @@
+/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+
+ol, ul {
+  list-style: none; }
+a {
+	text-decoration: none;
+}
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+*/
+
+
+/* header */
+header {
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid #eee;
+	-webkit-align-content: center;
+	align-content: center;
+}
+.logo {
+	flex: 1;
+}
+.logo img {
+	width: 100px;
+	height: 60px;
+}
+.searchBox {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	-webkit-align-content: center;
+	align-content: center;
+	/*height: 30px;*/
+}
+.searchBox input {
+	flex: 1;
+}
+
+.signIn {
+	flex: 1;
+
+}
+
+/* main */
+.main {
+	display: flex;
+}
+
+.nav, .sideCon {
+	flex: 0 0 150px;
+}
+
+
+
+/* nav */
+.nav {
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+}
+.navItem {
+	flex: 1;
+	border-bottom: 1px solid #eee;
+}
+.nav img {
+	width: 30px;
+	height: 30px;
+
+}
+.nav span {
+	margin-left: 20px;
+
+}
+
+
+/* container */
+.container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-width: 600px;
+}
+
+.post {
+	flex: 1;
+	display: flex;
+	-webkit-align-items: flex-start;
+	align-items: flex-start;
+}
+
+.postImg {
+	margin-right: 1em;
+	width: 100px;
+	height: 100px;
+	border-radius: 5px;
+}
+
+.postCon {
+	flex: 1;
+}
+.category {
+	color: green;
+}
+.postTitle {
+	font-size: 1.5em;
+}
+
+
+
+/* sideCon */
+
+.sideCon {
+}

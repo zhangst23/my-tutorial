@@ -13,14 +13,16 @@ header {
 	background: #23aeb3;
 	text-align: center;
 	line-height: 50px;
+	color: white;
 }
 
 .caseList {
 	width: 100%;
 	background: #fff;
+}
+.caseItem {
 	border-bottom: 1px solid #ccc;
 }
-
 .time {
 	text-align: center;
 	top: 5px;

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常见模块详解.html</title>
+</head>
+<body>
+
+<!-- 标题和内容模块实现方案一 -->
+	<div class="h2">标签的语义<a href="#">更多&gt;&gt;</a></div>
+	<div class="p">段落一的内容...<span class="strong">根据浏览器的默认样式</span>...</div>
+	<div class="p">段落二的内容</div>
+
+
+<!-- CSS sprite  用两张图实现高亮 -->
+
+<style type=”text/CSS”>
+.nav li{float:left; display:inline; margin-right:10px; font-family:黑体;}
+.nav a{float:left; width:139px; height:31px; line-height:31px; font-size:24px;
+color:#fff; text-decoration:none; text-align:center; background:url(img1.gif);} .nav a:hover{background:url(img2.gif);}
+</style>
+<ul class="nav">
+<li><a href="#">联系我们</a></li> <li><a href="#">产品答疑</a></li> <li><a href="#">广告服务</a></li>
+
+
+
+<!-- 利用一张大图的背景移动实现高亮 -->
+<style type=”text/CSS”>
+.nav li{float:left; display:inline; margin-right:10px; font-family:黑体;}
+.nav a{float:left; width:139px; height:31px; line-height:31px; font-size:24px;
+color:#fff; text-decoration:none; text-align:center; background:url(img3.gif);} .nav a:hover{background-position:0 -31px;}
+</style>
+<ul class="nav">
+<li><a href="#">联系我们</a></li> <li><a href="#">产品答疑</a></li> <li><a href="#">广告服务</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
