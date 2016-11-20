@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>两栏布局方案二</title>
+	<style>
+		.header,.footer,.content,.sidebar,.main{
+			border:1px solid #eee;
+		}
+		.fl{float:left;}
+		.fr{float:right;}
+		.content{clear:both;}
+		.header{}
+		.footer{clear:both;}
+		.sidebar{}
+		.main{}
+		.w25{width:25%;}
+		.w70{width:70%;}
+		.w35{width:35%;}
+		.w60{width:60%;}
+		.w80{width:80%;}
+		.w15{width:15%;}
+	</style>
+</head>
+<body>
+	<div class="header">header</div>
+	<div class="content">
+		<div class="main" fl w70>main</div>
+		<div class="sidebar fr w25">sidebar</div>		
+	</div>
+	<div class="content">
+		<div class="main" fl w60>main</div>
+		<div class="sidebar fr w35">sidebar</div>		
+	</div>
+	<div class="content">
+		<div class="main" fl w80>main</div>
+		<div class="sidebar fr w15">sidebar</div>		
+	</div>
+	<div class="footer">footer</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父元素高度不确定的文本、图片、块级元素的竖直居中方法二</title>
+	<style>
+		.mb10{margin-bottom: 10px}
+		.wrap{background: #000; width:500px;color:#fff;margin-bottom: 10px;height:100px;display: table-cell;vertical-align:middle;*position:relative;}
+		.vertical{*position:absolute;*top:50%;}
+		.vertical{*position:relative;*top:-50%;}
+	</style>
+</head>
+<body>
+	<div class="mb10">
+		<div class="wrap">
+			<div class="verticalWrap">
+				<div class="vertical">Hello world <br>Hello-world</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
