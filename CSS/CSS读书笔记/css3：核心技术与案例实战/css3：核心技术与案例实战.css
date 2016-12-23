@@ -1,0 +1,198 @@
+css3：核心技术与案例实战.css
+
+
+
+/* 1、CSS3 选择器 */
+
+1 基本选择器
+2 层次选择器
+伪类选择器
+	3 动态伪类选择器
+	4 目标伪类选择器
+	5 语言伪类选择器
+	6 UI元素状态选择器
+	7 结构伪类选择器
+	8 否定伪类选择器
+9 伪元素
+10 属性选择器
+
+
+/* 1、基本选择器 */
+*
+E
+#id
+.class
+selector1,selectorN
+
+/* 2 层次选择器*/
+E F   后代选择器
+E > F   子选择器
+E + F 	相邻兄弟选择器
+E ~ F 	通用选择器
+
+
+/*3 动态伪类选择器*/
+:link 	
+:visited
+:hover
+:active
+
+
+	/*4 目标伪类选择器*/
+:target
+
+案例查看代码一
+
+应用场景：
+	高亮显示区块
+	从相互层叠的盒容器或图片中凸出显示其中一项
+	tabs效果
+	幻灯片效果
+	灯箱效果
+	相册效果
+
+
+	/*5 语言伪类选择器*/
+
+
+
+
+
+	/*6 UI元素状态选择器*/
+E:checked 	选中状态
+E:enabled 	启用状态
+E:disabled 	不可用状态
+
+
+	/*7 结构伪类选择器*/
+E:first-child
+E:last-child
+E:root
+E F:nth-child(n)
+E F:nth-last-child(n)
+E:nth-of-type(n)
+E:nth-last-of-type(n)
+E:first-of-type
+E:last-of-type
+E:only-child
+E:only-of-type
+E:empty
+
+
+	/*8 否定伪类选择器*/
+
+
+/*9 伪元素*/
+:first-letter
+:first-line
+::before
+::after
+/* ::before 和 ::after  不是指存在于标记中的内容，而是可以插入额外内容的位置。尽管生成的内容不会成为DOM的一部分，但它同样可以设置样式。*/
+代码3
+::selection;
+
+
+
+/*10 属性选择器*/
+
+
+
+/*11 CSS3 边框*/
+
+
+
+border-image  代码4
+
+border-radio  代码5
+
+border-shadow
+
+
+/*12 CSS 背景*/
+
+
+
+
+/* 13 CSS 盒模型*/
+box-sizing
+overflow-x
+overflow-y
+resize
+outline
+
+
+/* 14 CSS 弹性盒模型*/
+
+/* 15 CSS 多列布局*/
+
+
+
+/* 16 媒体特性与Responsive设计*/
+/* 16.1 媒体类型引用方法*/
+/*1 link 方法*/
+<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+<link rel="stylesheet" type="text/css" href="style.css" media="print">
+
+/* 3 @import 方式*/
+@import url(reset.css) screen;
+@import url(print.css) print;
+
+在<head>中的<style>标签中引入媒体类型方法
+@import url(style.css) all;
+
+
+/*4 @media 方式*/
+@media screen {
+
+}
+
+
+第一种和第四种最常用
+
+
+/*16.2  */
+
+<link rel="stylesheet" media="screen and (max-width:600)" href="small.css">
+
+@media screen and (max-width:600px){
+
+}
+
+
+/*e.g.*/
+@media screen and (max-width:480px){
+	.ads {
+		display:none;
+	}
+}
+
+
+@media screen and (min-width:900){
+	.wrapper{width: 980px;}
+}
+
+
+
+@media screen and (min-width:600px) and (max-width:900px) {
+	body {background-color:#f5f5f5;}
+}
+
+b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

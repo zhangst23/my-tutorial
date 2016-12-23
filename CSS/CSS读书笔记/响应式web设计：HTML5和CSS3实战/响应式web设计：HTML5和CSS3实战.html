@@ -1,0 +1,236 @@
+响应式web设计：HTML5和CSS3实战.html
+
+
+<!-- 1、语义化标签 -->
+<header>
+	<nav>
+		<ul id="nav-list">
+			<li><a href="#" title="Home">Home</a></li>
+			<li><a href="#" title="About">About</a></li>
+		</ul>
+	</nav>
+</header>
+
+
+
+<!-- 2 媒体查询 ： 媒体查询由媒体类型和一个或多个检测媒体特性的条件表达式组成。使用媒体查询，可以在不改变页面内容的情况下，为特定的一些输出设备定制显示效果 -->
+
+body {
+	background-color:grey;
+}
+
+@media screen and (max-width: 960px) {
+	body {
+		background-coor: orange;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	body {
+		background-color: yellow;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	body {
+		background-color: green;
+	}
+}
+
+
+
+<!-- 3.  -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+<!-- 4  -->
+@media screen and (max-width: 768px) {
+	#wrapper {
+		width: 768px;
+	}
+	#header, #footer, #navigation {
+		width: 748px;
+	}
+	#content, #sidebar {
+		padding-right: 10px;
+		padding-left: 10px;
+		width: 728px;
+	}
+}
+
+
+<!-- 5 流式布局 -->
+
+将固定像素宽度转换对应的百分比宽度：  目标元素宽度 / 上下文元素宽度 = 百分比宽度
+
+<div id="wrapper">
+	<div id="header">
+		<div id="navigation">
+			<ul>
+				<li><a href="#">navigation1</a></li>
+				<li><a href="#">navigation2</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="sidebar">
+		<p>here is the sidebar</p>
+	</div>
+
+	<div id="content">
+		<p>here is the content</p>
+	</div>
+
+	<div id="footer">
+		<p>here is the footer</p>
+	</div>
+</div>
+
+
+<!-- CSS 结构 -->
+<style>
+#wrapper {
+	margin-right: auto;
+	margin-left: auto;
+	width: 96%;
+}
+#logo {
+	display: block;
+	padding-top: 75px;
+	color: #0d0c0c;
+	text-transform: uppercase;
+	font-family: Arial, "Lucida Grande", Verdana, sans-serif;
+	font-size: 3em;
+}
+#header {
+	margin-right: 10px;
+	margin-left: 10px;
+	width: 96.9166667%;
+}
+#navigation {
+	padding-bottom: 25px;
+	margin-top: 26px;
+	margin-left: -1.0416667%;
+	padding-right: 1.0416667%;
+	padding-left: 1.0416667%;
+	width: 97.916667%;
+}
+#navigation ul li {
+	display: inline-block;
+	margin-right: 2.6595745%;
+}
+#content {
+	margin-top: 58px;
+	margin-right: 10px;
+	float: right;
+	width: 72/798333%;
+}
+#sidebar {
+	border-right-color: #e8e8e8;
+	border-right-style: solid;
+	border-right-width: 2px;
+	margin-top: 58px;
+	margin-right: 10px;
+	margin-left: 10px;
+	float: left;
+	width: 22.708333%;
+}
+#footer {
+	float: left;
+	margin-top: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	clear: both;
+	width: 97.9166667%;
+}
+
+</style>
+
+
+
+<!-- 6 用 em 替换 px -->
+
+
+<!-- 7 弹性图片 -->
+
+img {
+	max-width: 100%;
+}
+
+
+<!-- 8 流动网格布局和媒体查询的默契配合 -->
+@media screen and (min-width: 1001px) and (max-width: 1080px) {
+	#navigation ul li a { font-size: 1.4em; }
+}
+@media screen and (min-width: 805px) and (max-width: 1000px) {
+	#navigation ul li a { font-size: 1.25em; }
+}
+@media screen and (min-width: 769px) and (max-width: 804px) {
+	#navigation ul li a { font-size: 1.1em; }
+}
+
+
+<!-- 9 响应式设计中的HTML5 -->
+
+
+<a href="index.html">
+	<h2>The home page</h2>
+	<p>this paragraph also links to the home page</p>
+	<img src="home-image.png" alt="home-slice" />
+</a>
+
+<!-- 10  -->
+<hgroup>
+	<h1>Ben is blog</h1>
+	<h2>All about what I do</h2>
+</hgroup>
+	<article>
+		<header>
+			<hgroup>
+				<h1>1</h1>
+				<h2>2</h2>
+				<h3>3</h3>
+				<p>4</p>
+			</hgroup>
+		</header>
+	</article>
+
+
+<!-- 11 离线web应用 -->
+
+
+<!-- 12 word-wrap: break-word; -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
